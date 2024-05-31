@@ -2154,6 +2154,7 @@ pre.rouge .ss {
 <li><a href="#_tuple">5.23. Tuple</a></li>
 <li><a href="#_listliteral">5.24. ListLiteral</a></li>
 <li><a href="#_dictliteral">5.25. DictLiteral</a></li>
+<li><a href="#_type_inference">5.26. Type inference</a></li>
 </ul>
 </li>
 <li><a href="#_documenting_your_code">6. Documenting your code</a>
@@ -2230,6 +2231,20 @@ pre.rouge .ss {
 <li><a href="#_overloading">14.4. Overloading</a></li>
 </ul>
 </li>
+<li><a href="#_python_interoperability">15. Python interoperability</a>
+<ul class="sectlevel2">
+<li><a href="#_importing_a_python_module">15.1. Importing a Python module</a></li>
+<li><a href="#_evaluating_python_expressions">15.2. Evaluating Python expressions</a></li>
+<li><a href="#_other_useful_python_functions">15.3. Other useful Python functions</a></li>
+</ul>
+</li>
+<li><a href="#_mlir_interoperability">16. MLIR interoperability</a>
+<ul class="sectlevel2">
+<li><a href="#_mlir_attr">16.1. __mlir_attr</a></li>
+<li><a href="#_mlir_type">16.2. __mlir_type</a></li>
+<li><a href="#_mlir_op">16.3. __mlir_op</a></li>
+</ul>
+</li>
 <li><a href="#_about_the_author">About the author</a></li>
 <li><a href="#_revision_history">Revision History</a></li>
 </ul>
@@ -2252,6 +2267,14 @@ pre.rouge .ss {
 </div>
 <div class="paragraph">
 <p>Mojo is built on top of MLIR, a reusable and extensible compiler infrastructure. This allowed team to benefit from multi-years of efforts already spent on MLIR. Mojo exposes ability to embed MLIR within its own programs, enabling much deeper optimizations. The design choices such as these allow Mojo to be used to build operating systems and device drivers where close interaction with hardware and high performance is necessary. The high level Python syntax, static and dynamic typing support, and the extensive Mojo standard library allows also developers to build enterprise software as easy as building a Python application. In effect, Mojo is able to support a very wide range of programming domains, ranging from operating systems up to enterprise Web applications.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Important notice</div>
+<div class="paragraph">
+<p>Mojo programming language is still under heavy development. Some of the chapters may get obsolete whenever there are changes to Mojo itself. Additionally, some chapters may seem incomplete, but that is because I am waiting for the implementation of that particular feature to be completed before I document it (e.g. Dictionary Literals). I try to keep track of the developments as close as possible and I try to update the book accordingly. However, I do have other commitments, and therefore may not get updated as fast I wish. Thanks for your patience.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2352,7 +2375,7 @@ my_function("Hello World!")</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Function_Structure_Def.jpeg" alt="Function Structure Def">
+<img src="resources/graphics/Function_Structure_Def.jpeg" alt="Function Structure Def">
 </div>
 </div>
 </div>
@@ -2383,7 +2406,7 @@ my_function("Hello World!")</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Function_Structure_Fn.jpeg" alt="Function Structure Fn">
+<img src="resources/graphics/Function_Structure_Fn.jpeg" alt="Function Structure Fn">
 </div>
 </div>
 <div class="paragraph">
@@ -2945,7 +2968,7 @@ outer y: 1</code></pre>
 <div class="sect2">
 <h3 id="_non_standard_identifiers">4.6. Non-standard identifiers</h3>
 <div class="paragraph">
-<p>As mentioned in the beginning of the book, Mojo is a superset of Python. However, there are Mojo keywords that are valid Python identifiers. Since Mojo aims to be compatible with Python, Mojo allows for such variables to be defined within backticks ``. In fact, any kind of text could be used as a variable or function name in Mojo if it is within backticks.</p>
+<p>As mentioned in the beginning of the book, Mojo is a superset of Python. However, there are Mojo keywords that are valid Python identifiers. Since Mojo aims to be compatible with Python, Mojo allows for such variables to be defined within backticks <code>``</code>. In fact, any kind of text could be used as a variable or function name in Mojo if it is within backticks.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3223,7 +3246,7 @@ outer y: 1</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/SIMD.jpeg" alt="SIMD">
+<img src="resources/graphics/SIMD.jpeg" alt="SIMD">
 </div>
 </div>
 <div class="paragraph">
@@ -3347,6 +3370,24 @@ outer y: 1</code></pre>
     print(len(e))</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Earlier we saw a tuple being declared with <code>Tuple[Int, Bool, Float64]</code>. We can also declare a tuple as <code>(Int, Bool, Float64)</code>. Both the declarations are effectively the same.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var altr: (Int, Bool, Float64) = (1, False, 3.5)
+    print(len(altr))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get an element of a tuple, you can use subscript operator <code>[]</code> and pass within the square brackets the index. Note that like most other languages, Mojo has a zero based index. The ability to use subscripts also applies to lists.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var access: (Int, Bool, Float64) = (1, False, 3.5)
+    print("First value", access[0])</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_listliteral">5.24. ListLiteral</h3>
@@ -3355,7 +3396,7 @@ outer y: 1</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    var l = [2, 3.5]
+<pre class="rouge highlight"><code data-lang="mojo">    var l: ListLiteral[Int, Float64] = [1, 3.5]
     print(len(l))</code></pre>
 </div>
 </div>
@@ -3368,7 +3409,24 @@ outer y: 1</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_dictliteral">5.25. DictLiteral</h3>
-
+<div class="paragraph">
+<p>To get an element of a dictionary, you can use subscript operator <code>[]</code>. Within the <code>[]</code> you can pass the key with which the dictionary is indexed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type_inference">5.26. Type inference</h3>
+<div class="paragraph">
+<p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
+</div>
+<div class="paragraph">
+<p>In the following example, even though we do not declare the types of <code>bool_value2</code> and <code>int_value2</code>, Mojo is able to infer the types as <code>Bool</code> and <code>Int</code> respectively.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var bool_value2 = True
+    var int_value2 = 1</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3476,7 +3534,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Struct.jpeg" alt="Struct">
+<img src="resources/graphics/Struct.jpeg" alt="Struct">
 </div>
 </div>
 <div class="paragraph">
@@ -3632,7 +3690,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Trait.jpeg" alt="Trait">
+<img src="resources/graphics/Trait.jpeg" alt="Trait">
 </div>
 </div>
 <div class="paragraph">
@@ -3818,7 +3876,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/If.jpeg" alt="If">
+<img src="resources/graphics/If.jpeg" alt="If">
 </div>
 </div>
 </div>
@@ -3863,7 +3921,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/While.jpeg" alt="While">
+<img src="resources/graphics/While.jpeg" alt="While">
 </div>
 </div>
 </div>
@@ -3897,7 +3955,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/For.jpeg" alt="For">
+<img src="resources/graphics/For.jpeg" alt="For">
 </div>
 </div>
 </div>
@@ -3965,7 +4023,7 @@ fn main():
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Error.jpeg" alt="Error">
+<img src="resources/graphics/Error.jpeg" alt="Error">
 </div>
 </div>
 <div class="paragraph">
@@ -5437,6 +5495,78 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_getitem_with_slice"><code>__getitem__</code> with Slice</h5>
+<div class="paragraph">
+<p>Mojo supports getting a slice of a collection or a container using the slicing operator.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the structure of the slicing operator.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/Slice.jpeg" alt="Slice">
+</div>
+</div>
+<div class="paragraph">
+<p>In order to be able to get a slice from a collection or a container, the collection or the container must implement method <code>__getitem__</code> that takes a <code>Slice</code> object. This <code>Slice</code> object is instantiated by the Mojo compiler when you use the slice operator. In a way you can think of the <code>[start:stop:step]</code> as a literal form instantiating a <code>Slice</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>start</code> argument of <code>Slice</code> is the start index of the collection from where the slice will be taken. The <code>end</code> argument is the last index until which the slice will be taken (the element referred by this index will be excluded, only its previous element will be taken as last for the slice). The <code>step</code> gives the number of increments to be taken to get the next element.</p>
+</div>
+<div class="paragraph">
+<p>Any of the arguments of the <code>Slice</code> can be negative. A negative value means reversal of the indexing or stepping. Care must be taken to provide valid combinations though, otherwise it results in error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">struct MySliceableCollection:
+    var list: List[String]
+
+    fn __init__(inout self, list: List[String]):
+        self.list = list
+
+    fn __getitem__(self, slc: Slice) -&gt; List[String]:
+        return self.list[slc.start:slc.end:slc.step]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var z = MySliceableCollection(
+        List(String("H"), 
+        String("E"), 
+        String("L"),
+        String("L"),
+        String("O"),
+        String("W"),
+        String("O"),
+        ))
+    for i in z[0:3:1]: 
+        print(i[], end=" ")
+    print()
+    for i in z[1:6:2]: 
+        print(i[], end=" ")
+    print()
+    for i in z[1:]: 
+        print(i[], end=" ")
+    print()
+    for i in z[:1]: 
+        print(i[], end=" ")
+    print()
+    for i in z[-3:]: 
+        print(i[], end=" ")
+    print()
+    for i in z[:-3]: 
+        print(i[], end=" ")
+    print()
+    for i in z[::-1]: 
+        print(i[], end=" ")
+    print()</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -5449,7 +5579,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/With.jpeg" alt="With">
+<img src="resources/graphics/With.jpeg" alt="With">
 </div>
 </div>
 <div class="sect3">
@@ -5642,6 +5772,120 @@ struct MyResourceManager:
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_getattr"><code>__getattr__</code></h5>
+<div class="paragraph">
+<p>Many dynamic languages allow us to dynamically define attributes that do not exist in the original struct definition (or class definition in most languages). This ability allows programmers to define an ergonomic API, especially for object relational mapping. Even though Mojo is a statically compiled language, it allows for such a dynamic definition of attributes through a combination of methods, <code>__getattr__</code> and <code>__setattr__</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>__getattr__</code> method takes in the attribute name as an argument. When you call an attribute <code>my_attr</code> within a struct (<code>my_struct.my_attr</code>), it is this attribute <em>name</em> <code>my_attr</code> that gets passed as the argument to the method <code>__getattr__</code>. Within the <code>__getattr__</code>, you can as an example return a result based on a database query involving the attribute name. Mojo does not restrict what you do with the attribute name, as long as you return a value conforming to the return type of the function.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_setattr"><code>__setattr__</code></h5>
+<div class="paragraph">
+<p>The <code>__setattr__</code> method takes in the attribute name and its value as arguments. When you set an attribute <code>my_attr</code> within a struct with a value (<code>my_struct.my_attr = 'a value'</code>), the <code>__setattr__</code> is called with the given attribute name <code>my_attr</code> and the value <code>'a value'</code> passed as arguments.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing provides examples of <code><em>getattr</em></code> and <code><em>setattr</em></code> methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">struct MyStruct:
+
+    var fields: Dict[String, String]
+
+    fn __init__(inout self, fields: Dict[String, String]):
+        self.fields = fields
+    
+    fn __getattr__(self, attr: String) raises -&gt; String:
+        return self.fields[attr]
+
+    fn __setattr__(inout self, attr: String, value: String) raises:
+        self.fields[attr] = value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var d: Dict[String, String] = Dict[String, String]()
+    d["name"] = "IK"
+    var st = MyStruct(d)
+    print(st.name) # __getattr__ is called here
+    st.name = "PK" # __setattr__ is called here
+    print(st.name)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_contains"><code>__contains__</code></h5>
+<div class="paragraph">
+<p>In Mojo you can check if a value is contained within a struct using the <code>in</code> operator. For example, <code>"IK" in my_string</code>, where <code>my_string</code> is a string and the expression results in value <code>True</code> if the literal <code>IK</code> is found within <code>my_string</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>__contains__</code> method is used by the <code>in</code> operator to check if a given value is within the struct defining that method.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing provides an example of <code><em>contains</em></code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">struct MyStruct:
+
+    var ints: List[Int]
+
+    fn __init__(inout self, ints: List[Int]):
+        self.ints = ints
+    
+    fn __contains__(self, value: Int) -&gt; Bool:
+        for i in self.ints:
+            if i[] == value:
+                return True
+        return False</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var my_struct = MyStruct(List(1, 2, 3))
+    print(1 in my_struct) # Returns True
+    print(5 in my_struct) # Returns False</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>__contains__</code> method also works with custom types as shown in the example below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">struct MyStruct2:
+
+    var first_name: String
+    var last_name: String
+
+    fn __init__(inout self, first_name: String, last_name: String):
+        self.first_name = first_name
+        self.last_name = last_name
+    
+    fn __contains__(self, other: MyStruct2) -&gt; Bool:
+        return (self.first_name == other.first_name) or self.last_name == other.last_name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var my_struct2 = MyStruct2("Ram", "C")
+    print(MyStruct2("Ram", "T") in my_struct2) # Returns True
+    print(MyStruct2("Kri", "C") in my_struct2) # Returns True
+    print(MyStruct2("C", "Ram") in my_struct2) # Returns False</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -5670,10 +5914,13 @@ struct MyResourceManager:
 <div class="sect2">
 <h3 id="_borrowed">12.2. borrowed</h3>
 <div class="paragraph">
-<p>The borrowed keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all <code>fn</code> function&#8217;s arguments, so the <code>borrowed</code> keyword is not necessary to be given.</p>
+<p>The borrowed keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>borrowed</code> keyword is not necessary to be given.</p>
 </div>
 <div class="paragraph">
 <p>When an argument is borrowed, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
+</div>
+<div class="paragraph">
+<p>In <code>def</code> functions, you may find that Mojo seemingly allows mutation of the arguments. However, behind the scenes, it is performing a copy-on-write. This means that the argument is copied transparently to the developer, and the original argument is left intact. This is done so that for the developer the <code>def</code> function feels similar to how it works in Python.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5687,7 +5934,7 @@ fn value(val: Int): # This is also borrowed
 <div class="sect2">
 <h3 id="_owned">12.3. owned</h3>
 <div class="paragraph">
-<p>The <code>owned</code> keyword indicates that the function assumes the ownership of the given reference argument. This means that we are free to mutate or destruct the passed value within that function. This is the default behavior of all <code>def</code> function&#8217;s arguments, so the <code>owned</code> keyword is not necessary to be given for <code>def</code> functions.</p>
+<p>The <code>owned</code> keyword indicates that the function assumes the ownership of the given reference argument. This means that we are free to mutate or destruct the passed value within that function.</p>
 </div>
 <div class="paragraph">
 <p>When an argument is owned, the function can be sure that it can mutate the argument. It is possible that Mojo passes a copy of the value to the function in such cases. When the value is copied, then the caller has own copy and the callee function has its own copy.</p>
@@ -5881,7 +6128,7 @@ fn value_inout_return(inout val: String):
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Lifecycle.jpeg" alt="Lifecycle">
+<img src="resources/graphics/Lifecycle.jpeg" alt="Lifecycle">
 </div>
 </div>
 </div>
@@ -6259,7 +6506,7 @@ fn exec_param[bin_op: fn(Int, Int) -&gt; Int](x: Int, y: Int) -&gt; Int:
 <div class="sect2">
 <h3 id="_variadic_function">14.3. Variadic function</h3>
 <div class="paragraph">
-<p>You have already seen how the built-in <code>print</code> function is able to take any number of arguments. This is possible because of Mojo&#8217;s support for variadic functions. The variadic argument is prefixed by <code><strong></code> for positional arguments and <code></strong>*</code> for keyword arguments. Data type of positional variadic argument is <code>VariadicList[T]</code> and of keyword variadic argument is <code>Dict[K, V]</code>.</p>
+<p>You have already seen how the built-in <code>print</code> function is able to take any number of arguments. This is possible because of Mojo&#8217;s support for variadic functions. The variadic argument is prefixed by <code>*</code> for positional arguments and <code>**</code> for keyword arguments. Data type of positional variadic argument is <code>VariadicList[T]</code> and of keyword variadic argument is <code>Dict[K, V]</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following is an example of positional variadic arguments:</p>
@@ -6351,7 +6598,7 @@ fn add[a: Bool, b: Bool]() -&gt; Int:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    print(add[1, 2]())
+<pre class="rouge highlight"><code data-lang="mojo">    print(add[Int(1), Int(2)]())
     print(add[True, False]())</code></pre>
 </div>
 </div>
@@ -6374,6 +6621,172 @@ fn sub(a: Int, b:Int, c:Int) -&gt; Int:
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    print(sub(1, 2))
     print(sub(1, 2, 3))</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_python_interoperability">15. Python interoperability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As mentioned in the beginning of this book, Mojo is a superset of Python. However, Mojo and Python are semantically two completely different languages, though they share the same syntax. Python has a huge ecosystem behind it, built over many decades. Mojo allows the developer to leverage this huge ecosystem, with its Python integration capability.</p>
+</div>
+<div class="paragraph">
+<p>The integration of Mojo with Python is built on a key insight that from a practical point of view, all Python objects can be represented with a single type. In Mojo it is represented by the <code>PythonObject</code> struct. Mojo uses the actual CPython interpreter for interoperability. The usage of CPython in Mojo enables high fidelity integration with Python, and ensures that the Python objects behave as expected.</p>
+</div>
+<div class="sect2">
+<h3 id="_importing_a_python_module">15.1. Importing a Python module</h3>
+<div class="paragraph">
+<p>Mojo has module named <code>python</code> that encapsulates all of the Python integration. Within the <code>python</code> module, there is the facade object that provides the entry point for many of the Python integration capabilities.</p>
+</div>
+<div class="paragraph">
+<p>Importing a Python module is as simple as using the <code>Python.import_module</code> method call, passing it the module name. In case a module does not exist, ensure that the module is installed using the <code>pip</code> or equivalent command. Mojo also supports Python virtual environments.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing provides an example on how to import Python modules and how to use objects from Python.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    from python import Python
+    var difflib = Python.import_module("difflib")
+    var list1 = ["One", "Two", "Three", "Four"]
+    var list2 = ["One", "Two", "Three"]
+    var differ = difflib.HtmlDiff() # Get instance of HtmlDiff class.
+    var diff = differ.make_file(list1, list2)
+    print(diff)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evaluating_python_expressions">15.2. Evaluating Python expressions</h3>
+<div class="paragraph">
+<p>You can evaluate Python expressions using <code>Python.evaluate</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    print(Python.evaluate("1+2"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since Python treats functions as first class, you can even use <code>Python.evaluate</code> to access Python&#8217;s built-in functions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var str_fn = Python.evaluate("str")
+    print(str_fn("ABC") &lt;= str_fn("XYZ"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note in the above code listing, how transparently we can transfer Mojo string literals to the Python function, and how seamlessly Mojo operators work over Python objects, invoking the right Python dunder methods. One important constraint is that only <code>PythonObject</code> struct can be passed to and from Python. In the case of Mojo string literals, <code>PythonObject</code> has a constructor that takes <code>StringLiteral</code>, resulting in implicit conversion from <code>StringLiteral</code> to a <code>PythonObject</code> instance. <code>PythonObject</code> has many such constructors for the various Mojo built-in types. <code>PythonObject</code> also implements many traits that enable it to be used within functions such as <code>len</code>, <code>int</code>, <code>str</code> and so on.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_useful_python_functions">15.3. Other useful Python functions</h3>
+<div class="paragraph">
+<p>You can use native Python objects like <code>list</code> and <code>dict</code> using corresponding static methods exposed by <code>Python</code>. <code>Python</code> also exposes <code>type</code> function from Python and can be used to determine the underlying type of the <code>PythonObject</code> struct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    var a_list = Python.list()
+    a_list.append("First element")
+    a_list.append("Second element")
+    print(a_list)
+    print(Python.type(a_list))</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mlir_interoperability">16. MLIR interoperability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mojo supports ahead-of-time compilation. This means that we can run Mojo compiler over our source code to generate the machine code that gets executed on the computer. For a developer it may look as if Mojo reads the source code and directly generates the machine code. However, like many modern compilers, Mojo creates an intermediate representation of our source code before it generates the machine code. This intermediate representation (IR) is a simplified form of the program, which is easier to optimize and reason about. Many compilers use IRs that are custom built for the language supported by the compiler. Mojo does not have its own IR infrastructure, instead it uses Multi-Level Intermediate Representation (MLIR). Unlike other language IRs, MLIR is designed to be extensible and is capable of supporting many programming languages and  different types of processors.</p>
+</div>
+<div class="paragraph">
+<p>The extensibility of MLIR revolves around the ability to define custom <em>dialects</em> and <em>operations</em> within it. Dialects can be thought of as a namespace for a set of operations representing a particular aspect of a program. Operations represent a computation or a level of abstraction. Operations take <em>operands</em> (think of them as arguments) and produces <em>results</em>. Operations also take <em>attributes</em>, which are compile-time values such as constants. Attributes, operands and results have types associated with them. There is much more to MLIR than described here, but it is out of scope of this book.</p>
+</div>
+<div class="paragraph">
+<p>Though MLIR comes with its own textual representation that is used by the MLIR compiler infrastructure, Mojo exposes MLIR elements through its own syntax.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing shows an example where MLIR types, attributes and operations are being used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">alias _0 = __mlir_attr.`0:i1`
+alias _1 = __mlir_attr.`1:i1`
+
+struct BitList(Stringable):
+
+    var value: List[__mlir_type.i1]
+
+    fn __init__(inout self, *values: __mlir_type.i1):
+        self.value = List[__mlir_type.i1]()
+        for i in values:
+            self.value.append(i)
+    
+    fn __str__(self) -&gt; String:
+        var s = String("0b")
+        for i in self.value:
+            s += Int(__mlir_op.`index.castu`[_type=__mlir_type.index](i[]))
+        return s
+
+fn main():
+    print(BitList(_0, _1, _0, _1))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At first, the code listing may look a bit strange. Mojo&#8217;s MLIR elements start with <code>__mlir</code>. There are three different elements: <code>__mlir_attr</code>, <code>__mlir_type</code> and <code>__mlir_op</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_mlir_attr">16.1. __mlir_attr</h3>
+<div class="paragraph">
+<p>As the name suggests, <code>__mlir_attr</code> provides ability to define a MLIR attribute (similar to a compile-time constant) along with its data type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">alias _0 = __mlir_attr.`0:i1`</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are declaring an alias with an MLIR constant value <code>0</code> of MLIR type <code>i1</code>. If we do not provide <code>i1</code>, it will be assumed to be <code>i64</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mlir_type">16.2. __mlir_type</h3>
+<div class="paragraph">
+<p>The <code>__mlir_type</code> provides ability to refer to a given MLIR <em>type</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">var value: List[__mlir_type.i1]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are declaring a list with contents of type <code>i1</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mlir_op">16.3. __mlir_op</h3>
+<div class="paragraph">
+<p>The <code>__mlir_op</code> provides ability to refer to a MLIR operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">s += Int(__mlir_op.`index.castu`[_type=__mlir_type.index](i[]))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are executing a casting operation from <code>i1</code> to <code>index</code> type. Since Mojo&#8217;s <code>Int</code> type has a constructor that takes in MLIR <code>index</code> type, we are able to instantiate an <code>Int</code> value. Note that MLIR operation has the form <code>&lt;dialect&gt;.&lt;op&gt;</code>. Since MOJO does not allow its identifiers to have <code>.</code> in the name, we have to use backticks <code>``</code> to be able to use a non-standard identifier.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows roughly how MLIR textual format maps to the Mojo source code representation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/MLIR.jpeg" alt="MLIR">
 </div>
 </div>
 </div>
@@ -6413,7 +6826,7 @@ fn sub(a: Int, b:Int, c:Int) -&gt; Int:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-15 20:20:07 +0200
+Last updated 2024-05-31 12:40:30 +0200
 </div>
 </div>
 </body>
