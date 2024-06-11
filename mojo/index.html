@@ -6382,6 +6382,23 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="paragraph">
 <p>Here we have to provide <code>Scheme.FTP</code> only once as the parameter <code>scheme: Scheme</code> will get automatically inferred.</p>
 </div>
+<div class="paragraph">
+<p>It is also possible to have just inferred-only parameters, while the inference is happing within the function arguments.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location3</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">](</span><span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print_location3</span><span class="p">(</span><span class="n">Location</span><span class="p">[</span><span class="n">Scheme</span><span class="p">.</span><span class="n">FTP</span><span class="p">](</span><span class="sh">"</span><span class="s">r.net</span><span class="sh">"</span><span class="p">))</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_variadic_parameters">13.6. Variadic parameters</h3>
