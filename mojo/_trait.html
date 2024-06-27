@@ -2001,12 +2001,126 @@ p {
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="A_book" class="book toc2 toc-left">
+<body id="_trait" class="book toc2 toc-left">
 <div id="header">
 <h1>Learn Mojo Programming Language</h1>
 <div class="details">
@@ -2014,7 +2128,7 @@ p {
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root toc-current"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
 <li><a href="_dedication.html">Dedication</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -2031,7 +2145,7 @@ p {
 </li>
 <li><a href="_struct.html">7. Struct</a>
 </li>
-<li><a href="_trait.html">8. Trait</a>
+<li><a href="_trait.html"><span class="toc-current">8. Trait</span></a>
 </li>
 <li><a href="_control_flow.html">9. Control flow</a>
 </li>
@@ -2057,69 +2171,129 @@ p {
 </div>
 </div>
 <div id="content">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="_dedication.html">Dedication</a></p>
-</li>
-<li>
-<p><a href="_introduction.html">Introduction</a></p>
-</li>
-<li>
-<p><a href="_getting_started.html">Getting started</a></p>
-</li>
-<li>
-<p><a href="_functions.html">Functions</a></p>
-</li>
-<li>
-<p><a href="_constants_and_variables.html">Constants and variables</a></p>
-</li>
-<li>
-<p><a href="_types.html">Types</a></p>
-</li>
-<li>
-<p><a href="_documenting_your_code.html">Documenting your code</a></p>
-</li>
-<li>
-<p><a href="_struct.html">Struct</a></p>
-</li>
-<li>
-<p><a href="_trait.html">Trait</a></p>
-</li>
-<li>
-<p><a href="_control_flow.html">Control flow</a></p>
-</li>
-<li>
-<p><a href="_error_handling.html">Error handling</a></p>
-</li>
-<li>
-<p><a href="_operators_and_special_methods.html">Operators and special methods</a></p>
-</li>
-<li>
-<p><a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a></p>
-</li>
-<li>
-<p><a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a></p>
-</li>
-<li>
-<p><a href="_advanced_usage_of_functions.html">Advanced usage of functions</a></p>
-</li>
-<li>
-<p><a href="_python_interoperability.html">Python interoperability</a></p>
-</li>
-<li>
-<p><a href="_mlir_interoperability.html">MLIR interoperability</a></p>
-</li>
-<li>
-<p><a href="_about_the_author.html">About the author</a></p>
-</li>
-<li>
-<p><a href="_revision_history.html">Revision History</a></p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="_trait">8. Trait</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A struct is a concrete and instantiable type whereas a trait is an abstract type that cannot be instantiated. When we define a trait, we define a set of requirements that do not have a <strong>concrete</strong> implementation, but is intended to be <strong>implemented</strong> by a concrete type.</p>
+</div>
+<div class="paragraph">
+<p>Traits are useful abstractions especially in large a codebase. Users of traits do not need to know what concrete struct implements a particular method, as long as the implementation conforms to the requirements given in the trait. In the following code listing, <code>Flyable</code> trait requires that whatever struct implements <code>Flyable</code> must implement <code>fly</code> method. The function <code>fly_it</code> does not know the concrete implementations <code>Bird</code> or <code>Plane</code>. It takes in its arguments a type that confirms to <code>Flyable</code>, and calls method in the <code>Flyable</code>. The actual concrete types are passed to it at the call site.</p>
+</div>
+<div class="paragraph">
+<p>A struct implicitly conforms to a trait if it implements all the requirements for the trait. This means that we do not need to explicitly specify a confirming trait in the struct declaration; but it is a recommended practice to do so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Flyable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">Flyable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Soar into the sky</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">Plane</span><span class="p">(</span><span class="n">Flyable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Jet set go</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="n">fly_it</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span><span class="p">](</span><span class="n">f</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">fly</span><span class="p">()</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nf">fly_it</span><span class="p">(</span><span class="nc">Bird</span><span class="p">())</span>
+    <span class="nf">fly_it</span><span class="p">(</span><span class="nc">Plane</span><span class="p">())</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may have noticed in the <code>fly_it</code> definition a square bracket with a parameter being passed within it, i.e. <code>[T: Flyable]</code>. Mojo allows values to be passed during <em>compile</em> time to a function or method. Only requirement is that the values must be passed within square brackets. Those are called <strong>parameters</strong>. In other languages, parameters and arguments to functions are interchangeable terms. However, in Mojo those are distinct terms. <em>Parameters</em> are passed during compile time to a function, while <em>arguments</em> are passed at runtime. In the above example, we have passed a compile time parameter <code>T</code> of the type <code>Flyable</code> to <code>fly_it</code>. We then used that type <code>T</code> as the type of the argument <code>f</code>, indirectly assigning <code>Flyable</code> as the type of <code>f</code>.</p>
+</div>
+<div class="paragraph">
+<p>The anatomy of a trait and its usage in a struct is shown in the following diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/Trait.jpeg" alt="Trait">
+</div>
+</div>
+<div class="paragraph">
+<p>A single trait can be implemented by many different types, with the condition that the type ensures that all the requirements defined in the trait is implemented by the type. A type can also inherit more than one trait, with the condition that they implement all the combined requirements from of all of those traits within the type itself.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Flyable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">trait</span> <span class="n">Walkable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Fly to the sky</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk on the ground</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Walkable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk carefully</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nc">Bird</span><span class="p">().</span><span class="nf">fly</span><span class="p">()</span>
+    <span class="nc">Bird</span><span class="p">().</span><span class="nf">walk</span><span class="p">()</span>
+    <span class="nc">Cat</span><span class="p">().</span><span class="nf">walk</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Traits can inherit from other traits. They can also inherit multiple traits at the same time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Flyable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">trait</span> <span class="n">Walkable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">trait</span> <span class="nc">WalkableFlyable</span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">WalkableFlyable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Fly to the sky</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk on the ground</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nc">Bird</span><span class="p">().</span><span class="nf">fly</span><span class="p">()</span>
+    <span class="nc">Bird</span><span class="p">().</span><span class="nf">walk</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unlike many other programming languages, Mojo allows traits to require static methods on the structs it defines.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Message</span><span class="p">:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">Bye</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Goodbye</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">Hello</span><span class="p">.</span><span class="nf">default_message</span><span class="p">()</span>
+    <span class="n">Bye</span><span class="p">.</span><span class="nf">default_message</span><span class="p">()</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph nav-footer">
-<p>Next: <a href="_dedication.html">Dedication</a> →</p>
+<p>← Previous: <a href="_struct.html">Struct</a> | ↑ Up: <a href="A_book.html">Learn Mojo Programming Language</a> | Next: <a href="_control_flow.html">Control flow</a> →</p>
 </div>
 </div>
 <div id="footer">

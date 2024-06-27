@@ -2001,12 +2001,126 @@ p {
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="A_book" class="book toc2 toc-left">
+<body id="_mlir_interoperability" class="book toc2 toc-left">
 <div id="header">
 <h1>Learn Mojo Programming Language</h1>
 <div class="details">
@@ -2014,7 +2128,7 @@ p {
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root toc-current"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
 <li><a href="_dedication.html">Dedication</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -2047,7 +2161,15 @@ p {
 </li>
 <li><a href="_python_interoperability.html">15. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html"><span class="toc-current">16. MLIR interoperability</span></a>
+<ul class="sectlevel2">
+<li><a href="_mlir_interoperability.html#_mlir_attr">16.1. __mlir_attr</a>
+</li>
+<li><a href="_mlir_interoperability.html#_mlir_type">16.2. __mlir_type</a>
+</li>
+<li><a href="_mlir_interoperability.html#_mlir_op">16.3. __mlir_op</a>
+</li>
+</ul>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2057,69 +2179,102 @@ p {
 </div>
 </div>
 <div id="content">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="_dedication.html">Dedication</a></p>
-</li>
-<li>
-<p><a href="_introduction.html">Introduction</a></p>
-</li>
-<li>
-<p><a href="_getting_started.html">Getting started</a></p>
-</li>
-<li>
-<p><a href="_functions.html">Functions</a></p>
-</li>
-<li>
-<p><a href="_constants_and_variables.html">Constants and variables</a></p>
-</li>
-<li>
-<p><a href="_types.html">Types</a></p>
-</li>
-<li>
-<p><a href="_documenting_your_code.html">Documenting your code</a></p>
-</li>
-<li>
-<p><a href="_struct.html">Struct</a></p>
-</li>
-<li>
-<p><a href="_trait.html">Trait</a></p>
-</li>
-<li>
-<p><a href="_control_flow.html">Control flow</a></p>
-</li>
-<li>
-<p><a href="_error_handling.html">Error handling</a></p>
-</li>
-<li>
-<p><a href="_operators_and_special_methods.html">Operators and special methods</a></p>
-</li>
-<li>
-<p><a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a></p>
-</li>
-<li>
-<p><a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a></p>
-</li>
-<li>
-<p><a href="_advanced_usage_of_functions.html">Advanced usage of functions</a></p>
-</li>
-<li>
-<p><a href="_python_interoperability.html">Python interoperability</a></p>
-</li>
-<li>
-<p><a href="_mlir_interoperability.html">MLIR interoperability</a></p>
-</li>
-<li>
-<p><a href="_about_the_author.html">About the author</a></p>
-</li>
-<li>
-<p><a href="_revision_history.html">Revision History</a></p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="_mlir_interoperability">16. MLIR interoperability</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mojo supports ahead-of-time compilation. This means that we can run Mojo compiler over our source code to generate the machine code that gets executed on the computer. For a developer it may look as if Mojo reads the source code and directly generates the machine code. However, like many modern compilers, Mojo creates an intermediate representation of our source code before it generates the machine code. This intermediate representation (IR) is a simplified form of the program, which is easier to optimize and reason about. Many compilers use IRs that are custom built for the language supported by the compiler. Mojo does not have its own IR infrastructure, instead it uses Multi-Level Intermediate Representation (MLIR). Unlike other language IRs, MLIR is designed to be extensible and is capable of supporting many programming languages and  different types of processors.</p>
+</div>
+<div class="paragraph">
+<p>The extensibility of MLIR revolves around the ability to define custom <em>dialects</em> and <em>operations</em> within it. Dialects can be thought of as a namespace for a set of operations representing a particular aspect of a program. Operations represent a computation or a level of abstraction. Operations take <em>operands</em> (think of them as arguments) and produces <em>results</em>. Operations also take <em>attributes</em>, which are compile-time values such as constants. Attributes, operands and results have types associated with them. There is much more to MLIR than described here, but it is out of scope of this book.</p>
+</div>
+<div class="paragraph">
+<p>Though MLIR comes with its own textual representation that is used by the MLIR compiler infrastructure, Mojo exposes MLIR elements through its own syntax.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing shows an example where MLIR types, attributes and operations are being used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">_0</span> <span class="o">=</span> <span class="nb">__mlir_attr</span><span class="p">.</span><span class="sb">`0:i1`</span>
+<span class="k">alias</span> <span class="n">_1</span> <span class="o">=</span> <span class="nb">__mlir_attr</span><span class="p">.</span><span class="sb">`1:i1`</span>
+
+<span class="k">struct</span> <span class="nc">BitList</span><span class="p">(</span><span class="n">Stringable</span><span class="p">):</span>
+
+    <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">]</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span> <span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">]()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+    <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+        <span class="k">var</span> <span class="n">s</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">0b</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">BitList</span><span class="p">(</span><span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At first, the code listing may look a bit strange. Mojo&#8217;s MLIR elements start with <code>__mlir</code>. There are three different elements: <code>__mlir_attr</code>, <code>__mlir_type</code> and <code>__mlir_op</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_mlir_attr">16.1. __mlir_attr</h3>
+<div class="paragraph">
+<p>As the name suggests, <code>__mlir_attr</code> provides ability to define a MLIR attribute (similar to a compile-time constant) along with its data type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">_0</span> <span class="o">=</span> <span class="nb">__mlir_attr</span><span class="p">.</span><span class="sb">`0:i1`</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are declaring an alias with an MLIR constant value <code>0</code> of MLIR type <code>i1</code>. If we do not provide <code>i1</code>, it will be assumed to be <code>i64</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mlir_type">16.2. __mlir_type</h3>
+<div class="paragraph">
+<p>The <code>__mlir_type</code> provides ability to refer to a given MLIR <em>type</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are declaring a list with contents of type <code>i1</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mlir_op">16.3. __mlir_op</h3>
+<div class="paragraph">
+<p>The <code>__mlir_op</code> provides ability to refer to a MLIR operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are executing a casting operation from <code>i1</code> to <code>index</code> type. Since Mojo&#8217;s <code>Int</code> type has a constructor that takes in MLIR <code>index</code> type, we are able to instantiate an <code>Int</code> value. Note that MLIR operation has the form <code>&lt;dialect&gt;.&lt;op&gt;</code>. Since MOJO does not allow its identifiers to have <code>.</code> in the name, we have to use backticks <code>``</code> to be able to use a non-standard identifier.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows roughly how MLIR textual format maps to the Mojo source code representation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/MLIR.jpeg" alt="MLIR">
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph nav-footer">
-<p>Next: <a href="_dedication.html">Dedication</a> →</p>
+<p>← Previous: <a href="_python_interoperability.html">Python interoperability</a> | ↑ Up: <a href="A_book.html">Learn Mojo Programming Language</a> | Next: <a href="_about_the_author.html">About the author</a> →</p>
 </div>
 </div>
 <div id="footer">

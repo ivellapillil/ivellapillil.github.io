@@ -2001,12 +2001,126 @@ p {
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="A_book" class="book toc2 toc-left">
+<body id="_documenting_your_code" class="book toc2 toc-left">
 <div id="header">
 <h1>Learn Mojo Programming Language</h1>
 <div class="details">
@@ -2014,7 +2128,7 @@ p {
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root toc-current"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
 <li><a href="_dedication.html">Dedication</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -2027,7 +2141,13 @@ p {
 </li>
 <li><a href="_types.html">5. Types</a>
 </li>
-<li><a href="_documenting_your_code.html">6. Documenting your code</a>
+<li><a href="_documenting_your_code.html"><span class="toc-current">6. Documenting your code</span></a>
+<ul class="sectlevel2">
+<li><a href="_documenting_your_code.html#_comments">6.1. Comments</a>
+</li>
+<li><a href="_documenting_your_code.html#_docstrings">6.2. Docstrings</a>
+</li>
+</ul>
 </li>
 <li><a href="_struct.html">7. Struct</a>
 </li>
@@ -2057,69 +2177,75 @@ p {
 </div>
 </div>
 <div id="content">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="_dedication.html">Dedication</a></p>
-</li>
-<li>
-<p><a href="_introduction.html">Introduction</a></p>
-</li>
-<li>
-<p><a href="_getting_started.html">Getting started</a></p>
-</li>
-<li>
-<p><a href="_functions.html">Functions</a></p>
-</li>
-<li>
-<p><a href="_constants_and_variables.html">Constants and variables</a></p>
-</li>
-<li>
-<p><a href="_types.html">Types</a></p>
-</li>
-<li>
-<p><a href="_documenting_your_code.html">Documenting your code</a></p>
-</li>
-<li>
-<p><a href="_struct.html">Struct</a></p>
-</li>
-<li>
-<p><a href="_trait.html">Trait</a></p>
-</li>
-<li>
-<p><a href="_control_flow.html">Control flow</a></p>
-</li>
-<li>
-<p><a href="_error_handling.html">Error handling</a></p>
-</li>
-<li>
-<p><a href="_operators_and_special_methods.html">Operators and special methods</a></p>
-</li>
-<li>
-<p><a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a></p>
-</li>
-<li>
-<p><a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a></p>
-</li>
-<li>
-<p><a href="_advanced_usage_of_functions.html">Advanced usage of functions</a></p>
-</li>
-<li>
-<p><a href="_python_interoperability.html">Python interoperability</a></p>
-</li>
-<li>
-<p><a href="_mlir_interoperability.html">MLIR interoperability</a></p>
-</li>
-<li>
-<p><a href="_about_the_author.html">About the author</a></p>
-</li>
-<li>
-<p><a href="_revision_history.html">Revision History</a></p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="_documenting_your_code">6. Documenting your code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Many software that are built today have source code that are often made up of millions of lines of code. More often than not the software is also worked upon by a large number of programmers. Such large scale development makes it difficult to understand the program without some kind of documentation the describes what it does and why it does what it does.</p>
+</div>
+<div class="paragraph">
+<p>Mojo supports two ways of documenting code.</p>
+</div>
+<div class="sect2">
+<h3 id="_comments">6.1. Comments</h3>
+<div class="paragraph">
+<p>You can define comments within Mojo source code using the symbol <code>#</code>. Mojo ignores any text that comes after the <code>#</code> until it encounters the end of line. Comments are meant for human consumption and typically explain the context of the code. Comments are discarded by the compiler and do therefore not have any run time presence.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># This is a comment
+</span>    <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This is an inline comment</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docstrings">6.2. Docstrings</h3>
+<div class="paragraph">
+<p>One of the important type of documentation is describing what a given function does. You can use Mojo comments for this purpose, but Mojo does not distinguish such comments from the ones that are given in other parts of the source code.</p>
+</div>
+<div class="paragraph">
+<p>Mojo does provide a facility to document functions (and other type of declarations). It is called <em>Docstring</em>. In a previous chapter it was mentioned that we can define multi line string literals in Mojo using three double or three single quotes. This type of string literals are used to define Docstring.</p>
+</div>
+<div class="paragraph">
+<p>One requirement for a multi line string literal to be a docstring of a function is that it should be scoped within the function. If it is outside the function, then it is considered to be documentation of the outer scope element. The other requirement is that it should be the first statement in the function body. The text of the multi line string must have at least one full stop. This is because the first sentence of the Docstring is considered as summary of the document and will show up in tooling as such.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    This is a doc string summary.
+    And the second line represents more details.
+    </span><span class="sh">"""</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can pass the above program to Mojo&#8217;s documentation tooling to generate the documentation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>mojo doc &lt;filename&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can define file level docstring by writing docstring as the first statement of the file. Such docstring is used to document the module itself.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="sh">"""</span><span class="s">
+File level docstring.
+</span><span class="sh">"""</span>
+<span class="k">alias</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph nav-footer">
-<p>Next: <a href="_dedication.html">Dedication</a> →</p>
+<p>← Previous: <a href="_types.html">Types</a> | ↑ Up: <a href="A_book.html">Learn Mojo Programming Language</a> | Next: <a href="_struct.html">Struct</a> →</p>
 </div>
 </div>
 <div id="footer">

@@ -2001,12 +2001,126 @@ p {
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="A_book" class="book toc2 toc-left">
+<body id="_getting_started" class="book toc2 toc-left">
 <div id="header">
 <h1>Learn Mojo Programming Language</h1>
 <div class="details">
@@ -2014,12 +2128,22 @@ p {
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root toc-current"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="A_book.html">Learn Mojo Programming Language</a></span></p><ul class="sectlevel1">
 <li><a href="_dedication.html">Dedication</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_getting_started.html">2. Getting started</a>
+<li><a href="_getting_started.html"><span class="toc-current">2. Getting started</span></a>
+<ul class="sectlevel2">
+<li><a href="_getting_started.html#_getting_mojo">2.1. Getting Mojo</a>
+</li>
+<li><a href="_getting_started.html#_hello_world">2.2. Hello World</a>
+</li>
+<li><a href="_getting_started.html#_dissecting_the_program">2.3. Dissecting the program</a>
+</li>
+<li><a href="_getting_started.html#_compiler">2.4. Compiler</a>
+</li>
+</ul>
 </li>
 <li><a href="_functions.html">3. Functions</a>
 </li>
@@ -2057,69 +2181,80 @@ p {
 </div>
 </div>
 <div id="content">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="_dedication.html">Dedication</a></p>
-</li>
-<li>
-<p><a href="_introduction.html">Introduction</a></p>
-</li>
-<li>
-<p><a href="_getting_started.html">Getting started</a></p>
-</li>
-<li>
-<p><a href="_functions.html">Functions</a></p>
-</li>
-<li>
-<p><a href="_constants_and_variables.html">Constants and variables</a></p>
-</li>
-<li>
-<p><a href="_types.html">Types</a></p>
-</li>
-<li>
-<p><a href="_documenting_your_code.html">Documenting your code</a></p>
-</li>
-<li>
-<p><a href="_struct.html">Struct</a></p>
-</li>
-<li>
-<p><a href="_trait.html">Trait</a></p>
-</li>
-<li>
-<p><a href="_control_flow.html">Control flow</a></p>
-</li>
-<li>
-<p><a href="_error_handling.html">Error handling</a></p>
-</li>
-<li>
-<p><a href="_operators_and_special_methods.html">Operators and special methods</a></p>
-</li>
-<li>
-<p><a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a></p>
-</li>
-<li>
-<p><a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a></p>
-</li>
-<li>
-<p><a href="_advanced_usage_of_functions.html">Advanced usage of functions</a></p>
-</li>
-<li>
-<p><a href="_python_interoperability.html">Python interoperability</a></p>
-</li>
-<li>
-<p><a href="_mlir_interoperability.html">MLIR interoperability</a></p>
-</li>
-<li>
-<p><a href="_about_the_author.html">About the author</a></p>
-</li>
-<li>
-<p><a href="_revision_history.html">Revision History</a></p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="_getting_started">2. Getting started</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getting_mojo">2.1. Getting Mojo</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_hello_world">2.2. Hello World</h3>
+<div class="paragraph">
+<p>It is a time honored tradition to start learning a programming language with a program printing "Hello, World!". Let&#8217;s start with that.</p>
+</div>
+<div class="paragraph">
+<p>Please open a text editor of your choice and type the following and save the file as <code>hello_world.mojo</code>. The name of the file does not matter as long as you pass the same file to the compiler.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, World!</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now open a command line program and enter the following in its terminal.</p>
+</div>
+<div class="paragraph">
+<p><code>mojo hello_world.mojo</code></p>
+</div>
+<div class="paragraph">
+<p>You should see the following in the terminal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Hello, World!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Congrats! You have executed your first Mojo program!</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Alternate file extension</div>
+<div class="paragraph">
+<p>Mojo also supports file extension other than ".mojo". Instead of saving the file as <code>hello_world.mojo</code>, you can save it as <code>hello_world.🔥</code> and run <code>mojo hello_world.🔥</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dissecting_the_program">2.3. Dissecting the program</h3>
+<div class="paragraph">
+<p>Unlike many other system languages, Mojo has very minimal ceremony to define a simple program like Hello World.
+The following line (known as a statement) calls a function named <code>print</code> which is provided by Mojo. The text <code>Hello, World!</code> is placed inside double quotes. Any text placed inside double quotes (or single quotes for that matter) is considered by Mojo as a String Literal. Literals are constant values that do not change during the execution of the program and are provided directly to the program source code. In this case, we pass the value "Hello, World!" to the function <code>print</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>print</code> function knows how to take that passed value and to bring it into the screen.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>In the file, there is <code>def main():</code>, which you can ignore for the moment. It will come up later on. In a future release of Mojo, the need for <code>def main():</code> will be gone.
+<strong>*</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compiler">2.4. Compiler</h3>
+<div class="paragraph">
+<p>The command <code>mojo hello_world.mojo</code> you executed in the terminal took the Mojo source code and compiled it into a form that can be executed in the computer. The <code>mojo</code> command then directly executes the compiled form.</p>
+</div>
+<div class="paragraph">
+<p>If you do not want to execute immediately the program, and just want to create an executable file, you can use the command <code>mojo build hello_world.mojo</code>. It then creates an executable file in the same directory as the source file.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph nav-footer">
-<p>Next: <a href="_dedication.html">Dedication</a> →</p>
+<p>← Previous: <a href="_introduction.html">Introduction</a> | ↑ Up: <a href="A_book.html">Learn Mojo Programming Language</a> | Next: <a href="_functions.html">Functions</a> →</p>
 </div>
 </div>
 <div id="footer">
