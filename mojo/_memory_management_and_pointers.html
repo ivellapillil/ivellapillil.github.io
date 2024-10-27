@@ -2222,7 +2222,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>Since a stack cannot store data structures that do not know their size at compile time (e.g. a list that dynamically grows at runtime when data is added to it), we use a heap.</p>
 </div>
 <div class="paragraph">
-<p>When data is stored in heap, the programmer usually keeps the address where it is stored in a variable (pointer) for future reference. Since a pointer size is well known already at compile time, we can store that pointer in the stack frame. Functions always work with stack frames, and if we need to work on a piece of data stored in the heap, we need to copy it into the stack frame before we can use it.</p>
+<p>When data is stored in heap, the programmer usually keeps the address where it is stored in a variable (pointer) for future reference. Since a pointer size is well known already at compile time, we can store that pointer in the stack frame. Functions always work with stack frames, and sometimes we need to copy the data from heap into stack.</p>
 </div>
 <div class="imageblock">
 <div class="content">
