@@ -2167,15 +2167,17 @@ pre.rouge .gs {
 </li>
 </ul>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">13. Parameters and compile-time programming</a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
-<li><a href="_python_interoperability.html">15. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_python_interoperability.html">16. Python interoperability</a>
+</li>
+<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2234,9 +2236,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2308,9 +2310,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2379,9 +2381,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2593,9 +2595,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2666,9 +2668,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2741,9 +2743,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -2967,9 +2969,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -3032,9 +3034,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -3097,9 +3099,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -3162,9 +3164,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -3227,9 +3229,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyFloat</span><span class="p">:</span>
 
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float16</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float16</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
@@ -3736,14 +3738,20 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <div class="sect4">
 <h5 id="_str"><code>__str__</code></h5>
 <div class="paragraph">
-<p>The <code>__str__</code> is defined within <code>Stringable</code> trait and is used by the built-in <code>str</code> function. The <code>__str__</code> method returns an string representation of the struct implementing it. The built-in function <code>print</code> uses <code>__str__</code> before it prints the given value.</p>
+<p>The <code>__str__</code> is defined within <code>Stringable</code> trait and is used by the built-in <code>str</code> function. The <code>__str__</code> method returns an string representation of the struct implementing it.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_write_to"><code>\\write_to</code></h5>
+<div class="paragraph">
+<p>The built-in <code>print</code> function expects a value that implements <code>Writable</code> trait. The <code>Writable</code> trait expects <code>write_to</code> to be implemented, which is then used by the <code>print</code> function. Although it is not a dunder method, the <code>write_to</code> is useful for those cases where you want to write the content of a value to an output writer, like for example <code>stdout</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following code listing provides examples of special methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">Sized</span><span class="p">,</span> <span class="n">Intable</span><span class="p">,</span> <span class="n">Boolable</span><span class="p">,</span> <span class="n">Stringable</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">Sized</span><span class="p">,</span> <span class="n">Intable</span><span class="p">,</span> <span class="n">Boolable</span><span class="p">,</span> <span class="n">Stringable</span><span class="p">,</span> <span class="n">Writable</span><span class="p">):</span>
 
     <span class="k">var</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
@@ -3767,7 +3775,11 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">str called</span><span class="sh">"</span><span class="p">)</span>
-        <span class="k">return</span> <span class="sh">"</span><span class="s">MyStruct</span><span class="sh">"</span></code></pre>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">MyStruct</span><span class="sh">"</span>
+    
+    <span class="k">fn</span> <span class="n">write_to</span><span class="p">[</span><span class="n">W</span><span class="p">:</span> <span class="n">Writer</span><span class="p">](</span><span class="k">self</span><span class="p">,</span> <span class="k">inout</span> <span class="n">writer</span><span class="p">:</span> <span class="n">W</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">write_to called</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">writer</span><span class="p">.</span><span class="nf">write_bytes</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct</span><span class="sh">"</span><span class="p">.</span><span class="nf">as_bytes</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3781,7 +3793,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">if</span> <span class="n">st</span><span class="p">:</span> <span class="c1"># Uses __bool__
 </span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct is true</span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">st</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="c1"># Can directly print st because the __str__ method is implemented</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="c1"># Can directly print st because the write_to method is implemented</span></code></pre>
 </div>
 </div>
 </div>
@@ -3801,7 +3813,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyStruct</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+
+<span class="k">struct</span> <span class="n">MyStruct</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
@@ -3949,12 +3963,12 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_error_handling.html">Error handling</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a> →</p>
+<p>← Previous: <a href="_error_handling.html">Error handling</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_ownership_and_lifecycle.html">Ownership and lifecycle</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>

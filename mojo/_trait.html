@@ -2146,6 +2146,14 @@ pre.rouge .gs {
 <li><a href="_struct.html">7. Struct</a>
 </li>
 <li><a href="_trait.html"><span class="toc-current">8. Trait</span></a>
+<ul class="sectlevel2">
+<li><a href="_trait.html#_implementation_and_inheritance">8.1. Implementation and inheritance</a>
+</li>
+<li><a href="_trait.html#_static_methods_2">8.2. Static methods</a>
+</li>
+<li><a href="_trait.html#_associated_aliases">8.3. Associated aliases</a>
+</li>
+</ul>
 </li>
 <li><a href="_control_flow.html">9. Control flow</a>
 </li>
@@ -2153,15 +2161,17 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">13. Parameters and compile-time programming</a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
-<li><a href="_python_interoperability.html">15. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_python_interoperability.html">16. Python interoperability</a>
+</li>
+<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2215,6 +2225,8 @@ pre.rouge .gs {
 <img src="resources/graphics/Trait.jpeg" alt="Trait">
 </div>
 </div>
+<div class="sect2">
+<h3 id="_implementation_and_inheritance">8.1. Implementation and inheritance</h3>
 <div class="paragraph">
 <p>A single trait can be implemented by many different types, with the condition that the type ensures that all the requirements defined in the trait is implemented by the type. A type can also inherit more than one trait, with the condition that they implement all the combined requirements from of all of those traits within the type itself.</p>
 </div>
@@ -2264,6 +2276,9 @@ pre.rouge .gs {
     <span class="nc">Bird</span><span class="p">().</span><span class="nf">walk</span><span class="p">()</span></code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_static_methods_2">8.2. Static methods</h3>
 <div class="paragraph">
 <p>Unlike many other programming languages, Mojo allows traits to require static methods on the structs it defines.</p>
 </div>
@@ -2291,6 +2306,36 @@ pre.rouge .gs {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_associated_aliases">8.3. Associated aliases</h3>
+<div class="paragraph">
+<p>We saw how traits allow us to abstract over methods and even static methods. Another key feature of Mojo traits is that they even let us abstract over aliases. This means that structs that implement traits can override aliases and provide their own aliases. One benefit is when we do not want to prescribe what types the traits use within its methods, instead we want the implementors to provide the types. This makes API designs much more elegant and extensible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Message</span><span class="p">:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">Bye</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Goodbye</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">Hello</span><span class="p">.</span><span class="nf">default_message</span><span class="p">()</span>
+    <span class="n">Bye</span><span class="p">.</span><span class="nf">default_message</span><span class="p">()</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="paragraph nav-footer">
 <p>← Previous: <a href="_struct.html">Struct</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_control_flow.html">Control flow</a> →</p>
@@ -2298,7 +2343,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>

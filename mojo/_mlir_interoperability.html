@@ -2153,21 +2153,23 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">13. Parameters and compile-time programming</a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
-<li><a href="_python_interoperability.html">15. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html"><span class="toc-current">16. MLIR interoperability</span></a>
+<li><a href="_python_interoperability.html">16. Python interoperability</a>
+</li>
+<li><a href="_mlir_interoperability.html"><span class="toc-current">17. MLIR interoperability</span></a>
 <ul class="sectlevel2">
-<li><a href="_mlir_interoperability.html#_mlir_attr">16.1. __mlir_attr</a>
+<li><a href="_mlir_interoperability.html#_mlir_attr">17.1. __mlir_attr</a>
 </li>
-<li><a href="_mlir_interoperability.html#_mlir_type">16.2. __mlir_type</a>
+<li><a href="_mlir_interoperability.html#_mlir_type">17.2. __mlir_type</a>
 </li>
-<li><a href="_mlir_interoperability.html#_mlir_op">16.3. __mlir_op</a>
+<li><a href="_mlir_interoperability.html#_mlir_op">17.3. __mlir_op</a>
 </li>
 </ul>
 </li>
@@ -2180,7 +2182,7 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_mlir_interoperability">16. MLIR interoperability</h2>
+<h2 id="_mlir_interoperability">17. MLIR interoperability</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mojo supports ahead-of-time compilation. This means that we can run Mojo compiler over our source code to generate the machine code that gets executed on the computer. For a developer it may look as if Mojo reads the source code and directly generates the machine code. However, like many modern compilers, Mojo creates an intermediate representation of our source code before it generates the machine code. This intermediate representation (IR) is a simplified form of the program, which is easier to optimize and reason about. Many compilers use IRs that are custom built for the language supported by the compiler. Mojo does not have its own IR infrastructure, instead it uses Multi-Level Intermediate Representation (MLIR). Unlike other language IRs, MLIR is designed to be extensible and is capable of supporting many programming languages and  different types of processors.</p>
@@ -2211,18 +2213,18 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">var</span> <span class="n">s</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">0b</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="nf">str</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span>
         <span class="k">return</span> <span class="n">s</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">BitList</span><span class="p">(</span><span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nc">BitList</span><span class="p">(</span><span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">)))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>At first, the code listing may look a bit strange. Mojo&#8217;s MLIR elements start with <code>__mlir</code>. There are three different elements: <code>__mlir_attr</code>, <code>__mlir_type</code> and <code>__mlir_op</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_mlir_attr">16.1. __mlir_attr</h3>
+<h3 id="_mlir_attr">17.1. __mlir_attr</h3>
 <div class="paragraph">
 <p>As the name suggests, <code>__mlir_attr</code> provides ability to define a MLIR attribute (similar to a compile-time constant) along with its data type.</p>
 </div>
@@ -2236,7 +2238,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mlir_type">16.2. __mlir_type</h3>
+<h3 id="_mlir_type">17.2. __mlir_type</h3>
 <div class="paragraph">
 <p>The <code>__mlir_type</code> provides ability to refer to a given MLIR <em>type</em>.</p>
 </div>
@@ -2250,13 +2252,13 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mlir_op">16.3. __mlir_op</h3>
+<h3 id="_mlir_op">17.3. __mlir_op</h3>
 <div class="paragraph">
 <p>The <code>__mlir_op</code> provides ability to refer to a MLIR operation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">s</span> <span class="o">+=</span> <span class="nf">str</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2279,7 +2281,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>

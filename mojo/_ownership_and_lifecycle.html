@@ -2120,7 +2120,7 @@ pre.rouge .gs {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_control_flow" class="book toc2 toc-left">
+<body id="_ownership_and_lifecycle" class="book toc2 toc-left">
 <div id="header">
 <h1>Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</h1>
 <div class="details">
@@ -2147,31 +2147,31 @@ pre.rouge .gs {
 </li>
 <li><a href="_trait.html">8. Trait</a>
 </li>
-<li><a href="_control_flow.html"><span class="toc-current">9. Control flow</span></a>
-<ul class="sectlevel2">
-<li><a href="_control_flow.html#_if_else">9.1. <code>if</code>-<code>else</code></a>
-</li>
-<li><a href="_control_flow.html#_elif">9.2. <code>elif</code></a>
-</li>
-<li><a href="_control_flow.html#_nesting_of_if">9.3. Nesting of <code>if</code></a>
-</li>
-<li><a href="_control_flow.html#_if_as_expression">9.4. <code>if</code> as expression</a>
-</li>
-<li><a href="_control_flow.html#_case">9.5. <code>case</code></a>
-</li>
-<li><a href="_control_flow.html#_while">9.6. <code>while</code></a>
-</li>
-<li><a href="_control_flow.html#_for">9.7. <code>for</code></a>
-</li>
-<li><a href="_control_flow.html#_skipping_and_exiting_early_from_loops">9.8. Skipping and exiting early from loops</a>
-</li>
-</ul>
+<li><a href="_control_flow.html">9. Control flow</a>
 </li>
 <li><a href="_error_handling.html">10. Error handling</a>
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
+<li><a href="_ownership_and_lifecycle.html"><span class="toc-current">12. Ownership and lifecycle</span></a>
+<ul class="sectlevel2">
+<li><a href="_ownership_and_lifecycle.html#_pass_by_value_and_pass_by_reference">12.1. Pass by value and pass by reference</a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_borrowed">12.2. borrowed</a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_owned">12.3. owned</a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_inout">12.4. inout</a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_init">12.5. <code>__init__</code></a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_del">12.6. <code>__del__</code></a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_copyinit">12.7. <code>__copyinit__</code></a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_moveinit">12.8. <code>__moveinit__</code></a>
+</li>
+</ul>
 </li>
 <li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
@@ -2192,249 +2192,277 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_control_flow">9. Control flow</h2>
+<h2 id="_ownership_and_lifecycle">12. Ownership and lifecycle</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Like most other programming languages, Mojo provides control structures such as conditions and loops.</p>
+<p>Before we jump into the lifecycle operations, let&#8217;s understand the concept of ownership of references.</p>
 </div>
 <div class="sect2">
-<h3 id="_if_else">9.1. <code>if</code>-<code>else</code></h3>
+<h3 id="_pass_by_value_and_pass_by_reference">12.1. Pass by value and pass by reference</h3>
 <div class="paragraph">
-<p>The most basic control flow is <code>if</code> statement. It takes an expression that must evaluate to a boolean result. The body of the <code>if</code> will be executed if the boolean result is <code>True</code>. It is not allowed to have <code>else</code> without a corresponding <code>if</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
+<p>We have two ways to pass something to a function or method. One is pass by value and the other is pass by reference.</p>
 </div>
 <div class="paragraph">
-<p>In this example, we have an <code>if</code> statement with a condition. The <code>==</code> operator checks for equality, here it checks if the variable <code>x</code> has the value <code>0</code>.</p>
+<p>We call something as passed by value when the actual value of a variable is passed to the function, which results in the value being <strong>copied</strong> to the callee function&#8217;s argument. In this case the callee has its own copy and the caller has another copy. If the callee function changes the value, it is not reflected in the caller. In Mojo the data types that fit within the registers of the CPU are passed by default as values and so the callee gets a copy of the value. Also, when we perform an assignment of a variable to another variable, the value of the variable is copied to the assignee.</p>
 </div>
 <div class="paragraph">
-<p>If you want to execute another body of code when the <code>if</code> expression results in <code>False</code>, you can use <code>else</code>.</p>
+<p>The second way is to pass the location where the value is stored. In this case, both the caller and the callee refers to the exact same location of the value. We can say that the caller is passing a reference to the value to the callee. So if the callee changes the value, that change will be reflected immediately in the caller.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is non-zero</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
+<div class="paragraph">
+<p>When we pass a value by reference to a function, that function can potentially change the value. However, if the caller is not expecting its value to be changed while the callee changes the value, we end up with defects. In many programming languages that support pass by reference, it is a common source of defects. So how can we indicate to the caller of a function that the function intends to only read the value or it intends to change it? Mojo provides a solution by annotating the function arguments with a set of keywords that shows the intend.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_elif">9.2. <code>elif</code></h3>
+<h3 id="_borrowed">12.2. borrowed</h3>
 <div class="paragraph">
-<p>What if you need to check multiple conditions instead of just one? Mojo provides <code>if-elif-else</code> construct for those cases.</p>
+<p>The borrowed keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>borrowed</code> keyword is not necessary to be given.</p>
+</div>
+<div class="paragraph">
+<p>When an argument is borrowed, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
+</div>
+<div class="paragraph">
+<p>In <code>def</code> functions, you may find that Mojo seemingly allows mutation of the arguments. However, behind the scenes, it is performing a copy-on-write. This means that the argument is copied transparently to the developer, and the original argument is left intact. This is done so that for the developer the <code>def</code> function feels similar to how it works in Python.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is negative</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is positive</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The first <code>if</code> works same as before. The <code>elif</code> is a short form of "else if". It works similar to <code>if</code> and expects the expression to evaluate to <code>True</code> to execute its own body. One thing to note is that <code>if</code> and <code>elif</code> are mutually exclusive and the first one in the sequence of the statements to have expression value as <code>True</code> will execute its body. Therefore care must be taken to correctly order the conditions so that you don&#8217;t miss out some edge cases. It is not allowed to have <code>elif</code> without a corresponding if.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero - but this won</span><span class="sh">'</span><span class="s">t show up</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is negative</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is positive</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the previous code listing, since the <code>if</code> condition already evaluated to <code>True</code>, the second <code>elif</code> will not get executed even if the expression is <code>True</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_nesting_of_if">9.3. Nesting of <code>if</code></h3>
-<div class="paragraph">
-<p>You can nest <code>if</code> inside another <code>if</code> or <code>else</code> or <code>elif</code>. This allows for implementation of a more complex control flow logic.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is negative</span><span class="sh">"</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span>
-            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is too low</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is zero</span><span class="sh">"</span><span class="p">)</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is positive</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Too many nested conditions could impact readability of the code. In this case consider whether extracting them into separate functions improve readability.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_if_as_expression">9.4. <code>if</code> as expression</h3>
-<div class="paragraph">
-<p>The standard <code>if</code> statement spans over a minimum of 4 lines, sometimes when we just want to assign a value conditionally to a variable, it is a bit verbose. Mojo provides a shorter one line version that could be used in such cases.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">message</span> <span class="o">=</span> <span class="sh">"</span><span class="s">X is positive</span><span class="sh">"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="sh">"</span><span class="s">X is negative</span><span class="sh">"</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>One thing to note here is that the order of the <code>if</code> expression is different from the usual order of <code>if</code> statements.</p>
-</div>
-<div class="paragraph">
-<p>The anatomy of if-elif-else is shown in the following diagram.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="resources/graphics/If.jpeg" alt="If">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_borrowed</span><span class="p">(</span><span class="k">borrowed</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="bp">...</span>
+<span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also borrowed
+</span>    <span class="bp">...</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_case">9.5. <code>case</code></h3>
+<h3 id="_owned">12.3. owned</h3>
+<div class="paragraph">
+<p>The <code>owned</code> keyword indicates that the function assumes the ownership of the given reference argument. This means that we are free to mutate or destruct the passed value within that function.</p>
+</div>
+<div class="paragraph">
+<p>When an argument is owned, the function can be sure that it can mutate the argument. It is possible that Mojo passes a copy of the value to the function in such cases. When the value is copied, then the caller has own copy and the callee function has its own copy.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_owned</span><span class="p">(</span><span class="k">owned</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="bp">...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inout">12.4. inout</h3>
+<div class="paragraph">
+<p>The <code>inout</code> keyword indicates that the function will potentially mutate the value within the passed reference. The difference from <code>owned</code> references is that the <code>inout</code> arguments are implicitly returned by the function. That is, the function cannot return an uninitialized <code>inout</code> argument. If the value within the <code>inout</code> reference is destructed, then another value must be assigned to the argument before the function returns.</p>
+</div>
+<div class="paragraph">
+<p>To move a reference, the caret <code>^</code> operator is used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_inout</span><span class="p">(</span><span class="k">inout</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="bp">...</span>
 
-</div>
-<div class="sect2">
-<h3 id="_while">9.6. <code>while</code></h3>
-<div class="paragraph">
-<p>The <code>while</code> loops allow a body of code to be executed repeatedly as long as the condition of the <code>while</code> evaluates to <code>True</code>. The moment the condition evaluates to <code>False</code>, it stops executing the code body within it.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span></code></pre>
+<span class="k">fn</span> <span class="nf">value_inout_return</span><span class="p">(</span><span class="k">inout</span> <span class="n">val</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">val</span><span class="o">^</span> <span class="c1"># Effectively destruct the value. Now the reference is uninitialized
+</span>    <span class="n">val</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># We have to assign a value otherwise Mojo compiler would complain
+</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The previous code listing will print values 0 to 5.</p>
-</div>
-<div class="paragraph">
-<p>It is possible to add <code>else</code> clause after the <code>while</code> body. The <code>else</code> body will be executed <em>exactly once</em> when the condition of <code>while</code> evaluates to <code>False</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is now greater than 5</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The previous code listing will print "X is now greater than 5" after printing values 0 to 5.</p>
-</div>
-<div class="paragraph">
-<p>The anatomy of a <code>while</code> loop is shown in the following diagram.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="resources/graphics/While.jpeg" alt="While">
-</div>
+<p>Let&#8217;s now look into the lifecycle methods. We start with one that we are already familiar with: the <code><em>init</em></code> method.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_for">9.7. <code>for</code></h3>
+<h3 id="_init">12.5. <code>__init__</code></h3>
 <div class="paragraph">
-<p>Similar to <code>while</code>, <code>for</code> also provides facility to repeat a code block many times. The main difference is that <code>while</code> is based on an expression evaluating to <code>True</code> whereas <code>for</code> is based on something called an iterator.</p>
-</div>
-<div class="paragraph">
-<p>In the most simple term, an iterator is something that returns an element when its <code><em>next</em></code> method is called. The expression that comes after <code>in</code> within the <code>for</code> loop statement must resolve to an iterable. An iterable is anything that returns an iterator when its <code><em>iter</em></code> method is called. In effect, when the <code>for</code> loop is executed, it calls the iterable&#8217;s <code><em>iter</em></code> method which returns the iterator the <code>for</code> loop works with. For each repetition of the loop, the iterator&#8217;s <code><em>next</em></code> is called and its result assigned to the variable coming before the <code>in</code> keyword. The iterator must keep track of the state so that the <code>for</code> loop advances to the next element when <code><em>next</em></code> is called.</p>
+<p>The init method is part of the lifecycle of a struct. The main purpose of <code><em>init</em></code> is to initialize all its member variables (a.k.a fields).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<span class="k">struct</span> <span class="n">MyNumber</span><span class="p">:</span>
+
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
+
+    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>It is possible to add <code>else</code> clause after the <code>for</code> body. The <code>else</code> body will be executed <em>exactly once</em> when the iteration is finished.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">i is now greater than 4</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The anatomy of a <code>for</code> loop is shown in the following diagram.</p>
+<p>In this example, we defined a <code>struct</code> and the <code><em>init</em></code> method within it. The first argument of the <code><em>init</em></code> method is always <code>self</code> with a modifier <code>inout</code>. The <code>self</code> is a reference to the struct&#8217;s own instance. The <code>inout</code> tells the compiler that the <code>self</code> is mutable (i.e., we can change the field values held within <code>self</code>). In Mojo, the function arguments are <em>by default read-only</em>, and we cannot change the values of the function argument. The <code>inout</code> is needed for <code>self</code> so that we are able to initialize the fields within the struct. Since one of the main responsibility of <code><em>init</em></code> is to initialize the fields of the struct, we naturally need to mark it as <code>inout</code>.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="resources/graphics/For.jpeg" alt="For">
-</div>
+<div class="paragraph">
+<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the function <code>initialize_pointee_move</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_skipping_and_exiting_early_from_loops">9.8. Skipping and exiting early from loops</h3>
-<div class="sect3">
-<h4 id="_break">9.8.1. <code>break</code></h4>
+<h3 id="_del">12.6. <code>__del__</code></h3>
 <div class="paragraph">
-<p>If you want to exit the <code>while</code> or <code>for</code> loop early (usually on some condition), then you can use <code>break</code>. This allows early exit from the loop.</p>
+<p>The delete method <code><em>del</em></code> is also part of the lifecycle of a struct. If the init method is used to initialize variables or to allocate resources for that struct, the delete method is used to release the resources held for that struct. For example, if init method allocates memory from the heap, the delete method is used to free that memory. The <code><em>del</em></code> method is called just before the value is going to be destroyed by the compiler. If we allocate resources in the init method and do not release or free those resources in the delete method, we end up with resource leaks such as memory leaks. So great care must be taken to symmetrically allocate and free resources using the init and delete methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">break</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">break</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">i is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<span class="k">struct</span> <span class="n">MyNumber</span><span class="p">:</span>
+
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
+
+    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The previous code listing will print values 0 to 3, and will exit the loop as soon as <code>x</code> is greater than 3.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">owned</span> <span class="k">self</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_continue">9.8.2. <code>continue</code></h4>
+<h4 id="_eager_destruction">12.6.1. Eager destruction</h4>
 <div class="paragraph">
-<p>What if you wanted to skip an iteration of the loop? For this case Mojo provides you with <code>continue.</code> The <code>continue</code> keyword would skip all the statements coming after it in the <code>while</code> or <code>for</code> body for exactly one iteration of the loop.</p>
+<p>Unlike many other languages, Mojo has an eager destruction approach. This means that a value or object is destroyed as soon as its last use is over. This is in contrast with many system languages where the values or objects are destroyed at the end of the scope of a given block. This approach allowed Mojo to have a much simpler lifecycle management, improving overall ergonomics of the language.</p>
+</div>
+<div class="paragraph">
+<p>The eager destruction might sometimes surprise us while debugging Mojo programs as the variable references would already have been destructed if they are no longer being referenced at locations past the debug breakpoint. A common pattern to extend the lifetime of the value is by assigning it to <code>_</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">continue</span> <span class="c1"># Skip following statements of the while block
-</span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">X is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_value</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+    <span class="bp">...</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">World</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">a_value</span> <span class="c1"># Keep the life of a_value until this point</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_copyinit">12.7. <code>__copyinit__</code></h3>
+<div class="paragraph">
+<p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages.</p>
+</div>
+<div class="paragraph">
+<p>Mojo compiler tries to optimize away copies as much as possible, especially where the reference is not being used later on.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<span class="k">struct</span> <span class="n">MyNumber</span><span class="p">:</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">continue</span> <span class="c1"># Skip following statements of the while block
-</span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">i is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></code></pre>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
+
+    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span> <span class="c1"># Calling __copyinit__ on other_num
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="n">other_num</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The previous code listing will skip the <code>print</code> statement coming after it until value of <code>x</code> is greater than or equal to 3.</p>
+<p>In the previous code listing, within the <code><em>copyinit</em></code>, we are allocating new memory for holding the copy of the value from <code>other</code>. The <code>other</code> has type <code>Self</code>, which means the same type as the struct defining the <code><em>copyinit</em></code> - in this case <code>MyNumber</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_moveinit">12.8. <code>__moveinit__</code></h3>
+<div class="paragraph">
+<p>Mojo invokes the <code><em>moveinit</em></code> for cases where a value needs to be physically moved. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>copyinit</em></code>, <code><em>moveinit</em></code> has the second argument annotated with <code>owned</code>. The <code>owned</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In <code><em>moveinit</em></code>, we reassign the values from the <code>other</code> struct to the struct which defines the <code><em>moveinit</em></code>.</p>
+</div>
+<div class="paragraph">
+<p>One thing to note is that the <code><em>moveinit</em></code> may not be always called when a value is "moved" (even when using the transfer <code>^</code> operator). You can think of move as a transfer of ownership, but sometimes the compiler is not able to optimize it to a simple transfer of ownership (logical move), instead needs to copy the value to a new location and clear the old location (physical move). Physical move happens for example when a value is moving from a short-lived stack frame to a longer lived one.</p>
+</div>
+<div class="paragraph">
+<p>Move operations are particularly useful for cases where copy operations are expensive. For example, in Mojo move semantics are used for <code>String</code>. This ensures that the string operations are as much efficient as possible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span>
+        <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num2</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span><span class="o">^</span> <span class="c1"># Moving
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after move:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="n">other_num2</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="c1"># Uncommenting below line results in compiler error as `num` is no longer initialized
+</span>    <span class="c1">#print("num after copy:", num.value())</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the <code><em>moveinit</em></code> and <code><em>copyinit</em></code> are actually called.</p>
+</div>
+<div class="paragraph">
+<p>The different lifecycle operations are illustrated in the following diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/Lifecycle.jpeg" alt="Lifecycle">
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_trait.html">Trait</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_error_handling.html">Error handling</a> →</p>
+<p>← Previous: <a href="_operators_and_special_methods.html">Operators and special methods</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_memory_management_and_pointers.html">Memory management and pointers</a> →</p>
 </div>
 </div>
 <div id="footer">

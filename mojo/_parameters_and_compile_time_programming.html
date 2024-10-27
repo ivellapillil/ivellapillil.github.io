@@ -2153,35 +2153,39 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html"><span class="toc-current">13. Parameters and compile-time programming</span></a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html"><span class="toc-current">14. Parameters and compile-time programming</span></a>
 <ul class="sectlevel2">
-<li><a href="_parameters_and_compile_time_programming.html#_compile_time_execution_of_code">13.1. Compile-time execution of code</a>
+<li><a href="_parameters_and_compile_time_programming.html#_compile_time_execution_of_code">14.1. Compile-time execution of code</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_conditional_execution_at_compile_time">13.2. Conditional execution at compile-time</a>
+<li><a href="_parameters_and_compile_time_programming.html#_conditional_execution_at_compile_time">14.2. Conditional execution at compile-time</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_functions">13.3. Parameters in functions</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_functions">14.3. Parameters in functions</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_keyword_parameters">13.4. Keyword parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_keyword_parameters">14.4. Keyword parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_inferred_only_parameters">13.5. Inferred-only parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_inferred_only_parameters">14.5. Inferred-only parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_variadic_parameters">13.6. Variadic parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_variadic_parameters">14.6. Variadic parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_default_values_in_parameters">13.7. Default values in parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_default_values_in_parameters">14.7. Default values in parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">13.8. Parameters in structs, traits</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">14.8. Parameters in structs, traits</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">13.9. Custom compile-time checks</a>
+<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">14.9. Conditional conformance</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">14.10. Custom compile-time checks</a>
 </li>
 </ul>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">15. Python interoperability</a>
+<li><a href="_python_interoperability.html">16. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2192,10 +2196,10 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_parameters_and_compile_time_programming">13. Parameters and compile-time programming</h2>
+<h2 id="_parameters_and_compile_time_programming">14. Parameters and compile-time programming</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_compile_time_execution_of_code">13.1. Compile-time execution of code</h3>
+<h3 id="_compile_time_execution_of_code">14.1. Compile-time execution of code</h3>
 <div class="paragraph">
 <p>The programs we write are compiled by the compiler and then an executable file is created out of it. This executable file is later run on an operating system. So the code we write is executed when we run the program. So if we write a loop, then that loop gets executed when the program is run. Let&#8217;s imagine that we need to execute a function for which the inputs are well known already at the time of writing the code. Such a function can be executed at compile-time, and the results kept in the executable file. This means that when the program is run, it just takes the pre-calculated value, saving valuable CPU time during the execution.</p>
 </div>
@@ -2229,7 +2233,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditional_execution_at_compile_time">13.2. Conditional execution at compile-time</h3>
+<h3 id="_conditional_execution_at_compile_time">14.2. Conditional execution at compile-time</h3>
 <div class="paragraph">
 <p>We can conditionally call a function, or define a constant. That is, the <code>if</code> statement also can be used at compile time. Mojo allows us to pass an environment variable at compile time, which we can access and conditionally compile our code.  To pass an environment variable to the compiler, you can use the option <code>-D &lt;var&gt;=&lt;val&gt;</code>.
 For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
@@ -2243,7 +2247,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span><span class="k">alias</span> <span class="n">added_conditionally</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
+</span><span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+<span class="k">alias</span> <span class="n">added_conditionally</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2256,7 +2261,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameters_in_functions">13.3. Parameters in functions</h3>
+<h3 id="_parameters_in_functions">14.3. Parameters in functions</h3>
 <div class="paragraph">
 <p>We saw that we can use <code>alias</code> to execute functions at compile time. What if we do not want to execute the function at compile-time, but just "parameterize" the function at compile-time, so that when it is finally run during the program execution, it uses that passed-in parameters? Mojo provides a solution to that by providing capability for compile-time parameterization. To achieve this, we pass <strong>parameters</strong> within <strong>square brackets</strong>. For example: <code>add[my_param: Int]()</code>. So in short, when we want to pass to a function values at <strong>runtime</strong>, we pass it within <strong>parenthesis</strong>, and if we want to pass to a function values at <strong>compile-time</strong>, we pass it within <strong>square brackets</strong>. Note that we are distinguishing between parameters and arguments. In Mojo parameters are compile-time values and arguments are runtime values.</p>
 </div>
@@ -2272,7 +2277,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
+</span>    <span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2300,7 +2306,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_keyword_parameters">13.4. Keyword parameters</h3>
+<h3 id="_keyword_parameters">14.4. Keyword parameters</h3>
 <div class="paragraph">
 <p>So far we have seen how we can pass parameters by position. Similar to the keyword arguments that we pass to functions, we can pass parameter values using the name of the parameter. The rules of the keyword parameters are the same as the keyword arguments for functions.</p>
 </div>
@@ -2323,7 +2329,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_inferred_only_parameters">13.5. Inferred-only parameters</h3>
+<h3 id="_inferred_only_parameters">14.5. Inferred-only parameters</h3>
 <div class="paragraph">
 <p>Mojo allows parameter types to depend on other parameter types. For example, suppose we have two structs, <code>Scheme</code> and <code>Location</code>. We could define <code>Location</code> as a struct that takes a <code>Scheme</code> value as its input parameter, as in <code>Location[scheme: Scheme]</code>. This means that <code>Location</code> depends on <code>Scheme</code>.</p>
 </div>
@@ -2409,7 +2415,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variadic_parameters">13.6. Variadic parameters</h3>
+<h3 id="_variadic_parameters">14.6. Variadic parameters</h3>
 <div class="paragraph">
 <p>Sometimes we want to be able to pass any number of parameters, without being restricted to a particular number of parameters. When we prefix a parameter with <code>*</code>, Mojo allows us to pass any number of values to it.</p>
 </div>
@@ -2438,7 +2444,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_default_values_in_parameters">13.7. Default values in parameters</h3>
+<h3 id="_default_values_in_parameters">14.7. Default values in parameters</h3>
 <div class="paragraph">
 <p>Mojo allows default values to be used for parameters.</p>
 </div>
@@ -2462,7 +2468,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameters_in_structs_traits">13.8. Parameters in structs, traits</h3>
+<h3 id="_parameters_in_structs_traits">14.8. Parameters in structs, traits</h3>
 <div class="paragraph">
 <p>Similar to functions, we can also pass compile-time parameters to structs, traits.</p>
 </div>
@@ -2500,7 +2506,50 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_compile_time_checks">13.9. Custom compile-time checks</h3>
+<h3 id="_conditional_conformance">14.9. Conditional conformance</h3>
+<div class="paragraph">
+<p>We can also overload methods based on concrete types of <code>self</code> itself. In the following code listing, the version of the <code>hello</code> method chosen depends on the concrete type of the passed parameter <code>T</code>. Note that here the <code>self</code> type is explicitly defined, unlike how we usually specify <code>self</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]:</span>
+    
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10'
+</span>    <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10.5'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also use numeric parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloCount</span><span class="p">[</span><span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
+    
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 2'
+</span>    <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 3'
+</span>    <span class="c1"># HelloCount[4]().hello() # Uncommenting this would result in error as there is no such overload</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Conditional conformance also works with <code><em>init</em></code> method.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_compile_time_checks">14.10. Custom compile-time checks</h3>
 <div class="paragraph">
 <p>When we develop a program, we often make assumptions about the arguments we receive or the context in which we execute a function and so on. We can use <code>if</code> statements to validate those assumptions, but it is possible that there is a performance cost to such validations. Many programming languages provide a facility known as assertion, to validate those assumptions with minimal impact to the runtime performance of the code.</p>
 </div>
@@ -2532,12 +2581,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_lifecycle_and_ownership.html">Lifecycle and ownership</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> →</p>
+<p>← Previous: <a href="_memory_management_and_pointers.html">Memory management and pointers</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>

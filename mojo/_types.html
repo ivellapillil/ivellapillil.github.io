@@ -2145,53 +2145,55 @@ pre.rouge .gs {
 </li>
 <li><a href="_types.html#_int">5.2. Int</a>
 </li>
-<li><a href="_types.html#_intliteral">5.3. IntLiteral</a>
+<li><a href="_types.html#_uint">5.3. UInt</a>
 </li>
-<li><a href="_types.html#_string">5.4. String</a>
+<li><a href="_types.html#_intliteral">5.4. IntLiteral</a>
 </li>
-<li><a href="_types.html#_stringliteral">5.5. StringLiteral</a>
+<li><a href="_types.html#_string">5.5. String</a>
 </li>
-<li><a href="_types.html#_floatliteral">5.6. FloatLiteral</a>
+<li><a href="_types.html#_stringliteral">5.6. StringLiteral</a>
 </li>
-<li><a href="_types.html#_float16">5.7. Float16</a>
+<li><a href="_types.html#_floatliteral">5.7. FloatLiteral</a>
 </li>
-<li><a href="_types.html#_float32">5.8. Float32</a>
+<li><a href="_types.html#_float16">5.8. Float16</a>
 </li>
-<li><a href="_types.html#_float64">5.9. Float64</a>
+<li><a href="_types.html#_float32">5.9. Float32</a>
 </li>
-<li><a href="_types.html#_int8">5.10. Int8</a>
+<li><a href="_types.html#_float64">5.10. Float64</a>
 </li>
-<li><a href="_types.html#_uint8">5.11. UInt8</a>
+<li><a href="_types.html#_int8">5.11. Int8</a>
 </li>
-<li><a href="_types.html#_int16">5.12. Int16</a>
+<li><a href="_types.html#_uint8">5.12. UInt8</a>
 </li>
-<li><a href="_types.html#_uint16">5.13. UInt16</a>
+<li><a href="_types.html#_int16">5.13. Int16</a>
 </li>
-<li><a href="_types.html#_int32">5.14. Int32</a>
+<li><a href="_types.html#_uint16">5.14. UInt16</a>
 </li>
-<li><a href="_types.html#_uint32">5.15. UInt32</a>
+<li><a href="_types.html#_int32">5.15. Int32</a>
 </li>
-<li><a href="_types.html#_int64">5.16. Int64</a>
+<li><a href="_types.html#_uint32">5.16. UInt32</a>
 </li>
-<li><a href="_types.html#_uint64">5.17. UInt64</a>
+<li><a href="_types.html#_int64">5.17. Int64</a>
 </li>
-<li><a href="_types.html#_bfloat16">5.18. BFloat16</a>
+<li><a href="_types.html#_uint64">5.18. UInt64</a>
 </li>
-<li><a href="_types.html#_simd">5.19. SIMD</a>
+<li><a href="_types.html#_bfloat16">5.19. BFloat16</a>
 </li>
-<li><a href="_types.html#_dtype">5.20. DType</a>
+<li><a href="_types.html#_simd">5.20. SIMD</a>
 </li>
-<li><a href="_types.html#_type_safety">5.21. Type safety</a>
+<li><a href="_types.html#_dtype">5.21. DType</a>
 </li>
-<li><a href="_types.html#_object">5.22. object</a>
+<li><a href="_types.html#_type_safety">5.22. Type safety</a>
 </li>
-<li><a href="_types.html#_tuple">5.23. Tuple</a>
+<li><a href="_types.html#_object">5.23. object</a>
 </li>
-<li><a href="_types.html#_listliteral">5.24. ListLiteral</a>
+<li><a href="_types.html#_tuple">5.24. Tuple</a>
 </li>
-<li><a href="_types.html#_dictliteral">5.25. DictLiteral</a>
+<li><a href="_types.html#_listliteral">5.25. ListLiteral</a>
 </li>
-<li><a href="_types.html#_type_inference">5.26. Type inference</a>
+<li><a href="_types.html#_dictliteral">5.26. DictLiteral</a>
+</li>
+<li><a href="_types.html#_type_inference">5.27. Type inference</a>
 </li>
 </ul>
 </li>
@@ -2207,15 +2209,17 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">13. Parameters and compile-time programming</a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
-<li><a href="_python_interoperability.html">15. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_python_interoperability.html">16. Python interoperability</a>
+</li>
+<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2234,7 +2238,7 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_bool">5.1. Bool</h3>
 <div class="paragraph">
-<p>The simplest of all types, a <code>Bool</code> represents values <code>True</code> or  <code>False</code>. Bool value stores exactly one bit, either <code>1</code> representing the value <code>True</code> or <code>0</code> representing the value <code>False</code>. <code>True</code> and <code>False</code> are builtin constants in Mojo, and are treated as keywords.</p>
+<p>The simplest of all types, a <code>Bool</code> represents values <code>True</code> or  <code>False</code>. Bool value stores exactly one bit, either <code>1</code> representing the value <code>True</code> or <code>0</code> representing the value <code>False</code>. <code>True</code> and <code>False</code> are built-in constants in Mojo, and are treated as keywords.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2245,7 +2249,7 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_int">5.2. Int</h3>
 <div class="paragraph">
-<p><code>Int</code> is one of the most used data types in programming. It represents a mathematical integer, however, there are limitations on how big a value it can store. The <code>Int</code> type in Mojo is a builtin type and its size depends on the CPU architecture your program is running on. For a 64 bit architecture, the <code>Int</code> type in Mojo has size <code>64</code> bits; whereas for a 32 bit architecture, it would be 32 bit. How big a number can fit in integer types depends on whether that integer is a "signed" or "unsigned". A signed integer means that contains both negative and positive values. An unsigned integer does not allow any negative values. <code>Int</code> is a <em>signed</em> integer and therefore in a 64 bit CPU architecture, it allows values of range from -9,223,372,036,854,775,808 until 9,223,372,036,854,775,807, both inclusive. An unsigned 64 bit integer on the other hand would have the range 0 through 18,446,744,073,709,551,615.</p>
+<p><code>Int</code> is one of the most used data types in programming. It represents a mathematical integer, however, there are limitations on how big a value it can store. The <code>Int</code> type in Mojo is a built-in type and its size depends on the CPU architecture your program is running on. For a 64 bit architecture, the <code>Int</code> type in Mojo has size <code>64</code> bits; whereas for a 32 bit architecture, it would be 32 bit. How big a number can fit in integer types depends on whether that integer is a "signed" or "unsigned". A signed integer means that contains both negative and positive values. An unsigned integer does not allow any negative values. <code>Int</code> is a <em>signed</em> integer and therefore in a 64 bit CPU architecture, it allows values of range from -9,223,372,036,854,775,808 until 9,223,372,036,854,775,807, both inclusive.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2254,7 +2258,18 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_intliteral">5.3. IntLiteral</h3>
+<h3 id="_uint">5.3. UInt</h3>
+<div class="paragraph">
+<p>Similar to <code>Int</code>, <code>UInt</code> type in Mojo is a built-in type and its size depends on the CPU architecture your program is running on. The main difference from <code>Int</code> is that <code>UInt</code> is <em>unsigned</em>, meaning it represents only positive integers, including <code>0</code>. Since it represents only positive integers, the one bit that is usually reserved for sign is free to be used to represent values. This means that its maximum possible value is much more than the signed <code>Int</code> type. For example, a 64 bit unsigned integer would have the range 0 through 18,446,744,073,709,551,615.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">uint_value</span><span class="p">:</span> <span class="n">UInt</span> <span class="o">=</span> <span class="mi">84</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_intliteral">5.4. IntLiteral</h3>
 <div class="paragraph">
 <p><code>IntLiteral</code> is the type when you provide an integer value directly in source code. It has infinite precision, but cannot currently be represented at runtime when the value is higher than the one supported by <code>Int</code>. Mojo allows underscore character "_" to as a separator for int literals to make it easy to read large numbers.</p>
 </div>
@@ -2276,7 +2291,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_string">5.4. String</h3>
+<h3 id="_string">5.5. String</h3>
 <div class="paragraph">
 <p><code>String</code> is also one of the most used data types in programming. It is a sequence of Unicode characters representing a given text. Unicode is a text encoding standard maintained by the Unicode Consortium and consists of more than hundred thousand codes representing characters in almost all of the world&#8217;s writing systems. Since <code>String</code> abstracts over a sequence of Unicode characters, when you determine the length of a <code>String</code>, it will return the count of characters (grapheme clusters to be precise).</p>
 </div>
@@ -2296,7 +2311,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_stringliteral">5.5. StringLiteral</h3>
+<h3 id="_stringliteral">5.6. StringLiteral</h3>
 <div class="paragraph">
 <p>When you directly provide strings in source code within double quotes or single quotes the value gets assigned the type <code>StringLiteral</code>.</p>
 </div>
@@ -2335,7 +2350,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_floatliteral">5.6. FloatLiteral</h3>
+<h3 id="_floatliteral">5.7. FloatLiteral</h3>
 <div class="paragraph">
 <p><code>FloatLiteral</code> is the type that Mojo compiler assigns to a value when you provide a decimal separated numeric value in the source code. The <code>FloatLiteral</code> is "double precision", which is represented with 64 bits. The mantissa part of the value is represented by 52 bits and the exponent part of the value is represented by 11 bits. The last remaining bit is used for sign.</p>
 </div>
@@ -2346,7 +2361,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float16">5.7. Float16</h3>
+<h3 id="_float16">5.8. Float16</h3>
 <div class="paragraph">
 <p><code>Float16</code> is a 16 bit floating point type, also know as "half precision". On some machines lower precision types can be much faster than higher precision types and so are quite useful if high precision is not important in your domain.</p>
 </div>
@@ -2357,7 +2372,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float32">5.8. Float32</h3>
+<h3 id="_float32">5.9. Float32</h3>
 <div class="paragraph">
 <p><code>Float32</code> is a 32 bit floating point type, also known as "single precision". This type has 23 bit mantissa, 8 bit exponent and the last bit used for sign.</p>
 </div>
@@ -2368,7 +2383,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float64">5.9. Float64</h3>
+<h3 id="_float64">5.10. Float64</h3>
 <div class="paragraph">
 <p><code>Float64</code> is a 64 bit floating point type, also known as "double precision". The 64 bits are distributed as 52 bits for mantissa, 11 bits for exponent and the last bit for sign. This is the same precision that <code>FloatLiteral</code> also has.</p>
 </div>
@@ -2379,7 +2394,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int8">5.10. Int8</h3>
+<h3 id="_int8">5.11. Int8</h3>
 <div class="paragraph">
 <p><code>Int8</code> is a signed integer represented with 8 bits. It has the range of values from -128 to 127. Integers represented with low number of bits save space in memory and also can be used to enforce supported range of values. Similar to floats, <code>Int8</code> reserves one bit to represent a positive or negative sign.</p>
 </div>
@@ -2390,9 +2405,9 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint8">5.11. UInt8</h3>
+<h3 id="_uint8">5.12. UInt8</h3>
 <div class="paragraph">
-<p>Similar to <code>Int8</code>, <code>UInt8</code> is represented by 8 bits. However, <code>UInt8</code> is <em>unsigned</em>, meaning it represents only positive integers, including <code>0</code>. Since it represents only positive integers, the one bit that is usually reserved for sign is free to be used to represent values. Therefore, the range of <code>UInt8</code> is from 0 to 255.</p>
+<p>Similar to <code>Int8</code>, <code>UInt8</code> is represented by 8 bits, but it is an unsigned integer. Since it is unsigned the range of <code>UInt8</code> is from 0 to 255.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2401,7 +2416,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int16">5.12. Int16</h3>
+<h3 id="_int16">5.13. Int16</h3>
 <div class="paragraph">
 <p><code>Int16</code> is represented with 16 bits. It has a range of values from -32,768 to 32,767.</p>
 </div>
@@ -2412,7 +2427,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint16">5.13. UInt16</h3>
+<h3 id="_uint16">5.14. UInt16</h3>
 <div class="paragraph">
 <p><code>UInt16</code> is also represented with 16 bits. It has a range of values from 0 to 65,535.</p>
 </div>
@@ -2423,7 +2438,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int32">5.14. Int32</h3>
+<h3 id="_int32">5.15. Int32</h3>
 <div class="paragraph">
 <p><code>Int32</code> is represented with 32 bits. It has a range of values from -2,147,483,648 to 2,147,483,647.</p>
 </div>
@@ -2434,7 +2449,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint32">5.15. UInt32</h3>
+<h3 id="_uint32">5.16. UInt32</h3>
 <div class="paragraph">
 <p><code>UInt32</code> is represented with 32 bits. It has a range of values from 0 to 4,294,967,295.</p>
 </div>
@@ -2445,7 +2460,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int64">5.16. Int64</h3>
+<h3 id="_int64">5.17. Int64</h3>
 <div class="paragraph">
 <p><code>Int64</code> is represented with 64 bits. It has a range of values from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.</p>
 </div>
@@ -2456,7 +2471,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint64">5.17. UInt64</h3>
+<h3 id="_uint64">5.18. UInt64</h3>
 <div class="paragraph">
 <p><code>UInt64</code> is represented with 64 bits. It has a range of values from 0 to 18,446,744,073,709,551,615.</p>
 </div>
@@ -2467,7 +2482,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bfloat16">5.18. BFloat16</h3>
+<h3 id="_bfloat16">5.19. BFloat16</h3>
 <div class="paragraph">
 <p><code>BFloat16</code> is represented with 16 bits. It is known as brain floating point. Its main use is in machine learning to increase the performance of ML algorithms.</p>
 </div>
@@ -2478,7 +2493,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_simd">5.19. SIMD</h3>
+<h3 id="_simd">5.20. SIMD</h3>
 <div class="paragraph">
 <p>SIMD standards for Single Instruction, Multiple Data. Processors that support SIMD allow for parallel processing of multiple data points using exactly the same instruction. SIMD was initially implemented for super computers but over a period of time, came to be used in desktop computers as multi media consumption on the desktops increased. The main benefit of SIMD is to perform vector and matrix operations, as many times the same operations need to be applied to many elements of those data structures.</p>
 </div>
@@ -2502,7 +2517,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dtype">5.20. DType</h3>
+<h3 id="_dtype">5.21. DType</h3>
 <div class="paragraph">
 <p>In the previous example you saw the initiation of a SIMD instance by passing a data type <code>DType.int8</code>. <code>DType</code> in Mojo provides a list of data types that are supported within Mojo. One of the uses of <code>DType</code> data types is to use data types as arguments to functions. <code>DType</code> also provides some operations that help in introspecting at runtime different attributes about the data type. <code>DType</code> is particularly useful in providing compile time optimization by creating specialized code for a particular type.</p>
 </div>
@@ -2520,7 +2535,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_safety">5.21. Type safety</h3>
+<h3 id="_type_safety">5.22. Type safety</h3>
 <div class="paragraph">
 <p>Let&#8217;s try something. Execute the following code in Mojo.</p>
 </div>
@@ -2548,7 +2563,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">var</span> <span class="n">string_val</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="k">var</span> <span class="n">string_val</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">string_val</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2557,7 +2572,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_object">5.22. object</h3>
+<h3 id="_object">5.23. object</h3>
 <div class="paragraph">
 <p>As you have seen earlier, Mojo is quite strict about types. How about the situation when you do not yet know or do not care about the type of the variable, but still want to perform some computation? Mojo provides <code>object</code> type for such cases.</p>
 </div>
@@ -2569,7 +2584,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>If you execute the above code, you would see the result <code>3.5</code> printed on screen. The reason why Mojo did not complain about the type incompatibility of arguments is that the <code>object</code> type has initializers for many builtin data types. Similar to the example mentioned above for <code>String</code>, Mojo calls the appropriate initializer in <code>object</code> corresponding to the type of the given value. If <code>object</code> does not have an initializer for a given type, then a value of that particular type cannot be assigned to variables of <code>object</code> type.</p>
+<p>If you execute the above code, you would see the result <code>3.5</code> printed on screen. The reason why Mojo did not complain about the type incompatibility of arguments is that the <code>object</code> type has initializers for many built-in data types. Similar to the example mentioned above for <code>String</code>, Mojo calls the appropriate initializer in <code>object</code> corresponding to the type of the given value. If <code>object</code> does not have an initializer for a given type, then a value of that particular type cannot be assigned to variables of <code>object</code> type.</p>
 </div>
 <div class="paragraph">
 <p>In the above case, <code>object</code> has initializers for both <code>Int</code> and <code>FloatLiteral</code>. Mojo then instantiates an <code>object</code> with <code>Int</code> and the other <code>object</code> with <code>FloatLiteral</code> as its underlying value.</p>
@@ -2579,7 +2594,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_tuple">5.23. Tuple</h3>
+<h3 id="_tuple">5.24. Tuple</h3>
 <div class="paragraph">
 <p><code>Tuple</code> in Mojo is an ordered sequence of values. A <code>Tuple</code> can have many elements of different types. Mojo uses <code>()</code> to represent <code>Tuple</code> literals in source code.</p>
 </div>
@@ -2639,7 +2654,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_listliteral">5.24. ListLiteral</h3>
+<h3 id="_listliteral">5.25. ListLiteral</h3>
 <div class="paragraph">
 <p>Similar to <code>Tuple</code>, Mojo also provides support for <code>ListLiteral</code>. A <code>ListLiteral</code> can have many elements of different types. Mojo uses <code>[]</code> to represent list literals in source code.</p>
 </div>
@@ -2657,13 +2672,13 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dictliteral">5.25. DictLiteral</h3>
+<h3 id="_dictliteral">5.26. DictLiteral</h3>
 <div class="paragraph">
 <p>To get an element of a dictionary, you can use subscript operator <code>[]</code>. Within the <code>[]</code> you can pass the key with which the dictionary is indexed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_inference">5.26. Type inference</h3>
+<h3 id="_type_inference">5.27. Type inference</h3>
 <div class="paragraph">
 <p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
 </div>
@@ -2685,7 +2700,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>

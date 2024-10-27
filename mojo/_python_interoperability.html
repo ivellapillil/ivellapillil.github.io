@@ -2153,23 +2153,25 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_lifecycle_and_ownership.html">12. Lifecycle and ownership</a>
+<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">13. Parameters and compile-time programming</a>
+<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">14. Advanced usage of functions</a>
+<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
-<li><a href="_python_interoperability.html"><span class="toc-current">15. Python interoperability</span></a>
+<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
+</li>
+<li><a href="_python_interoperability.html"><span class="toc-current">16. Python interoperability</span></a>
 <ul class="sectlevel2">
-<li><a href="_python_interoperability.html#_importing_a_python_module">15.1. Importing a Python module</a>
+<li><a href="_python_interoperability.html#_importing_a_python_module">16.1. Importing a Python module</a>
 </li>
-<li><a href="_python_interoperability.html#_evaluating_python_expressions">15.2. Evaluating Python expressions</a>
+<li><a href="_python_interoperability.html#_evaluating_python_expressions">16.2. Evaluating Python expressions</a>
 </li>
-<li><a href="_python_interoperability.html#_other_useful_python_functions">15.3. Other useful Python functions</a>
+<li><a href="_python_interoperability.html#_other_useful_python_functions">16.3. Other useful Python functions</a>
 </li>
 </ul>
 </li>
-<li><a href="_mlir_interoperability.html">16. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2180,16 +2182,16 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_python_interoperability">15. Python interoperability</h2>
+<h2 id="_python_interoperability">16. Python interoperability</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As mentioned in the beginning of this book, Mojo is a superset of Python. However, Mojo and Python are semantically two completely different languages, though they share the same syntax. Python has a huge ecosystem behind it, built over many decades. Mojo allows the developer to leverage this huge ecosystem, with its Python integration capability.</p>
+<p>As mentioned in the beginning of this book, Mojo is very close to Python in terms of syntax. However, Mojo and Python are semantically two completely different languages, though they share very similar syntax. Python has a huge ecosystem behind it, built over many decades. Mojo allows the developer to leverage this huge ecosystem, with its Python integration capability.</p>
 </div>
 <div class="paragraph">
 <p>The integration of Mojo with Python is built on a key insight that from a practical point of view, all Python objects can be represented with a single type. In Mojo it is represented by the <code>PythonObject</code> struct. Mojo uses the actual CPython interpreter for interoperability. The usage of CPython in Mojo enables high fidelity integration with Python, and ensures that the Python objects behave as expected.</p>
 </div>
 <div class="sect2">
-<h3 id="_importing_a_python_module">15.1. Importing a Python module</h3>
+<h3 id="_importing_a_python_module">16.1. Importing a Python module</h3>
 <div class="paragraph">
 <p>Mojo has module named <code>python</code> that encapsulates all of the Python integration. Within the <code>python</code> module, there is the facade object that provides the entry point for many of the Python integration capabilities.</p>
 </div>
@@ -2212,7 +2214,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_evaluating_python_expressions">15.2. Evaluating Python expressions</h3>
+<h3 id="_evaluating_python_expressions">16.2. Evaluating Python expressions</h3>
 <div class="paragraph">
 <p>You can evaluate Python expressions using <code>Python.evaluate</code> method.</p>
 </div>
@@ -2235,7 +2237,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_other_useful_python_functions">15.3. Other useful Python functions</h3>
+<h3 id="_other_useful_python_functions">16.3. Other useful Python functions</h3>
 <div class="paragraph">
 <p>You can use native Python objects like <code>list</code> and <code>dict</code> using corresponding static methods exposed by <code>Python</code>. <code>Python</code> also exposes <code>type</code> function from Python and can be used to determine the underlying type of the <code>PythonObject</code> struct.</p>
 </div>
@@ -2257,7 +2259,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-27 14:56:14 +0200
+Last updated 2024-10-25 12:09:09 +0200
 </div>
 </div>
 </body>
