@@ -2293,8 +2293,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
 </span>    <span class="nf">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
 </span>    <span class="n">x</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2332,8 +2339,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
         <span class="nf">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -2366,8 +2380,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">z</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span>
     <span class="nf">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
 </div>
@@ -2399,8 +2420,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></code></pre>
 </div>
@@ -2478,8 +2506,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12</span></code></pre>
 </div>
@@ -2500,8 +2535,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">var</span> <span class="n">ref_a2</span> <span class="o">=</span> <span class="n">ref_a</span> <span class="c1"># The same origin is copied onto the new pointer too
@@ -2525,8 +2567,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">var</span> <span class="n">another_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
@@ -2551,8 +2600,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2583,8 +2639,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
-</span>
-    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">def</span> <span class="nf">change_value2</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutableOrigin</span><span class="p">](</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">]):</span>

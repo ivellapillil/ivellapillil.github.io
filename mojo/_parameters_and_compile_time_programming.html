@@ -2520,8 +2520,15 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span>
-    <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10'
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10'
 </span>    <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10.5'</span></code></pre>
 </div>
 </div>
@@ -2538,8 +2545,15 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span>
-    <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 2'
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 2'
 </span>    <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 3'
 </span>    <span class="c1"># HelloCount[4]().hello() # Uncommenting this would result in error as there is no such overload</span></code></pre>
 </div>
