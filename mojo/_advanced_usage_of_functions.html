@@ -2390,7 +2390,7 @@ pre.rouge .gs {
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
 <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span></code></pre>
+    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2426,15 +2426,15 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>The following is an example of overloading by different number of arguments, even with the same type of arguments:</p>
+<p>The following is an example of overloading by keyword-only arguments, even with the same type and same number of arguments:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">sub</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">sub</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">-</span> <span class="n">c</span></code></pre>
+<span class="k">fn</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2442,9 +2442,61 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">subkw</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">subkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>One interesting thing to notice is the usage of "*" to force the keyword-only arguments. This is to avoid conflicts when using the functions with positional argument style.</p>
+</div>
+<div class="paragraph">
+<p>It also works with mixing positional and keyword arguments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">addposkw</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="k">fn</span> <span class="nf">addposkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage of the overloaded functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">addposkw</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">addposkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also overload functions by indices.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyArray</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">idx</span>
+
+    <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">anotheridx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">anotheridx</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage of the overloaded functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">arr</span> <span class="o">=</span> <span class="nc">MyArray</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Prints 1
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">anotheridx</span><span class="o">=</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># Prints 2</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same technique also works on <code>__setitem__</code>.</p>
 </div>
 </div>
 </div>

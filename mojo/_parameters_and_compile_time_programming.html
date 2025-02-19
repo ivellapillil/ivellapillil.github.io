@@ -2293,7 +2293,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">add_ints</span><span class="p">[</span><span class="n">IntType</span><span class="p">:</span> <span class="n">Intable</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">IntType</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">IntType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nf">int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
+    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nc">Int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2342,7 +2342,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 
     <span class="k">var</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">scheme</span>
 
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
@@ -2352,11 +2352,11 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     
     <span class="k">var</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
     
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nf">str</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span> <span class="o">+</span> <span class="sh">"</span><span class="s">://</span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">location</span></code></pre>
+        <span class="k">return</span> <span class="nc">String</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span> <span class="o">+</span> <span class="sh">"</span><span class="s">://</span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">location</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2365,7 +2365,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2382,7 +2382,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location2</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2402,7 +2402,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location3</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">](</span><span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2477,8 +2477,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span><span class="p">,</span> <span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">]:</span>
     <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nc">Int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">get_value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
@@ -2514,7 +2514,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]:</span>
     
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
     <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
@@ -2539,7 +2539,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloCount</span><span class="p">[</span><span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
     
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
     <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>

@@ -2205,7 +2205,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span> <span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span> <span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">i1</span><span class="p">]()</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
             <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -2213,11 +2213,11 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">var</span> <span class="n">s</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">0b</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="nf">str</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span>
         <span class="k">return</span> <span class="n">s</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nc">BitList</span><span class="p">(</span><span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">)))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="nc">BitList</span><span class="p">(</span><span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_0</span><span class="p">,</span> <span class="n">_1</span><span class="p">)))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2258,7 +2258,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">s</span> <span class="o">+=</span> <span class="nf">str</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">s</span> <span class="o">+=</span> <span class="nc">String</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="nb">__mlir_op</span><span class="p">.</span><span class="sb">`index.castu`</span><span class="p">[</span><span class="n">_type</span><span class="o">=</span><span class="nb">__mlir_type</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">i</span><span class="p">[])))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

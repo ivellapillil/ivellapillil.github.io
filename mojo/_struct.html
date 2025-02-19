@@ -2193,7 +2193,7 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mickey</span><span class="sh">"</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mouse</span><span class="sh">"</span>
 
@@ -2208,7 +2208,7 @@ pre.rouge .gs {
 <p>You may have noticed that we have defined a method <code><em>init</em></code>. This is the initializer or in other languages known as the constructor. In order for a struct to be used in a program, we need to define a method that initializes the struct. The main responsibility of the initializer is to setup the struct in a valid state and to ensure that all the member variables also have a valid state. If we omit the initializer, the compiler would complain that <code><em>init</em></code> is missing.</p>
 </div>
 <div class="paragraph">
-<p>In the <code><em>init</em></code> method, the first argument is mandatory and it is named <code>self</code> by convention. It does not really matter whether you call the first argument <code>self</code> or some other name as Mojo would accept any other name. However, Mojo adopts the same convention as Python and calls the first argument <code>self</code>. It is highly recommended to follow that convention as it makes the code easier to read and understand by other programmers. The first argument also has a keyword <code>inout</code>. For <code><em>init</em></code> methods, it is mandatory to have <code>inout</code> keyword in front of the first <code>self</code> argument. It indicates to Mojo that the <code>self</code> is mutable reference. We will cover this later on in this book.</p>
+<p>In the <code><em>init</em></code> method, the first argument is mandatory and it is named <code>self</code> by convention. It does not really matter whether you call the first argument <code>self</code> or some other name as Mojo would accept any other name. However, Mojo adopts the same convention as Python and calls the first argument <code>self</code>. It is highly recommended to follow that convention as it makes the code easier to read and understand by other programmers. The first argument also has a keyword <code>out</code>. For <code><em>init</em></code> methods, it is mandatory to have <code>out</code> keyword in front of the first <code>self</code> argument. It indicates to Mojo that the <code>self</code> is initialized in this method and is returned by the method. We will cover this later on in this book.</p>
 </div>
 <div class="paragraph">
 <p>To refer to the member variables of a strut, we need to prefix the variable with <code>self.</code>. Mojo allows new variables to be defined with the same names if the scope of the variable is different. The prefix <code>self.</code> makes it possible for the Mojo compiler to determine that the struct&#8217;s member variable is being referred to and not to another variable of the same name in the function scope.</p>
@@ -2239,11 +2239,11 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mickey</span><span class="sh">"</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mouse</span><span class="sh">"</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="c1"># Second initializer
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="c1"># Second initializer
 </span>        <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">fname</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="n">lname</span>
 
@@ -2274,7 +2274,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Vehicle</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
 
     <span class="k">fn</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
@@ -2309,7 +2309,7 @@ pre.rouge .gs {
 <p>You may have noticed that assignment <code>var x: String = "A string literal" ` works, even though we saw earlier that anything within the double quotes `""</code> is of type <code>StringLiteral</code>. The above assignment works because Mojo has support for implicit conversions.</p>
 </div>
 <div class="paragraph">
-<p>Mojo has a very simple approach for implicit conversions. Suppose that <code>struct A</code> has an initializer that takes an argument with type of <code>StringLiteral</code>. Then when we assign a <code>StringLiteral</code> to a variable of type <code>A</code>, it implicitly calls that initializer, resulting in initialization of the variable with an instance of <code>A</code> with that given string literal passed as an argument.</p>
+<p>Implicit conversions are an automatic way to convert one type to another type without explicitly specifying the conversion. Mojo has a decorator <code>@implicit</code> for implicit conversions. Suppose that <code>struct A</code> has an initializer decorated with <code>@implicit</code> that takes an argument with type of <code>StringLiteral</code>. Then when we assign a <code>StringLiteral</code> to a variable of type <code>A</code>, it implicitly calls that initializer, resulting in initialization of the variable with an instance of <code>A</code> with that given string literal passed as an argument.</p>
 </div>
 <div class="paragraph">
 <p>The following examples makes it more clear.</p>
@@ -2319,7 +2319,8 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Vehicle</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">):</span>
+    <span class="nd">@implicit</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
 
     <span class="k">fn</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
@@ -2329,6 +2330,9 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">v</span><span class="p">:</span> <span class="n">Vehicle</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Ford</span><span class="sh">"</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="nf">get_model</span><span class="p">())</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>More details on decorators will be covered in a later chapter.</p>
 </div>
 </div>
 </div>

@@ -2376,8 +2376,8 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="bp">True</span><span class="p">:</span> <span class="c1"># Please ignore the warning for the moment
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">inner x:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">inner y:</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>

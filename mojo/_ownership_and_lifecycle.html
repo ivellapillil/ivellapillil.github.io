@@ -2157,19 +2157,21 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="_ownership_and_lifecycle.html#_pass_by_value_and_pass_by_reference">12.1. Pass by value and pass by reference</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_borrowed">12.2. borrowed</a>
+<li><a href="_ownership_and_lifecycle.html#_read">12.2. read</a>
 </li>
 <li><a href="_ownership_and_lifecycle.html#_owned">12.3. owned</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_inout">12.4. inout</a>
+<li><a href="_ownership_and_lifecycle.html#_mut">12.4. mut</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_init">12.5. <code>__init__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_out">12.5. out</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_del">12.6. <code>__del__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_init">12.6. <code>__init__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_copyinit">12.7. <code>__copyinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_del">12.7. <code>__del__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_moveinit">12.8. <code>__moveinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_copyinit">12.8. <code>__copyinit__</code></a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_moveinit">12.9. <code>__moveinit__</code></a>
 </li>
 </ul>
 </li>
@@ -2213,22 +2215,38 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_borrowed">12.2. borrowed</h3>
+<h3 id="_read">12.2. read</h3>
 <div class="paragraph">
-<p>The borrowed keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>borrowed</code> keyword is not necessary to be given.</p>
+<p>The <code>read</code> keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>read</code> keyword is not necessary to be given.</p>
 </div>
 <div class="paragraph">
-<p>When an argument is borrowed, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
+<p>When an argument is marked as <code>read</code>, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_read</span><span class="p">(</span><span class="n">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="bp">...</span>
+<span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also read
+</span>    <span class="bp">...</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>In <code>def</code> functions, you may find that Mojo seemingly allows mutation of the arguments. However, behind the scenes, it is performing a copy-on-write. This means that the argument is copied transparently to the developer, and the original argument is left intact. This is done so that for the developer the <code>def</code> function feels similar to how it works in Python.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_borrowed</span><span class="p">(</span><span class="k">borrowed</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-    <span class="bp">...</span>
-<span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also borrowed
-</span>    <span class="bp">...</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">cow</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+    <span class="n">val</span> <span class="o">=</span> <span class="mi">20</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="nf">cow</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints 10</span></code></pre>
 </div>
 </div>
 </div>
@@ -2248,30 +2266,45 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_inout">12.4. inout</h3>
+<h3 id="_mut">12.4. mut</h3>
 <div class="paragraph">
-<p>The <code>inout</code> keyword indicates that the function will potentially mutate the value within the passed reference. The difference from <code>owned</code> references is that the <code>inout</code> arguments are implicitly returned by the function. That is, the function cannot return an uninitialized <code>inout</code> argument. If the value within the <code>inout</code> reference is destructed, then another value must be assigned to the argument before the function returns.</p>
-</div>
-<div class="paragraph">
-<p>To move a reference, the caret <code>^</code> operator is used.</p>
+<p>The <code>mut</code> keyword indicates that the function will potentially mutate the value within the passed reference. The difference from <code>owned</code> references is that while <code>owned</code> arguments may get copied as needed, the <code>mut</code> arguments are not copied.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_inout</span><span class="p">(</span><span class="k">inout</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-    <span class="bp">...</span>
-
-<span class="k">fn</span> <span class="nf">value_inout_return</span><span class="p">(</span><span class="k">inout</span> <span class="n">val</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">val</span><span class="o">^</span> <span class="c1"># Effectively destruct the value. Now the reference is uninitialized
-</span>    <span class="n">val</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># We have to assign a value otherwise Mojo compiler would complain
-</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_mut</span><span class="p">(</span><span class="n">mut</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="bp">...</span></code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_out">12.5. out</h3>
+<div class="paragraph">
+<p>The <code>out</code> keyword indicates that the function will initialize a value into the passed reference. The <code>out</code> arguments are <em>implicitly</em> returned by the function. That is, the function cannot return an uninitialized <code>out</code> argument. The caller of the function that takes <code>out</code> arguments will allocate a store for the callee and pass it to the callee. The callee will then initialize the value into the store. The callee does not need to return the value, as the value is already stored in the location passed by the caller. This is sometimes useful when we want to improve performance by avoiding moving or copying the value on return.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_out</span><span class="p">(</span><span class="n">out</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">value_out</span><span class="p">())</span> <span class="c1"># Prints 10</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that at the usage site, we are not passing any argument to the function <code>value_out</code>. The compiler instead allocates a storage for the value and passes that storage location to the function <code>value_out</code>. The function <code>value_out</code> then initializes the value into the storage location. The value is then available to the caller at the location passed to the function.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s now look into the lifecycle methods. We start with one that we are already familiar with: the <code><em>init</em></code> method.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_init">12.5. <code>__init__</code></h3>
+<h3 id="_init">12.6. <code>__init__</code></h3>
 <div class="paragraph">
 <p>The init method is part of the lifecycle of a struct. The main purpose of <code><em>init</em></code> is to initialize all its member variables (a.k.a fields).</p>
 </div>
@@ -2282,7 +2315,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2300,14 +2333,14 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, we defined a <code>struct</code> and the <code><em>init</em></code> method within it. The first argument of the <code><em>init</em></code> method is always <code>self</code> with a modifier <code>inout</code>. The <code>self</code> is a reference to the struct&#8217;s own instance. The <code>inout</code> tells the compiler that the <code>self</code> is mutable (i.e., we can change the field values held within <code>self</code>). In Mojo, the function arguments are <em>by default read-only</em>, and we cannot change the values of the function argument. The <code>inout</code> is needed for <code>self</code> so that we are able to initialize the fields within the struct. Since one of the main responsibility of <code><em>init</em></code> is to initialize the fields of the struct, we naturally need to mark it as <code>inout</code>.</p>
+<p>In this example, we defined a <code>struct</code> and the <code><em>init</em></code> method within it. The first argument of the <code><em>init</em></code> method is always <code>self</code> with a modifier <code>out</code>. The <code>self</code> is a reference to the struct&#8217;s own instance that is going to be created. The <code>out</code> tells the compiler that the <code>self</code> is to be initiated and returned by the method (i.e., we can change the field values held within <code>self</code> and <code>self</code> is returned). In Mojo, the function arguments are <em>by default read-only</em>, and we cannot change the values of the function argument. The <code>out</code> is needed for <code>self</code> so that we are able to initialize the fields within the struct. Since one of the main responsibility of <code><em>init</em></code> is to initialize the fields of the struct and return it, we naturally need to mark it as <code>out</code>. This implies that the <code><em>init</em></code> method is like a static method on <code>Self</code>, that returns an instance of <code>Self</code>.</p>
 </div>
 <div class="paragraph">
-<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the function <code>initialize_pointee_move</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
+<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the method <code>init_pointee_move</code> on the <code>UnsafePointer</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_del">12.6. <code>__del__</code></h3>
+<h3 id="_del">12.7. <code>__del__</code></h3>
 <div class="paragraph">
 <p>The delete method <code><em>del</em></code> is also part of the lifecycle of a struct. If the init method is used to initialize variables or to allocate resources for that struct, the delete method is used to release the resources held for that struct. For example, if init method allocates memory from the heap, the delete method is used to free that memory. The <code><em>del</em></code> method is called just before the value is going to be destroyed by the compiler. If we allocate resources in the init method and do not release or free those resources in the delete method, we end up with resource leaks such as memory leaks. So great care must be taken to symmetrically allocate and free resources using the init and delete methods.</p>
 </div>
@@ -2318,7 +2351,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2343,7 +2376,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_eager_destruction">12.6.1. Eager destruction</h4>
+<h4 id="_eager_destruction">12.7.1. Eager destruction</h4>
 <div class="paragraph">
 <p>Unlike many other languages, Mojo has an eager destruction approach. This means that a value or object is destroyed as soon as its last use is over. This is in contrast with many system languages where the values or objects are destroyed at the end of the scope of a given block. This approach allowed Mojo to have a much simpler lifecycle management, improving overall ergonomics of the language.</p>
 </div>
@@ -2362,7 +2395,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_copyinit">12.7. <code>__copyinit__</code></h3>
+<h3 id="_copyinit">12.8. <code>__copyinit__</code></h3>
 <div class="paragraph">
 <p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages.</p>
 </div>
@@ -2376,7 +2409,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2389,7 +2422,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
@@ -2414,7 +2447,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_moveinit">12.8. <code>__moveinit__</code></h3>
+<h3 id="_moveinit">12.9. <code>__moveinit__</code></h3>
 <div class="paragraph">
 <p>Mojo invokes the <code><em>moveinit</em></code> for cases where a value needs to be physically moved. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>copyinit</em></code>, <code><em>moveinit</em></code> has the second argument annotated with <code>owned</code>. The <code>owned</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In <code><em>moveinit</em></code>, we reassign the values from the <code>other</code> struct to the struct which defines the <code><em>moveinit</em></code>.</p>
 </div>
@@ -2424,9 +2457,12 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>Move operations are particularly useful for cases where copy operations are expensive. For example, in Mojo move semantics are used for <code>String</code>. This ensures that the string operations are as much efficient as possible.</p>
 </div>
+<div class="paragraph">
+<p>To move a reference, the caret <code>^</code> operator is used.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">inout</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span>
         <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span></code></pre>
 </div>
