@@ -2224,7 +2224,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_read</span><span class="p">(</span><span class="n">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_read</span><span class="p">(</span><span class="k">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span>
 <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also read
 </span>    <span class="bp">...</span></code></pre>
@@ -2272,7 +2272,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_mut</span><span class="p">(</span><span class="n">mut</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_mut</span><span class="p">(</span><span class="k">mut</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span></code></pre>
 </div>
 </div>
@@ -2284,7 +2284,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_out</span><span class="p">(</span><span class="n">out</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_out</span><span class="p">(</span><span class="k">out</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span></code></pre>
 </div>
 </div>
@@ -2315,7 +2315,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2351,7 +2351,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2409,7 +2409,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -2422,7 +2422,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
@@ -2462,7 +2462,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span>
         <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span></code></pre>
 </div>

@@ -2199,11 +2199,11 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">Flyable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Soar into the sky</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">struct</span> <span class="nc">Plane</span><span class="p">(</span><span class="n">Flyable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Jet set go</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">fn</span> <span class="n">fly_it</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span><span class="p">](</span><span class="n">f</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
@@ -2239,12 +2239,12 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Fly to the sky</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk on the ground</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">struct</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Walkable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk carefully</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
@@ -2267,7 +2267,7 @@ pre.rouge .gs {
 <span class="k">trait</span> <span class="nc">WalkableFlyable</span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">WalkableFlyable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Fly to the sky</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Walk on the ground</span><span class="sh">"</span><span class="p">)</span>
 
@@ -2289,13 +2289,13 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
     <span class="nd">@staticmethod</span>
     <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">struct</span> <span class="nc">Bye</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
     <span class="nd">@staticmethod</span>
     <span class="k">fn</span> <span class="nf">default_message</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Goodbye</span><span class="sh">"</span><span class="p">)</span>
@@ -2325,7 +2325,7 @@ pre.rouge .gs {
     <span class="k">alias</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Int</span>
     <span class="k">alias</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">2</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
     <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">HelloInt</span><span class="sh">"</span><span class="p">)</span>
@@ -2336,7 +2336,7 @@ pre.rouge .gs {
     <span class="k">alias</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Float16</span>
     <span class="k">alias</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">3</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
     <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">HelloFloat</span><span class="sh">"</span><span class="p">)</span>

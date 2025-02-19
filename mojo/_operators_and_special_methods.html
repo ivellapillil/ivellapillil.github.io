@@ -2238,14 +2238,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__add__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2256,7 +2256,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">radd invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">+</span> <span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">))</span>
 
-    <span class="k">fn</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">iadd invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -2312,14 +2312,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__sub__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2330,7 +2330,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rsub invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Order matters for subtraction; it is not commutative. 
 </span>
-    <span class="k">fn</span> <span class="nf">__isub__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__isub__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">isub invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -2383,14 +2383,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
 
@@ -2402,7 +2402,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rmul invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">*</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Will truncate 
 </span>
-    <span class="k">fn</span> <span class="nf">__imul__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__imul__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">imul invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -2457,7 +2457,7 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span>
     <span class="k">var</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span>
@@ -2472,7 +2472,7 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span>
     <span class="k">var</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span>
@@ -2529,7 +2529,7 @@ pre.rouge .gs {
 
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">rows</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">cols</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__imatmul__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span> <span class="c1"># Naive implementation - not for production use
+    <span class="k">fn</span> <span class="nf">__imatmul__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span> <span class="c1"># Naive implementation - not for production use
 </span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">imatmul invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">var</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Self</span><span class="p">.</span><span class="nf">_matmul_internal</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">res</span><span class="p">.</span><span class="n">val</span>
@@ -2597,14 +2597,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
 
@@ -2616,7 +2616,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rtruediv invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__itruediv__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__itruediv__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">itruediv invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="nc">Int</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Will truncate 
 </span></code></pre>
@@ -2670,14 +2670,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
 
@@ -2689,7 +2689,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rfloordiv invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">//</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__ifloordiv__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__ifloordiv__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ifloordiv invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">//</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>  </code></pre>
 </div>
@@ -2745,14 +2745,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
 
@@ -2764,7 +2764,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rmod invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">%</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__imod__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__imod__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">imod invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">%</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>  </code></pre>
 </div>
@@ -2811,7 +2811,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
 
@@ -2819,7 +2819,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">pow invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">**</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__ipow__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__ipow__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ipow invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">**=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>  </code></pre>
 </div>
@@ -2857,7 +2857,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__neg__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2888,7 +2888,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__pos__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2919,7 +2919,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__invert__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2971,14 +2971,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__lshift__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -2989,7 +2989,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rlshift invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__ilshift__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__ilshift__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ilshift invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;&lt;=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -3036,14 +3036,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__rshift__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -3054,7 +3054,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rrshift invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__irshift__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__irshift__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">irshift invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">&gt;&gt;=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -3101,14 +3101,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__and__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -3119,7 +3119,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rand invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">&amp;</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__iand__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__iand__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">iand invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">&amp;=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -3166,14 +3166,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__or__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -3184,7 +3184,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ror invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">|</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__ior__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__ior__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ior invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">|=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -3231,14 +3231,14 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Float64</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Float64</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
 
 <span class="k">struct</span> <span class="n">MyInt</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__xor__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
@@ -3249,7 +3249,7 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">rxor invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="nc">Self</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="o">^</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__ixor__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__ixor__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">ixor invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">^=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span></code></pre>
 </div>
@@ -3290,7 +3290,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__eq__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3321,7 +3321,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__ne__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3353,7 +3353,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__lt__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3384,7 +3384,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__gt__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3415,7 +3415,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__le__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3446,7 +3446,7 @@ pre.rouge .gs {
 
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
 
     <span class="k">fn</span> <span class="nf">__ge__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3492,13 +3492,13 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyCollection</span><span class="p">:</span>
     <span class="k">var</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
         <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span>
 
     <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="nb">list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> 
 
-    <span class="k">fn</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="nb">list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></code></pre>
 </div>
 </div>
@@ -3527,7 +3527,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span>
     <span class="k">var</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]](</span><span class="n">capacity</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span>
@@ -3539,7 +3539,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
     
-    <span class="k">fn</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span></code></pre>
 </div>
 </div>
@@ -3582,7 +3582,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MySliceableCollection</span><span class="p">:</span>
     <span class="k">var</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
         <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span>
 
     <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">slc</span><span class="p">:</span> <span class="n">Slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]:</span>
@@ -3667,7 +3667,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 
     <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">fn</span> <span class="nf">open</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> 
@@ -3676,13 +3676,13 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">fn</span> <span class="nf">close</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Close</span><span class="sh">"</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="n">Resource</span><span class="p">):</span> 
+    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span><span class="n">Resource</span><span class="p">):</span> 
         <span class="k">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">name</span>
 
 <span class="k">struct</span> <span class="n">MyResourceManager</span><span class="p">:</span>
 
     <span class="k">var</span> <span class="n">resource</span><span class="p">:</span> <span class="n">Resource</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">):</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> 
         <span class="k">self</span><span class="p">.</span><span class="n">resource</span> <span class="o">=</span> <span class="nc">Resource</span><span class="p">(</span><span class="sh">"</span><span class="s">a_resource</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">__enter__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Resource</span><span class="p">:</span>
@@ -3755,7 +3755,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 
     <span class="k">var</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span>
     
     <span class="k">fn</span> <span class="nf">__len__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -3777,15 +3777,15 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">str called</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="sh">"</span><span class="s">MyStruct</span><span class="sh">"</span>
     
-    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
         <span class="c1"># Ignore this method for now
 </span>        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ints</span>
     
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
         <span class="c1"># Ignore this method for now
 </span>        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ints</span><span class="o">^</span>
     
-    <span class="k">fn</span> <span class="n">write_to</span><span class="p">[</span><span class="n">W</span><span class="p">:</span> <span class="n">Writer</span><span class="p">](</span><span class="k">self</span><span class="p">,</span> <span class="n">mut</span> <span class="n">writer</span><span class="p">:</span> <span class="n">W</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="n">write_to</span><span class="p">[</span><span class="n">W</span><span class="p">:</span> <span class="n">Writer</span><span class="p">](</span><span class="k">self</span><span class="p">,</span> <span class="k">mut</span> <span class="n">writer</span><span class="p">:</span> <span class="n">W</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">write_to called</span><span class="sh">"</span><span class="p">)</span>
         <span class="n">writer</span><span class="p">.</span><span class="nf">write_bytes</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct</span><span class="sh">"</span><span class="p">.</span><span class="nf">as_bytes</span><span class="p">())</span></code></pre>
 </div>
@@ -3827,7 +3827,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 
     <span class="k">var</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
         <span class="k">self</span><span class="p">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">ptr</span>
 
     <span class="k">fn</span> <span class="nf">__is__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3875,13 +3875,13 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 
     <span class="k">var</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">fields</span> <span class="o">=</span> <span class="n">fields</span>
     
     <span class="k">fn</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">fields</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="n">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
         <span class="k">self</span><span class="p">.</span><span class="n">fields</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></code></pre>
 </div>
 </div>
@@ -3916,7 +3916,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 
     <span class="k">var</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span>
     
     <span class="k">fn</span> <span class="nf">__contains__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3946,7 +3946,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">first_name</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="n">last_name</span>
     
