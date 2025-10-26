@@ -2043,6 +2043,10 @@ pre.rouge .gi {
   color: #116329;
   background-color: #dafbe1;
 }
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
+}
 pre.rouge .kc {
   color: #0550ae;
 }
@@ -2345,7 +2349,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__del__</span><span class="p">(</span><span class="n">deinit</span> <span class="k">self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
 </div>
@@ -2444,7 +2448,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
 </div>

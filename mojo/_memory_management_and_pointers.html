@@ -2043,6 +2043,10 @@ pre.rouge .gi {
   color: #116329;
   background-color: #dafbe1;
 }
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
+}
 pre.rouge .kc {
   color: #0550ae;
 }
@@ -2290,7 +2294,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2339,7 +2343,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2380,7 +2384,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2420,7 +2424,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
