@@ -2227,7 +2227,7 @@ pre.rouge .gs {
 <p>The <code>__iadd__</code> method is called in-place addition and represents arithmetic addition "=". Even if you implement just `\\__add__` and do not implement `\\__iadd__`, the "=" operation would still work as Mojo will just use <code>__add__</code> as the fallback. However, typically <code>__add__</code> returns a new instance of the result. In case of large structs (structs with many fields), it could entail a lot of copy operations. The in-place addition can directly change the struct&#8217;s internal data, resulting in an efficient execution of the addition method. The <code>__iadd__</code> therefore does not have a return value as it updates the struct itself.</p>
 </div>
 <div class="paragraph">
-<p>Since the struct' internal value is mutated, we need to use one of the <code>mut</code> or <code>owned</code> references of <code>self</code> in the method.</p>
+<p>Since the struct' internal value is mutated, we need to use one of the <code>mut</code> or <code>var</code> references of <code>self</code> in the method.</p>
 </div>
 <div class="paragraph">
 <p>The following code listing shows the different operations. Please note that these examples are not meant for production use, as it is intentionally kept incomplete for simplicity&#8217;s sake.</p>
@@ -2458,7 +2458,7 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span>
 
@@ -2473,7 +2473,7 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]],</span> <span class="n">rows</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span>    
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span>
     
@@ -2486,8 +2486,8 @@ pre.rouge .gs {
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Rows:</span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">rows</span><span class="p">,</span> <span class="sh">"</span><span class="s">Cols:</span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">cols</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="k">self</span><span class="p">.</span><span class="n">val</span><span class="p">:</span>
             <span class="nf">print</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[]:</span>
-                <span class="nf">print</span><span class="p">(</span><span class="n">col</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
         <span class="nf">print</span><span class="p">()</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">----</span><span class="sh">"</span><span class="p">)</span>
 
@@ -2532,7 +2532,7 @@ pre.rouge .gs {
     <span class="k">fn</span> <span class="nf">__imatmul__</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span> <span class="c1"># Naive implementation - not for production use
 </span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">imatmul invoked</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">var</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Self</span><span class="p">.</span><span class="nf">_matmul_internal</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">res</span><span class="p">.</span><span class="n">val</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">res</span><span class="p">.</span><span class="n">val</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">res</span><span class="p">.</span><span class="n">rows</span>
         <span class="k">self</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">res</span><span class="p">.</span><span class="n">cols</span></code></pre>
 </div>
@@ -3493,7 +3493,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
-        <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span>
+        <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
 
     <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="nb">list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> 
@@ -3583,7 +3583,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]):</span>
-        <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span>
+        <span class="k">self</span><span class="p">.</span><span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
 
     <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">slc</span><span class="p">:</span> <span class="n">Slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">String</span><span class="p">]:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="nb">list</span><span class="p">[</span><span class="n">slc</span><span class="p">.</span><span class="n">start</span><span class="p">:</span><span class="n">slc</span><span class="p">.</span><span class="n">end</span><span class="p">:</span><span class="n">slc</span><span class="p">.</span><span class="n">step</span><span class="p">]</span></code></pre>
@@ -3604,25 +3604,25 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
         <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
         <span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[],</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">()</span></code></pre>
 </div>
 </div>
@@ -3663,7 +3663,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Resource</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">Resource</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
 
@@ -3756,7 +3756,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
     
     <span class="k">fn</span> <span class="nf">__len__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">len called</span><span class="sh">"</span><span class="p">)</span>
@@ -3779,9 +3779,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
         <span class="c1"># Ignore this method for now
-</span>        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ints</span>
+</span>        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ints</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
     
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">):</span>
         <span class="c1"># Ignore this method for now
 </span>        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ints</span><span class="o">^</span>
     
@@ -3821,13 +3821,13 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">Pointer</span>
 
-<span class="k">struct</span> <span class="n">MyStruct</span><span class="p">:</span>
+<span class="k">struct</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">o</span><span class="p">:</span><span class="n">ImmutableOrigin</span><span class="p">]:</span>
 
-    <span class="k">var</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">o</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">o</span><span class="p">]):</span> 
         <span class="k">self</span><span class="p">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">ptr</span>
 
     <span class="k">fn</span> <span class="nf">__is__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">MyStruct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
@@ -3846,9 +3846,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in False
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Results in True
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">UnsafePointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in True</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in False
+</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Results in True
+</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in True</span></code></pre>
 </div>
 </div>
 </div>
@@ -3876,7 +3876,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">fields</span> <span class="o">=</span> <span class="n">fields</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">fields</span> <span class="o">=</span> <span class="n">fields</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
     
     <span class="k">fn</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">fields</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
@@ -3917,11 +3917,11 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">ints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">ints</span> <span class="o">=</span> <span class="n">ints</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
     
     <span class="k">fn</span> <span class="nf">__contains__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="k">self</span><span class="p">.</span><span class="n">ints</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">i</span><span class="p">[]</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">False</span></code></pre>
 </div>
@@ -3964,6 +3964,41 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Kri</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns True
 </span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns False</span></code></pre>
 </div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_merge_with"><code>__merge_with__</code></h5>
+<div class="paragraph">
+<p>We saw that to convert a type from one type to another, we can use <code>@implicit</code> decorator to perform an implicit conversion without any in-built language support. However, thre are limitations to implicit conversions. For example, if the type we define cannot not have a single value constructor, then we cannot use implicit conversion. In such cases, we can use the <code>__merge_with__</code> method to convert from one type to another. Please note that it is not a full replacement for implicit conversion, but it is useful in some scenarios.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyStruct</span><span class="p">:</span>
+
+    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="k">var</span> <span class="n">denom</span><span class="p">:</span> <span class="n">Int</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">denom</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">denom</span> <span class="o">=</span> <span class="n">denom</span>
+    
+    <span class="k">fn</span> <span class="n">__merge_with__</span><span class="p">[</span><span class="n">other_type</span><span class="p">:</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">Int</span><span class="p">)](</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">num</span><span class="o">/</span><span class="k">self</span><span class="p">.</span><span class="n">denom</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="n">my_struct</span> <span class="c1"># Uses __merge_with__ to convert my_struct to Int
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Prints 2</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the variable <code>result</code> is inferred to be of type <code>Int</code> because the <code>MyStruct</code> has a <code><em>merge_with</em></code> method that converts it to <code>Int</code>.</p>
 </div>
 </div>
 </div>

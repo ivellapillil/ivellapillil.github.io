@@ -2147,9 +2147,11 @@ pre.rouge .gs {
 </li>
 <li><a href="_constants_and_variables.html#_undeclared_variables">4.4. Undeclared variables</a>
 </li>
-<li><a href="_constants_and_variables.html#_variable_scoping">4.5. Variable scoping</a>
+<li><a href="_constants_and_variables.html#_unused_variables">4.5. Unused variables</a>
 </li>
-<li><a href="_constants_and_variables.html#_non_standard_identifiers">4.6. Non-standard identifiers</a>
+<li><a href="_constants_and_variables.html#_variable_scoping">4.6. Variable scoping</a>
+</li>
+<li><a href="_constants_and_variables.html#_non_standard_identifiers">4.7. Non-standard identifiers</a>
 </li>
 </ul>
 </li>
@@ -2200,13 +2202,13 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span>
 
-<span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<span class="k">fn</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">circumference</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">area</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span></code></pre>
 </div>
@@ -2221,10 +2223,10 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
 
-<span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span>
 
-<span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -2354,7 +2356,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <div class="sect2">
 <h3 id="_undeclared_variables">4.4. Undeclared variables</h3>
 <div class="paragraph">
-<p>Mojo allows variables to be defined without the <code>var</code> keyword. However, that works only within <code>def</code> functions. <code>fn</code> functions are strict regarding declaration of variables and require <code>var</code> keyword.</p>
+<p>Mojo allows variables to be defined without the <code>var</code> keyword.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2367,15 +2369,33 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variable_scoping">4.5. Variable scoping</h3>
+<h3 id="_unused_variables">4.5. Unused variables</h3>
+<div class="paragraph">
+<p>Usually in Mojo, when you define a variable, it is expected that the variable will be used later in the program. If a variable is defined but not used later, then the compiler emits a warning. If you want to define a variable but do not intend to use it later, then you can use underscore <code>_</code> as the variable name. This will suppress the warning. This is useful in cases where you want to call a function that returns multiple values but you are interested in only some of the returned values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">var</span> <span class="n">_</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Compiler emits a warning that 'a' is unused
+</span>    <span class="k">var</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="c1"># No warning for '_'
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above program also demonstrates multiple assignment of values to variables.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_variable_scoping">4.6. Variable scoping</h3>
 <div class="paragraph">
 <p>Scoping of a variable means which part of the program sees what value of the variable, and whether or not the variable is even valid at that location. In Mojo functions, a variable can have either a lexical scope or the function scope.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Please ignore the warning for the moment
+</span>    <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="bp">True</span><span class="p">:</span> <span class="c1"># Please ignore the warning for the moment
 </span>        <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">inner x:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -2401,7 +2421,7 @@ outer y: 1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_non_standard_identifiers">4.6. Non-standard identifiers</h3>
+<h3 id="_non_standard_identifiers">4.7. Non-standard identifiers</h3>
 <div class="paragraph">
 <p>As mentioned in the beginning of the book, Mojo is very close to Python. However, there are Mojo keywords that are valid Python identifiers. Since Mojo aims to have a syntax that is very close to Python, Mojo allows for such variables to be defined within backticks <code>``</code>. In fact, any kind of text could be used as a variable or function name in Mojo if it is within backticks.</p>
 </div>

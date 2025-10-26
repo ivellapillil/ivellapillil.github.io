@@ -2175,9 +2175,13 @@ pre.rouge .gs {
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">14.8. Parameters in structs, traits</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">14.9. Conditional conformance</a>
+<li><a href="_parameters_and_compile_time_programming.html#_trait_composition">14.9. Trait composition</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">14.10. Custom compile-time checks</a>
+<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">14.10. Conditional conformance</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_where_clauses">14.11. <code>where</code> clauses</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">14.12. Custom compile-time checks</a>
 </li>
 </ul>
 </li>
@@ -2335,7 +2339,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Scheme</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">Scheme</span><span class="p">(</span><span class="n">Stringable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">alias</span> <span class="n">HTTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">http</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">alias</span> <span class="n">FTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">ftp</span><span class="sh">"</span><span class="p">)</span>
@@ -2348,7 +2352,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">scheme</span>
 
-<span class="k">struct</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">]:</span>
+<span class="k">struct</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">](</span><span class="n">Stringable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     
     <span class="k">var</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span>
 
@@ -2410,7 +2414,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print_location3</span><span class="p">(</span><span class="n">Location</span><span class="p">[</span><span class="n">Scheme</span><span class="p">.</span><span class="n">FTP</span><span class="p">](</span><span class="sh">"</span><span class="s">r.net</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print_location3</span><span class="p">(</span><span class="n">Location</span><span class="p">[</span><span class="n">Scheme</span><span class="p">.</span><span class="n">HTTP</span><span class="p">](</span><span class="sh">"</span><span class="s">r.net</span><span class="sh">"</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -2506,7 +2510,54 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditional_conformance">14.9. Conditional conformance</h3>
+<h3 id="_trait_composition">14.9. Trait composition</h3>
+<div class="paragraph">
+<p>We saw how a struct can implement multiple traits. We also saw how a trait can inherit from multiple traits. In order to achieve good code reuse, it is adviced to define traits that are focused on a single responsibility. This is called the <strong>Interface Segregation Principle</strong> in software design. When we strictly follow this principle, we end up with many small traits that define a single behavior. Now suppose that we want to define a reusable method that uses multiple traits. One way to achieve this is to define a new trait that inherits from the individual traits, and then define the reusable method to use that trait. However, this approach results in a proliferation of traits that are just used to compose other traits.</p>
+</div>
+<div class="paragraph">
+<p>Mojo provides with an alternative approach to achieve the same goal without the need to define a new trait. This is called <strong>trait composition</strong>. We can define parameters to a function that are a composition of multiple traits. This is done by using the <code>&amp;</code> operator between the traits.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Flyable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">trait</span> <span class="n">Walkable</span><span class="p">:</span>
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Crow </span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
+    
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">Crow is flying</span><span class="sh">"</span>
+    
+    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">Crow is walking</span><span class="sh">"</span>
+
+<span class="k">fn</span> <span class="n">bird</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span><span class="p">](</span><span class="n">animal</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">fly</span><span class="p">())</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">walk</span><span class="p">())</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">var</span> <span class="n">crow</span> <span class="o">=</span> <span class="nc">Crow</span><span class="p">()</span>
+    <span class="nf">bird</span><span class="p">(</span><span class="n">crow</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Trait composition also works with aliases. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">Bird</span> <span class="o">=</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sharp eyed readers would have noticed similarity between trait composition and intersection types in some programming languages.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conditional_conformance">14.10. Conditional conformance</h3>
 <div class="paragraph">
 <p>We can also overload methods based on concrete types of <code>self</code> itself. In the following code listing, the version of the <code>hello</code> method chosen depends on the concrete type of the passed parameter <code>T</code>. Note that here the <code>self</code> type is explicitly defined, unlike how we usually specify <code>self</code>.</p>
 </div>
@@ -2563,7 +2614,39 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_compile_time_checks">14.10. Custom compile-time checks</h3>
+<h3 id="_where_clauses">14.11. <code>where</code> clauses</h3>
+<div class="paragraph">
+<p>Mojo provides <code>where</code> clauses to provide additional constraints on parameters, which are not possible to express using just the type system. The <code>where</code> clause expressions are evaluated at compile-time. If the expression evaluates to <code>False</code>, then a compile-time error is produced.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">PositiveNumber</span><span class="p">[</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span> <span class="n">where</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]:</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+        <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">print_value</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The positive number is: </span><span class="sh">"</span> <span class="o">+</span> <span class="nc">String</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span> <span class="o">=</span> <span class="n">PositiveNumber</span><span class="p">[</span><span class="mi">5</span><span class="p">]()</span>
+    <span class="n">num</span><span class="p">.</span><span class="nf">print_value</span><span class="p">()</span>
+
+    <span class="c1">#var num2 = PositiveNumber[-3]()  # Uncommenting this will cause a compile-time error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have defined a struct <code>PositiveNumber</code> that has a <code>where</code> clause to ensure that the value passed to it is greater than zero. If we try to create an instance of <code>PositiveNumber</code> with a value that is lesser than zero, we get a compile-time error.</p>
+</div>
+<div class="paragraph">
+<p><code>where</code> clauses help developers and especially library authors to define stronger contracts on their APIs, ensuring that the users of those APIs have clear guidance on what the boundaries of the APIs are.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_compile_time_checks">14.12. Custom compile-time checks</h3>
 <div class="paragraph">
 <p>When we develop a program, we often make assumptions about the arguments we receive or the context in which we execute a function and so on. We can use <code>if</code> statements to validate those assumptions, but it is possible that there is a performance cost to such validations. Many programming languages provide a facility known as assertion, to validate those assumptions with minimal impact to the runtime performance of the code.</p>
 </div>
@@ -2590,6 +2673,9 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>constrained</code> function is quite useful to validate our assumptions about given parameters at compile-time. If during the compile-time the <code>constrained</code> function executes successfully, then that piece of validation code does not even have to appear in the final binary, resulting in zero performance impact at runtime.</p>
+</div>
+<div class="paragraph">
+<p>You can think of <code>constrained</code> as a more flexible version of <code>where</code> clauses, when the constraints cannot be expressed easily using <code>where</code> clauses.</p>
 </div>
 </div>
 </div>

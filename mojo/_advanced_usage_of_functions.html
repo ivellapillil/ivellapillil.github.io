@@ -2357,8 +2357,8 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">names_dob</span><span class="p">(</span><span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namedobs</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">name</span><span class="p">[],</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">[]])</span></code></pre>
+    <span class="k">for</span> <span class="k">var</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namedobs</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2497,6 +2497,27 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>The same technique also works on <code>__setitem__</code>.</p>
+</div>
+<div class="paragraph">
+<p>We can even overload functions by the argument conventions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">ref</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">ref</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="k">fn</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage of the overloaded functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3
+</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3</span></code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -2253,7 +2253,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>Management of memory becomes easier when we define within a program the lifetime (for how long it stays in memory) of a value and which part of the program owns the responsibility for its de-allocation and cleanup. In case a data structure has other data within it (e.g. list), then typically the container data structure is responsible for the de-allocation of data stored within it, and usually the container&#8217;s lifetime is the maximum lifetime of the contained data.</p>
 </div>
 <div class="paragraph">
-<p>Most of the programming languages do not make lifetimes explicit and therefore programmer&#8217;s need to have a mental model of how long a piece of data lives. Problems occur when this mental model is wrong, resulting in crashes, or security issues. For example, if a pointer to data stored within an array is kept and if that pointer is not discarded when the array is de-allocated, then the pointer refers to an address that contains random data. This is known as a dangling pointer.</p>
+<p>Most of the programming languages do not make lifetimes explicit and therefore programmers need to have a mental model of how long a piece of data lives. Problems occur when this mental model is wrong, resulting in crashes, or security issues. For example, if a pointer to data stored within an array is kept and if that pointer is not discarded when the array is de-allocated, then the pointer refers to an address that contains random data. This is known as a dangling pointer.</p>
 </div>
 <div class="paragraph">
 <p>Since stack has a well defined lifecycle management, most of the memory management issues come up when we work with the heap.</p>
@@ -2267,6 +2267,11 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="sect2">
 <h3 id="_pointers_in_mojo">13.2. Pointers in Mojo</h3>
 <div class="paragraph">
+<p>Mojo provides many types of pointers to work with heap allocated data. Each pointer type has its own use cases and trade-offs.</p>
+</div>
+<div class="sect3">
+<h4 id="_unsafe_pointer">13.2.1. Unsafe Pointer</h4>
+<div class="paragraph">
 <p>In order to allocate memory from the heap, we use pointer operations like <code>alloc</code> and <code>free</code>. Mojo provides <code>UnsafePointer</code> type for manually managed pointers. The type is explicitly named as <strong>unsafe</strong>, to indicate that Mojo would not be managing the lifetime of the value pointed by the <code>UnsafePointer</code>. Programmers must take care to ensure that <code>UnsafePointer</code> is carefully managed.</p>
 </div>
 <div class="paragraph">
@@ -2276,7 +2281,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+<span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
     
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
@@ -2285,7 +2290,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2310,7 +2315,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="paragraph">
-<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length specified by the <code>count</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>alloc</code> method calculates the size of the type <code>A</code> and then allocate the total number of bytes for it. The space is initialized with value using <code>init_pointee_move</code>. Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>destroy_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>free</code> method of <code>UnsafePointer</code>.</p>
+<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length specified by the <code>count</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>alloc</code> method calculates the size of the type <code>A</code> and then allocate the total number of bytes for it. The space is initialized with value using <code>init_pointee_move</code>. The <code>init_pointee_move</code> expects its argument to implement the trait <code>Movable</code>, which indicates that the value can be safely moved to another location.</p>
+</div>
+<div class="paragraph">
+<p>Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>destroy_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>free</code> method of <code>UnsafePointer</code>.</p>
 </div>
 <div class="paragraph">
 <p>On a quick look the above code seems to be simple and easy to reason, where the memory is allocated and freed. However, there is a potential memory leak. This would happen if the <code>print_pointer</code> or <code>print_value</code> throws an exception and the function exits early because of that. When that happens, the <code>free</code> will not get executed and the allocated memory in the heap would not be returned to the heap. This would lead to a memory leak, or worse, a security issue because now the data is available to potentially malicious code.</p>
@@ -2322,7 +2330,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+<span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
     
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
@@ -2331,7 +2339,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2352,18 +2360,18 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
         <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
         <span class="nf">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
-        <span class="n">x</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
+        <span class="n">y</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
 </span>        <span class="n">y</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>What if we already have an instantiated value and wanted to find its address? The <code>UnsafePointer</code> provides <code>address_of</code> method just for that.</p>
+<p>What if we already have an instantiated value and wanted to find its address? The <code>UnsafePointer</code> provides <code>__int__</code> method which can be used with <code>Int()</code> constructor to convert the pointer to an integer representation of the address.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+<span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
     
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
@@ -2372,7 +2380,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2389,7 +2397,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">z</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">z</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
     <span class="nf">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2403,7 +2411,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+<span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
     
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
@@ -2412,7 +2420,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
     <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
-    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">owned</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">val</span>
 
 <span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
@@ -2430,7 +2438,8 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></code></pre>
+</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="bp">...</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2439,8 +2448,8 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">i</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">address_of</span><span class="p">(</span><span class="n">another_a</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">j</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">address_of</span><span class="p">(</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
+    <span class="k">var</span> <span class="n">i</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">j</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
 </span>    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
 </span>    <span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
@@ -2455,8 +2464,9 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="paragraph">
 <p>If pointers are such a pain, then why do we use it?</p>
 </div>
+</div>
 <div class="sect3">
-<h4 id="_arc_pointer">13.2.1. ARC Pointer</h4>
+<h4 id="_arc_pointer">13.2.2. ARC Pointer</h4>
 <div class="paragraph">
 <p>As you have already seen, managing values on the heap requires a lot of care. Some programming languages make it easy to manage values allocated on the heap through the use of a garbage collector. A garbage collector keeps track of values on the heap and as soon as it determines that nothing is using it, it will automatically clear the value and its associated memory (the unused value is the "garbage"). There are different approaches to garbage collection. One of them is reference counting.</p>
 </div>
@@ -2515,7 +2525,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12</span></code></pre>
 </div>
 </div>
@@ -2544,7 +2554,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">var</span> <span class="n">ref_a2</span> <span class="o">=</span> <span class="n">ref_a</span> <span class="c1"># The same origin is copied onto the new pointer too
 </span>    <span class="n">ref_a2</span><span class="p">[].</span><span class="n">val</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># De-reference and assign value
@@ -2576,10 +2586,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">var</span> <span class="n">another_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_another_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">another_instance</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">ref_another_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">another_instance</span><span class="p">)</span>
     <span class="c1"># ref_another_a = ref_a # Uncommenting this would result in compilation error.
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_another_a</span><span class="p">)</span></code></pre>
 </div>
@@ -2609,7 +2619,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
@@ -2648,7 +2658,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">.</span><span class="nf">address_of</span><span class="p">(</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
 </span>    <span class="k">def</span> <span class="nf">change_value2</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutableOrigin</span><span class="p">](</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">]):</span>
         <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="c1"># Now it works
@@ -2660,6 +2670,57 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="paragraph">
 <p>Here we are taking a <code>MutableOrigin</code> as parameter, which is then passed on to the pointer. The compiler would then preserve the original mutability of the pointer.</p>
+</div>
+<div class="paragraph">
+<p>Most of the pointer use cases can be solved using <code>Pointer</code>. However, in some low-level programming scenarios, we may need to use <code>UnsafePointer</code> for fine-grained control.</p>
+</div>
+<div class="sect3">
+<h4 id="_ownedpointer">13.3.1. OwnedPointer</h4>
+<div class="paragraph">
+<p>In order to ensure a proper management of memory, it is necessary to have clarity on who owns the responsibility of de-allocating a value. In Mojo, the <code>OwnedPointer</code> type is used to indicate that the pointer owns the value it points to. When an <code>OwnedPointer</code> is destructed, it will also destruct the underlying value and free its memory. Such type of pointers are also known as <em>smart pointers</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory.owned_pointer</span> <span class="kn">import</span> <span class="n">OwnedPointer</span>
+<span class="kn">from</span> <span class="n">memory.unsafe_pointer</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+
+<span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">OwnedPointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">print_value called for val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the reference and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">a_instance</span><span class="o">^</span><span class="p">)</span> <span class="c1"># Move the value into an OwnedPointer
+</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+</span>    <span class="c1"># print(a_instance.val) # Original instance is no longer usable. Uncommenting this would result in compilation error.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>OwnedPointer can be constructed in two ways. One is by moving an existing value into the pointer as shown above, and the other is by copying an existing value into the pointer. In the first case, the original value is no longer usable, while in the second case, the original value remains usable.</p>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">b_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">ref_b</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">b_instance</span><span class="p">)</span> <span class="c1"># Copy the value into an OwnedPointer
+</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_b</span><span class="p">)</span> <span class="c1"># Prints 13
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">b_instance</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Original instance is still usable</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -2185,15 +2185,13 @@ pre.rouge .gs {
 </li>
 <li><a href="_types.html#_type_safety">5.22. Type safety</a>
 </li>
-<li><a href="_types.html#_object">5.23. object</a>
+<li><a href="_types.html#_tuple">5.23. Tuple</a>
 </li>
-<li><a href="_types.html#_tuple">5.24. Tuple</a>
+<li><a href="_types.html#_list_literals">5.24. List literals</a>
 </li>
-<li><a href="_types.html#_listliteral">5.25. ListLiteral</a>
+<li><a href="_types.html#_dict_literals">5.25. Dict literals</a>
 </li>
-<li><a href="_types.html#_dictliteral">5.26. DictLiteral</a>
-</li>
-<li><a href="_types.html#_type_inference">5.27. Type inference</a>
+<li><a href="_types.html#_type_inference">5.26. Type inference</a>
 </li>
 </ul>
 </li>
@@ -2275,7 +2273,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">int_lit</span><span class="p">:</span> <span class="n">IntLiteral</span> <span class="o">=</span> <span class="mi">10_000</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">int_lit</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10_000</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2320,10 +2318,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">strg_lit</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span>
-    <span class="k">var</span> <span class="n">strg_lit2</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Hello World!</span><span class="sh">'</span>
-    <span class="k">var</span> <span class="n">strg_lit3</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Hello </span><span class="sh">"</span><span class="s">World</span><span class="sh">"</span><span class="s">!</span><span class="sh">'</span>
-    <span class="k">var</span> <span class="n">strg_lit4</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello </span><span class="sh">'</span><span class="s">World</span><span class="sh">'</span><span class="s">!</span><span class="sh">"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">strg_lit</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span>
+    <span class="k">var</span> <span class="n">strg_lit2</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Hello World!</span><span class="sh">'</span>
+    <span class="k">var</span> <span class="n">strg_lit3</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">'</span><span class="s">Hello </span><span class="sh">"</span><span class="s">World</span><span class="sh">"</span><span class="s">!</span><span class="sh">'</span>
+    <span class="k">var</span> <span class="n">strg_lit4</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello </span><span class="sh">'</span><span class="s">World</span><span class="sh">'</span><span class="s">!</span><span class="sh">"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2331,16 +2329,16 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">strg_lit_multi</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">strg_lit_multi</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
     Hello World!
     </span><span class="sh">"""</span>
-    <span class="k">var</span> <span class="n">strg_lit_multi2</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
+    <span class="k">var</span> <span class="n">strg_lit_multi2</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
     Hello World!
     </span><span class="sh">'''</span>
-    <span class="k">var</span> <span class="n">strg_lit_multi3</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
+    <span class="k">var</span> <span class="n">strg_lit_multi3</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">'''</span><span class="s">
     Hello </span><span class="sh">"""</span><span class="s">World</span><span class="sh">"""</span><span class="s">!
     </span><span class="sh">'''</span>
-    <span class="k">var</span> <span class="n">strg_lit_multi4</span><span class="p">:</span> <span class="n">StringLiteral</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    <span class="k">var</span> <span class="n">strg_lit_multi4</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
     Hello </span><span class="sh">'''</span><span class="s">World</span><span class="sh">'''</span><span class="s">!
     </span><span class="sh">"""</span></code></pre>
 </div>
@@ -2354,9 +2352,12 @@ pre.rouge .gs {
 <div class="paragraph">
 <p><code>FloatLiteral</code> is the type that Mojo compiler assigns to a value when you provide a decimal separated numeric value in the source code. The <code>FloatLiteral</code> is "double precision", which is represented with 64 bits. The mantissa part of the value is represented by 52 bits and the exponent part of the value is represented by 11 bits. The last remaining bit is used for sign.</p>
 </div>
+<div class="paragraph">
+<p>When you don&#8217;t specify a type for a floating point number assignment, Mojo automatically assigns it the type <code>Float64</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">float_lit</span><span class="p">:</span> <span class="n">FloatLiteral</span> <span class="o">=</span> <span class="mf">2.005</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">float_lit</span> <span class="o">=</span> <span class="mf">2.005</span></code></pre>
 </div>
 </div>
 </div>
@@ -2488,7 +2489,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="n">Uncomment</span> <span class="n">before</span> <span class="n">release</span><span class="p">:</span> <span class="n">include</span><span class="p">::{</span><span class="n">sourcedir</span><span class="p">}</span><span class="o">/</span><span class="n">base_types</span><span class="p">.</span><span class="n">mojo</span><span class="p">[</span><span class="n">tag</span><span class="o">=</span><span class="n">bfloat16</span><span class="p">]</span> <span class="c1">#</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="n">Uncomment</span> <span class="n">before</span> <span class="n">release</span><span class="p">:</span> <span class="n">include</span><span class="p">::{</span><span class="n">sourcedir</span><span class="p">}</span><span class="o">/</span><span class="n">c04</span><span class="o">/</span><span class="n">base_types</span><span class="p">.</span><span class="n">mojo</span><span class="p">[</span><span class="n">tag</span><span class="o">=</span><span class="n">bfloat16</span><span class="p">]</span> <span class="c1">#</span></code></pre>
 </div>
 </div>
 </div>
@@ -2524,7 +2525,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">introspect</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">DType</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bit width:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">bitwidth</span><span class="p">())</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bit width:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">bit_width</span><span class="p">())</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Is signed:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">is_signed</span><span class="p">())</span>
     
     <span class="nf">introspect</span><span class="p">(</span><span class="n">DType</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> </code></pre>
@@ -2572,29 +2573,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_object">5.23. object</h3>
-<div class="paragraph">
-<p>As you have seen earlier, Mojo is quite strict about types. How about the situation when you do not yet know or do not care about the type of the variable, but still want to perform some computation? Mojo provides <code>object</code> type for such cases.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="k">raises</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you execute the above code, you would see the result <code>3.5</code> printed on screen. The reason why Mojo did not complain about the type incompatibility of arguments is that the <code>object</code> type has initializers for many built-in data types. Similar to the example mentioned above for <code>String</code>, Mojo calls the appropriate initializer in <code>object</code> corresponding to the type of the given value. If <code>object</code> does not have an initializer for a given type, then a value of that particular type cannot be assigned to variables of <code>object</code> type.</p>
-</div>
-<div class="paragraph">
-<p>In the above case, <code>object</code> has initializers for both <code>Int</code> and <code>FloatLiteral</code>. Mojo then instantiates an <code>object</code> with <code>Int</code> and the other <code>object</code> with <code>FloatLiteral</code> as its underlying value.</p>
-</div>
-<div class="paragraph">
-<p>In case of <code>def</code> functions, when you omit type annotations on variable, argument, return declarations, Mojo automatically assigns it the type <code>object</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tuple">5.24. Tuple</h3>
+<h3 id="_tuple">5.23. Tuple</h3>
 <div class="paragraph">
 <p><code>Tuple</code> in Mojo is an ordered sequence of values. A <code>Tuple</code> can have many elements of different types. Mojo uses <code>()</code> to represent <code>Tuple</code> literals in source code.</p>
 </div>
@@ -2624,20 +2603,11 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>Earlier we saw a tuple being declared with <code>Tuple[Int, Bool, Float64]</code>. We can also declare a tuple as <code>(Int, Bool, Float64)</code>. Both the declarations are effectively the same.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">altr</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float64</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">altr</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>To get an element of a tuple, you can use subscript operator <code>[]</code> and pass within the square brackets the index. Note that like most other languages, Mojo has a zero based index. The ability to use subscripts also applies to lists.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">access</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float64</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">access</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float64</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">First value</span><span class="sh">"</span><span class="p">,</span> <span class="n">access</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre>
 </div>
 </div>
@@ -2654,31 +2624,64 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_listliteral">5.25. ListLiteral</h3>
+<h3 id="_list_literals">5.24. List literals</h3>
 <div class="paragraph">
-<p>Similar to <code>Tuple</code>, Mojo also provides support for <code>ListLiteral</code>. A <code>ListLiteral</code> can have many elements of different types. Mojo uses <code>[]</code> to represent list literals in source code.</p>
+<p>Similar to <code>Tuple</code>, Mojo also provides support for instantiating lists using a literal syntax. Mojo uses <code>[]</code> to represent list literals in source code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">l</span><span class="p">:</span> <span class="n">ListLiteral</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Float64</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The code shown before defines a list with elements 1 and 3.5. Same as with Tuple some parameters are defined within square brackets, which we will cover later on.</p>
+<p>The code shown before defines a list with elements 1 and 3.5. If you do not provide the type of the list, then Mojo will infer the type based on the values provided. In this case, it infers the type as <code>List[Float64]</code> because an <code>Int</code> can be fitted or "merged" into a float type.</p>
 </div>
 <div class="paragraph">
 <p>An empty list can be defined using just <code>[]</code>.</p>
 </div>
+<div class="paragraph">
+<p>Lists can also be nested. The following code shows a list of lists.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">matrix</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+    <span class="p">]</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_dictliteral">5.26. DictLiteral</h3>
+<h3 id="_dict_literals">5.25. Dict literals</h3>
+<div class="paragraph">
+<p>Mojo provides support for instantiating dictionaries (list of key-value pairs) using a literal syntax. Mojo uses <code>{}</code> to represent dictionary literals in source code. If you do not provide the type of the dictionary, then Mojo will infer the type based on the values provided. In this case, it infers the type as <code>Dict[String, Int]</code>.</p>
+</div>
 <div class="paragraph">
 <p>To get an element of a dictionary, you can use subscript operator <code>[]</code>. Within the <code>[]</code> you can pass the key with which the dictionary is indexed.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">b</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">])</span>
+    <span class="k">var</span> <span class="n">empty</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dicts can also be nested. The following code shows nesting of dicts.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">nested_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">Int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">y</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+        <span class="sh">"</span><span class="s">b</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">x</span><span class="sh">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sh">"</span><span class="s">y</span><span class="sh">"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+    <span class="p">}</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_type_inference">5.27. Type inference</h3>
+<h3 id="_type_inference">5.26. Type inference</h3>
 <div class="paragraph">
 <p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
 </div>

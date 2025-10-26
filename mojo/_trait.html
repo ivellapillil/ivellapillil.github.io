@@ -2153,6 +2153,8 @@ pre.rouge .gs {
 </li>
 <li><a href="_trait.html#_associated_aliases">8.3. Associated aliases</a>
 </li>
+<li><a href="_trait.html#_default_methods">8.4. Default methods</a>
+</li>
 </ul>
 </li>
 <li><a href="_control_flow.html">9. Control flow</a>
@@ -2318,7 +2320,7 @@ pre.rouge .gs {
     <span class="k">alias</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">AnyType</span>
     <span class="k">alias</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MessageType</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">.</span><span class="n">MessageType</span><span class="p">:</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">HelloInt</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
 
@@ -2363,6 +2365,39 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>The structs can be used directly and also polymorphically, as seen in the function <code>call_message</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_default_methods">8.4. Default methods</h3>
+<div class="paragraph">
+<p>Traits are an important means to abstracting common behavioral features across different types. Many times along with a trait, we want to provide a default implementation of some methods. Mojo provides a way to define default methods within a trait. A default method is defined by providing an implementation of the method within the body of the trait itself.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Hello</span><span class="p">:</span>
+
+    <span class="k">fn</span> <span class="nf">get_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="nf">get_name</span><span class="p">(),</span> <span class="sh">"</span><span class="s">!</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">HelloWorld</span><span class="p">(</span><span class="n">Hello</span><span class="p">):</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">fn</span> <span class="nf">get_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
+    
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">var</span> <span class="n">hw</span> <span class="o">=</span> <span class="nc">HelloWorld</span><span class="p">()</span>
+    <span class="n">hw</span><span class="p">.</span><span class="nf">hello</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the <code>Hello</code> trait provides a default <code>hello</code> method. This method will be available to any struct that implements the <code>Hello</code> trait. The struct <code>HelloWorld</code> implements the <code>Hello</code> trait and hence gets the default <code>hello</code> method. Within the <code>hello</code> method, we call another method <code>get_name</code> that is an abstract method in the <code>Hello</code> trait. It is expected that the struct implementing the <code>Hello</code> trait will provide a concrete implementation of the <code>get_name</code> method. This is a powerful way to define abstract behavior in a trait, while providing a default implementation of some methods that can be shared across all implementors of the trait. Framework authors can leverage this feature to provide sensible defaults for common behaviors, while still allowing users to customize specific aspects by implementing the required methods.</p>
+</div>
+<div class="paragraph">
+<p>When we run the program, we see that the default method <code>hello</code> is called on the struct <code>HelloWorld</code>, which in turn calls the <code>get_name</code> method implemented by <code>HelloWorld</code>.</p>
 </div>
 </div>
 </div>
