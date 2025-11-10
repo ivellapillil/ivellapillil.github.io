@@ -2213,7 +2213,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
 </li>
-<li><a href="_memory_management_and_pointers.html">13. Memory management and pointers</a>
+<li><a href="_memory_management_references_and_pointers.html">13. Memory management, references and pointers</a>
 </li>
 <li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
 </li>
@@ -2222,6 +2222,8 @@ pre.rouge .gs {
 <li><a href="_python_interoperability.html">16. Python interoperability</a>
 </li>
 <li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">18. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2529,14 +2531,13 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">introspect</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">DType</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bit width:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">bit_width</span><span class="p">())</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Is signed:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">is_signed</span><span class="p">())</span>
     
     <span class="nf">introspect</span><span class="p">(</span><span class="n">DType</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> </code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we can write a generic function that takes any <code>DType</code> and prints its bit width and whether or not it is a signed type.</p>
+<p>In the above example, we can write a generic function that takes any <code>DType</code> and prints whether or not it is a signed type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2707,7 +2708,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-25 12:09:09 +0200
+Last updated 2025-11-10 22:33:33 +0100
 </div>
 </div>
 </body>
