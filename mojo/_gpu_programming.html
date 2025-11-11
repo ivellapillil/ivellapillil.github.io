@@ -2232,40 +2232,45 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">gpu</span> <span class="kn">import</span> <span class="n">thread_idx</span><span class="p">,</span> <span class="n">block_idx</span>
 <span class="kn">from</span> <span class="n">gpu.host</span> <span class="kn">import</span> <span class="n">DeviceContext</span><span class="p">,</span> <span class="n">DeviceBuffer</span><span class="p">,</span> <span class="n">HostBuffer</span>
 <span class="kn">from</span> <span class="n">layout</span> <span class="kn">import</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">LayoutTensor</span>
-<span class="kn">from</span> <span class="n">math</span> <span class="kn">import</span> <span class="n">iota</span>
+<span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">alias</span> <span class="n">data_type</span> <span class="o">=</span> <span class="n">DType</span><span class="p">.</span><span class="n">int32</span> <span class="c1"># Data type of the tensor elements
+<span class="k">alias</span> <span class="n">data_type</span> <span class="o">=</span> <span class="n">DType</span><span class="p">.</span><span class="n">int32</span> <span class="c1"># Data type of the buffer elements
 </span><span class="k">alias</span> <span class="n">no_of_blocks</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># How many blocks within the grid
 </span><span class="k">alias</span> <span class="n">no_of_threads</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># How many threads within each block
 </span><span class="k">alias</span> <span class="n">total_possible_elements</span> <span class="o">=</span> <span class="n">no_of_blocks</span> <span class="o">*</span> <span class="n">no_of_threads</span> <span class="c1"># Total elements in the tensor 
 </span>
-<span class="k">alias</span> <span class="n">row_layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">.</span><span class="nf">row_major</span><span class="p">(</span><span class="n">no_of_blocks</span><span class="p">,</span> <span class="n">no_of_threads</span><span class="p">)</span> <span class="c1"># Layout of the tensor
-</span>
-<span class="k">fn</span> <span class="nf">add_two</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">LayoutTensor</span><span class="p">[</span><span class="n">data_type</span><span class="p">,</span> <span class="n">row_layout</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]):</span> <span class="c1"># A kernel function
-</span>    <span class="n">t</span><span class="p">[</span><span class="n">block_idx</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">thread_idx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span>
+<span class="k">fn</span> <span class="nf">add_two</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Scalar</span><span class="p">[</span><span class="n">data_type</span><span class="p">]],</span> <span class="n">first</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Scalar</span><span class="p">[</span><span class="n">data_type</span><span class="p">]],</span> <span class="n">second</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Scalar</span><span class="p">[</span><span class="n">data_type</span><span class="p">]]):</span> <span class="c1"># A kernel function
+</span>    <span class="n">index</span> <span class="o">=</span> <span class="n">block_idx</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">no_of_threads</span> <span class="o">+</span> <span class="n">thread_idx</span><span class="p">.</span><span class="n">x</span> <span class="c1"># Calculate the global index
+</span>    <span class="n">result</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">first</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">second</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">ctx</span> <span class="o">=</span> <span class="nc">DeviceContext</span><span class="p">()</span> <span class="c1"># Create a context for the default GPU device
 </span>
-    <span class="k">var</span> <span class="n">buf</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">enqueue_create_buffer</span><span class="p">[</span><span class="n">data_type</span><span class="p">](</span><span class="n">total_possible_elements</span><span class="p">)</span> <span class="c1"># Create memory buffer on the device
+    <span class="k">var</span> <span class="n">result_buf</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">enqueue_create_buffer</span><span class="p">[</span><span class="n">data_type</span><span class="p">](</span><span class="n">total_possible_elements</span><span class="p">)</span> <span class="c1"># Create result buffer on the device's memory
+</span>    <span class="n">result_buf</span><span class="p">.</span><span class="nf">enqueue_fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Initialize the device result_buffer with zeros
 </span>
-    <span class="k">with</span> <span class="n">buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_buf</span><span class="p">:</span> <span class="c1"># Map the device buffer to host buffer
-</span>        <span class="nf">iota</span><span class="p">(</span><span class="n">host_buf</span><span class="p">.</span><span class="nf">unsafe_ptr</span><span class="p">(),</span> <span class="n">total_possible_elements</span><span class="p">)</span> <span class="c1"># Initialize with sequential values
-</span>        <span class="nf">print</span><span class="p">(</span><span class="n">host_buf</span><span class="p">)</span> <span class="c1"># Show the contents of the host buffer
+    <span class="k">var</span> <span class="n">input_buf1</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">enqueue_create_buffer</span><span class="p">[</span><span class="n">data_type</span><span class="p">](</span><span class="n">total_possible_elements</span><span class="p">)</span> <span class="c1"># Create first input buffer on the device's memory
+</span>    <span class="n">input_buf1</span><span class="p">.</span><span class="nf">enqueue_fill</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Initialize the device first buffer with 10s
 </span>
-    <span class="k">var</span> <span class="n">t</span> <span class="o">=</span> <span class="n">LayoutTensor</span><span class="p">[</span><span class="n">data_type</span><span class="p">,</span> <span class="n">row_layout</span><span class="p">](</span><span class="n">buf</span><span class="p">)</span> <span class="c1"># Create a tensor view over the device buffer
+    <span class="k">var</span> <span class="n">input_buf2</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">enqueue_create_buffer</span><span class="p">[</span><span class="n">data_type</span><span class="p">](</span><span class="n">total_possible_elements</span><span class="p">)</span> <span class="c1"># Create second input buffer on the device's memory
+</span>    <span class="n">input_buf2</span><span class="p">.</span><span class="nf">enqueue_fill</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># Initialize the device second buffer with 20s
+</span>
+    <span class="k">with</span> <span class="n">result_buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_result_buf</span><span class="p">:</span> <span class="c1"># Map the device buffers to host buffers to print
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">host_result_buf</span><span class="p">)</span> <span class="c1"># Show the contents of the host result_buffer
 </span>
     <span class="n">ctx</span><span class="p">.</span><span class="n">enqueue_function_checked</span><span class="p">[</span><span class="n">add_two</span><span class="p">,</span> <span class="n">add_two</span><span class="p">](</span>
-        <span class="n">t</span><span class="p">,</span>
+        <span class="n">result_buf</span><span class="p">,</span>
+        <span class="n">input_buf1</span><span class="p">,</span>
+        <span class="n">input_buf2</span><span class="p">,</span>
         <span class="n">grid_dim</span><span class="o">=</span><span class="n">no_of_blocks</span><span class="p">,</span>
         <span class="n">block_dim</span><span class="o">=</span><span class="n">no_of_threads</span>
     <span class="p">)</span> <span class="c1"># Launch the kernel
 </span>
     <span class="n">ctx</span><span class="p">.</span><span class="nf">synchronize</span><span class="p">()</span> <span class="c1"># Wait for the kernel to complete
 </span>
-    <span class="k">with</span> <span class="n">buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_buf</span><span class="p">:</span> <span class="c1"># Again map the device buffer to host buffer to get the data back
-</span>        <span class="k">var</span> <span class="n">host_tensor</span> <span class="o">=</span> <span class="n">LayoutTensor</span><span class="p">[</span><span class="n">data_type</span><span class="p">,</span> <span class="n">row_layout</span><span class="p">](</span><span class="n">host_buf</span><span class="p">)</span> <span class="c1"># Create a tensor view over the host buffer
-</span>        <span class="nf">print</span><span class="p">(</span><span class="n">host_tensor</span><span class="p">)</span></code></pre>
+    <span class="k">with</span> <span class="n">result_buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_result_buf</span><span class="p">:</span> <span class="c1"># Again map the device result_buffer to host result_buffer to get the data back
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">host_result_buf</span><span class="p">)</span> <span class="c1"># Show the contents of the host result_buffer after addition
+</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2273,25 +2278,18 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">HostBuffer([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63])
-2 3 4 5 6 7 8 9
-10 11 12 13 14 15 16 17
-18 19 20 21 22 23 24 25
-26 27 28 29 30 31 32 33
-34 35 36 37 38 39 40 41
-42 43 44 45 46 47 48 49
-50 51 52 53 54 55 56 57
-58 59 60 61 62 63 64 65</span></code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="go">HostBuffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+HostBuffer([30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>For the above code to run, ensure that you have the necessary GPU drivers and SDKs installed on your system. For example, in case of MacOS with Apple Silicon, ensure that you have the latest version of XCode installed which includes the Metal framework for GPU programming.</p>
 </div>
 <div class="paragraph">
-<p>In the above example, we define a simple GPU kernel <code>add_two</code> that adds 2 to each element of an input tensor. The <code>main</code> function sets up the GPU context, creates a device buffer, initializes it with some data, and launches the kernel with a specified grid and block configuration. After the kernel execution, it retrieves the results back to the host and prints them.</p>
+<p>In the above code, we first define a kernel function <code>add_two</code> that takes two input buffers and an output buffer. Each thread calculates its unique index based on its block and thread IDs, and performs the addition operation on the corresponding elements from the input buffers, storing the result in the output buffer.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed the term Tensor in the above code. Tensors are multi-dimensional arrays that are commonly used in machine learning and scientific computing. In the context of GPU programming, tensors can be used to represent data that is processed on the GPU. Mojo provides support for tensors.</p>
+<p>You may have noticed that when we need to print the contents of the buffers, we first map the device buffers to host buffers using the <code>map_to_host()</code> method. This is necessary because the GPU memory is not directly accessible from the CPU, so we need to create a mapping to read the data.</p>
 </div>
 </div>
 </div>
@@ -2301,7 +2299,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-10 22:33:33 +0100
+Last updated 2025-11-11 20:04:45 +0100
 </div>
 </div>
 </body>
