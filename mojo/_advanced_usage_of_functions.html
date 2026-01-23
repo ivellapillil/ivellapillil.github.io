@@ -2157,29 +2157,31 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
+<li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html">13. Memory management, references and pointers</a>
+<li><a href="_ownership_and_lifecycle.html">13. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
+<li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html"><span class="toc-current">15. Advanced usage of functions</span></a>
+<li><a href="_metaprogramming.html">15. Metaprogramming</a>
+</li>
+<li><a href="_advanced_usage_of_functions.html"><span class="toc-current">16. Advanced usage of functions</span></a>
 <ul class="sectlevel2">
-<li><a href="_advanced_usage_of_functions.html#_higher_order_functions">15.1. Higher-order functions</a>
+<li><a href="_advanced_usage_of_functions.html#_higher_order_functions">16.1. Higher-order functions</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html#_closure">15.2. Closure</a>
+<li><a href="_advanced_usage_of_functions.html#_closure">16.2. Closure</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html#_variadic_function">15.3. Variadic function</a>
+<li><a href="_advanced_usage_of_functions.html#_variadic_function">16.3. Variadic function</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html#_overloading">15.4. Overloading</a>
+<li><a href="_advanced_usage_of_functions.html#_overloading">16.4. Overloading</a>
 </li>
 </ul>
 </li>
-<li><a href="_python_interoperability.html">16. Python interoperability</a>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">18. GPU programming</a>
+<li><a href="_gpu_programming.html">19. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2190,7 +2192,7 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_advanced_usage_of_functions">15. Advanced usage of functions</h2>
+<h2 id="_advanced_usage_of_functions">16. Advanced usage of functions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In previous chapters you saw how we declare types of variables and how we use them. In Mojo you can assign also a function to a variable. The type of the variable is determined by the function&#8217;s signature, i.e., it is a combination of the argument types and return type of the function.</p>
@@ -2217,7 +2219,7 @@ pre.rouge .gs {
 <p>In the example, we see that we defined a function <code>adder</code> and then assigned that function to a variable. We later execute that variable as if it is a function.</p>
 </div>
 <div class="sect2">
-<h3 id="_higher_order_functions">15.1. Higher-order functions</h3>
+<h3 id="_higher_order_functions">16.1. Higher-order functions</h3>
 <div class="paragraph">
 <p>The ability to assign a function to a variable allows us to implement some interesting use cases. We can pass a function as an argument to another function. We can also return a function as the result from another function. A function that can take a function as an argument, or can return a function as the result is called a higher-order function.</p>
 </div>
@@ -2277,7 +2279,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_closure">15.2. Closure</h3>
+<h3 id="_closure">16.2. Closure</h3>
 <div class="paragraph">
 <p>So far we have seen that we can pass arguments to functions and they would use those arguments within their body. There is another technique for functions to get values from outside of the function body, which is commonly known as closure.</p>
 </div>
@@ -2333,7 +2335,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variadic_function">15.3. Variadic function</h3>
+<h3 id="_variadic_function">16.3. Variadic function</h3>
 <div class="paragraph">
 <p>You have already seen how the built-in <code>print</code> function is able to take any number of arguments. This is possible because of Mojo&#8217;s support for variadic functions. The variadic argument is prefixed by <code>*</code> for positional arguments and <code>**</code> for keyword arguments. Data type of positional variadic argument is <code>VariadicList[T]</code> and of keyword variadic argument is <code>Dict[K, V]</code>.</p>
 </div>
@@ -2383,7 +2385,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_overloading">15.4. Overloading</h3>
+<h3 id="_overloading">16.4. Overloading</h3>
 <div class="paragraph">
 <p>There is a saying among programmers that naming is hard. For example, a function to add two numbers would be best called <code>add</code>. However, we may need to add two integers, one integer and a float, and so on. In some programming languages, that would have resulted in convoluted names such as <code>add_ints</code>, <code>add_int_float</code> and so on. Thankfully, Mojo provides a feature called function overloading. This feature allows us to define the same name to multiple functions as long as their argument types, parameter types or number of arguments are different. If two functions have the same argument types but have different result types, Mojo would complain as overloading is supported only for arguments and parameter types.</p>
 </div>
@@ -2529,12 +2531,12 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_python_interoperability.html">Python interoperability</a> →</p>
+<p>← Previous: <a href="_metaprogramming.html">Metaprogramming</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_python_interoperability.html">Python interoperability</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-11 20:04:45 +0100
+Last updated 2026-01-23 18:18:46 +0100
 </div>
 </div>
 </body>

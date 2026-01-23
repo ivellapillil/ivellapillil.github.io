@@ -2147,7 +2147,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_constants_and_variables.html#_variables">4.2. Variables</a>
 </li>
-<li><a href="_constants_and_variables.html#_alias">4.3. Alias</a>
+<li><a href="_constants_and_variables.html#_comptime">4.3. <code>comptime</code></a>
 </li>
 <li><a href="_constants_and_variables.html#_undeclared_variables">4.4. Undeclared variables</a>
 </li>
@@ -2173,19 +2173,21 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
+<li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html">13. Memory management, references and pointers</a>
+<li><a href="_ownership_and_lifecycle.html">13. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
+<li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
+<li><a href="_metaprogramming.html">15. Metaprogramming</a>
 </li>
-<li><a href="_python_interoperability.html">16. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">18. GPU programming</a>
+<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">19. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2223,11 +2225,11 @@ pre.rouge .gs {
 <p>In the above example, the PI has been limited to 2 decimal places. What if we want to increase our precision and increase the PI to 4 decimal places? Then we need to change both the functions <code>circumference</code> and <code>area</code>.</p>
 </div>
 <div class="paragraph">
-<p>An alternative is to define PI as a constant using the keyword <code>alias</code>.</p>
+<p>An alternative is to define PI as a constant using the keyword <code>comptime</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
 
 <span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span>
@@ -2249,7 +2251,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">alias</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">comptime</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">3</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span></code></pre>
@@ -2320,13 +2322,13 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_alias">4.3. Alias</h3>
+<h3 id="_comptime">4.3. <code>comptime</code></h3>
 <div class="paragraph">
-<p>The <code>alias</code> feature provided by Mojo is much more powerful than just declaring constants. In fact, it enforces compile time execution of statements that come on the right hand side of the <code>=</code> symbol.</p>
+<p>The <code>comptime</code> feature provided by Mojo is much more powerful than just declaring constants. In fact, it enforces <strong>compile time</strong> execution of statements that come on the right hand side of the <code>=</code> symbol.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">MY_VALUE</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">MY_VALUE</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
@@ -2342,11 +2344,11 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <p>There are some restrictions on what type of functions can be called during compile time. For example, <code>def</code> style functions cannot be called during compile time. Another restriction is that function that are called during compile must not have any side effects. That is, the functions must use only the arguments passed to it and must not change any variables or state <em>outside</em> of the function body. These kind of functions are called <em>pure</em> functions.</p>
 </div>
 <div class="paragraph">
-<p>You can also assign types to <code>alias</code> as shown in the next example.</p>
+<p>You can also assign types to <code>comptime</code> as shown in the next example.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">alias</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="n">Int</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="n">Int</span>
 
 <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyInt</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
@@ -2454,7 +2456,7 @@ outer y: 1</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-11 20:04:45 +0100
+Last updated 2026-01-23 18:18:46 +0100
 </div>
 </div>
 </body>

@@ -2157,39 +2157,43 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html"><span class="toc-current">12. Ownership and lifecycle</span></a>
+<li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
+</li>
+<li><a href="_ownership_and_lifecycle.html"><span class="toc-current">13. Ownership and lifecycle</span></a>
 <ul class="sectlevel2">
-<li><a href="_ownership_and_lifecycle.html#_pass_by_value_and_pass_by_reference">12.1. Pass by value and pass by reference</a>
+<li><a href="_ownership_and_lifecycle.html#_pass_by_value_and_pass_by_reference">13.1. Pass by value and pass by reference</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_read">12.2. read</a>
+<li><a href="_ownership_and_lifecycle.html#_read">13.2. read</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_var">12.3. var</a>
+<li><a href="_ownership_and_lifecycle.html#_var">13.3. var</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_mut">12.4. mut</a>
+<li><a href="_ownership_and_lifecycle.html#_mut">13.4. mut</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_out">12.5. out</a>
+<li><a href="_ownership_and_lifecycle.html#_out">13.5. out</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_init">12.6. <code>__init__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_init">13.6. <code>__init__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_del">12.7. <code>__del__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_del">13.7. <code>__del__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_copyinit">12.8. <code>__copyinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_copyinit">13.8. <code>__copyinit__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_moveinit">12.9. <code>__moveinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_moveinit">13.9. <code>__moveinit__</code></a>
+</li>
+<li><a href="_ownership_and_lifecycle.html#_origin">13.10. Origin</a>
 </li>
 </ul>
 </li>
-<li><a href="_memory_management_references_and_pointers.html">13. Memory management, references and pointers</a>
+<li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
+<li><a href="_metaprogramming.html">15. Metaprogramming</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
+<li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">16. Python interoperability</a>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">18. GPU programming</a>
+<li><a href="_gpu_programming.html">19. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2200,13 +2204,13 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_ownership_and_lifecycle">12. Ownership and lifecycle</h2>
+<h2 id="_ownership_and_lifecycle">13. Ownership and lifecycle</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Before we jump into the lifecycle operations, let&#8217;s understand the concept of ownership of references.</p>
 </div>
 <div class="sect2">
-<h3 id="_pass_by_value_and_pass_by_reference">12.1. Pass by value and pass by reference</h3>
+<h3 id="_pass_by_value_and_pass_by_reference">13.1. Pass by value and pass by reference</h3>
 <div class="paragraph">
 <p>We have two ways to pass something to a function or method. One is pass by value and the other is pass by reference.</p>
 </div>
@@ -2221,7 +2225,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read">12.2. read</h3>
+<h3 id="_read">13.2. read</h3>
 <div class="paragraph">
 <p>The <code>read</code> keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>read</code> keyword is not necessary to be given.</p>
 </div>
@@ -2238,7 +2242,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_var">12.3. var</h3>
+<h3 id="_var">13.3. var</h3>
 <div class="paragraph">
 <p>The <code>var</code> in the function parameter indicates that the function assumes the ownership of the given reference argument. This means that we are free to mutate or destruct the passed value within that function.</p>
 </div>
@@ -2253,7 +2257,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mut">12.4. mut</h3>
+<h3 id="_mut">13.4. mut</h3>
 <div class="paragraph">
 <p>The <code>mut</code> keyword indicates that the function will potentially mutate the value within the passed reference. The difference from <code>var</code> references is that while <code>var</code> arguments may get copied as needed, the <code>mut</code> arguments are not copied.</p>
 </div>
@@ -2265,7 +2269,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_out">12.5. out</h3>
+<h3 id="_out">13.5. out</h3>
 <div class="paragraph">
 <p>The <code>out</code> keyword indicates that the function will initialize a value into the passed reference. The <code>out</code> arguments are <em>implicitly</em> returned by the function. That is, the function cannot return an uninitialized <code>out</code> argument. The caller of the function that takes <code>out</code> arguments will allocate a store for the callee and pass it to the callee. The callee will then initialize the value into the store. The callee does not need to return the value, as the value is already stored in the location passed by the caller. This is sometimes useful when we want to improve performance by avoiding moving or copying the value on return.</p>
 </div>
@@ -2291,7 +2295,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_init">12.6. <code>__init__</code></h3>
+<h3 id="_init">13.6. <code>__init__</code></h3>
 <div class="paragraph">
 <p>The init method is part of the lifecycle of a struct. The main purpose of <code><em>init</em></code> is to initialize all its member variables (a.k.a fields).</p>
 </div>
@@ -2300,10 +2304,10 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2327,7 +2331,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_del">12.7. <code>__del__</code></h3>
+<h3 id="_del">13.7. <code>__del__</code></h3>
 <div class="paragraph">
 <p>The delete method <code><em>del</em></code> is also part of the lifecycle of a struct. If the init method is used to initialize variables or to allocate resources for that struct, the delete method is used to release the resources held for that struct. For example, if init method allocates memory from the heap, the delete method is used to free that memory. The <code><em>del</em></code> method is called just before the value is going to be destroyed by the compiler. If we allocate resources in the init method and do not release or free those resources in the delete method, we end up with resource leaks such as memory leaks. So great care must be taken to symmetrically allocate and free resources using the init and delete methods. You may have noticed that the <code>self</code> argument of the <code><em>del</em></code> method is marked with the <code>deinit</code> keyword. This indicates that the value is about to be destroyed.</p>
 </div>
@@ -2336,10 +2340,10 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2363,7 +2367,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_eager_destruction">12.7.1. Eager destruction</h4>
+<h4 id="_eager_destruction">13.7.1. Eager destruction</h4>
 <div class="paragraph">
 <p>Unlike many other languages, Mojo has an eager destruction approach. This means that a value or object is destroyed as soon as its last use is over. This is in contrast with many system languages where the values or objects are destroyed at the end of the scope of a given block. This approach allowed Mojo to have a much simpler lifecycle management, improving overall ergonomics of the language.</p>
 </div>
@@ -2382,7 +2386,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_copyinit">12.8. <code>__copyinit__</code></h3>
+<h3 id="_copyinit">13.8. <code>__copyinit__</code></h3>
 <div class="paragraph">
 <p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be implicitely copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages. In order to ensure that developers do not accidently copy large values, Mojo requires explicit declaration of the trait <code>ImplicitlyCopyable</code> for the struct in order to enable copy semantics. By explicitly declaring the trait, the developer indicates that it is safe to copy the struct.</p>
 </div>
@@ -2394,10 +2398,10 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2410,7 +2414,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
@@ -2435,7 +2439,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_moveinit">12.9. <code>__moveinit__</code></h3>
+<h3 id="_moveinit">13.9. <code>__moveinit__</code></h3>
 <div class="paragraph">
 <p>Mojo invokes the <code><em>moveinit</em></code> for cases where a value needs to be physically moved. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>copyinit</em></code>, <code><em>moveinit</em></code> has the second argument annotated with <code>deinit</code>. The <code>deinit</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In <code><em>moveinit</em></code>, we reassign the values from the <code>other</code> struct to the struct which defines the <code><em>moveinit</em></code>.</p>
 </div>
@@ -2486,15 +2490,100 @@ pre.rouge .gs {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_origin">13.10. Origin</h3>
+<div class="paragraph">
+<p>We saw earlier how Mojo destructs values eagerly. This means that as soon as a value is no longer referenced, it is destroyed. How does Mojo know when a value is no longer referenced? In order to track the references to a value, Mojo uses the concept of <strong>origin</strong>. Each value has an origin associated with it indicating the variable that originally owns it. This origin is tracked by the compiler. When a variable is assigned a value, it is associated with an origin. When that value is assigned to another variable, the same origin is associated with the new variable. When a value is passed to a function, the same origin is associated with the function argument. Most of these tracking is done transparently at the compile time by the compiler. However, there are some cases where the developer needs to explicitly indicate the origin of a value. This happens when there is an indirection involved, such as when using pointers or references.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/graphics/Origin.jpeg" alt="Origin">
+</div>
+</div>
+<div class="paragraph">
+<p>When a value is no longer used, the origin tracking indicates that the value can be destroyed. This is how Mojo ensures that values are destroyed eagerly and resources are freed as soon as they are no longer needed. In a way, the origin association increases the lifetime of a value, instead of the traditional block scope based lifetime management.</p>
+</div>
+<div class="paragraph">
+<p>Origin in Mojo is represented using the <code>Origin</code> struct. The <code>Origin</code> struct is a special struct that is used to track the origin of a value. There are two types of origin (those are actually concrete <code>comptime</code> values of the struct <code>Origin</code>): immutable origin represented by <code>ImmutOrigin</code> and mutable origin represented by <code>MutOrigin</code>. The immutable origin is used for values that are <strong>not</strong> expected to change, while the mutable origin is used for values that can change.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+  <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
+
+  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+  <span class="k">fn</span> <span class="nf">set_value</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>  
+
+<span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+  <span class="k">pass</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">ten</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="nf">my_function</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the origin is being tracked by the compiler, but we do not have to explicitely mark the origins.</p>
+</div>
+<div class="paragraph">
+<p>However, take a look at the following example where we try to modify a value passed to a function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1">#fn my_function_modify_wrong(a: A):
+#  a.set_value(20) # # Uncommenting this line will cause a compile-time error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># my_function_modify_wrong(ten) # Uncommenting this line will cause a compile-time error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Uncommenting the above code will cause a compile-time error, because we are trying to modify a value in a function that takes an immutable origin argument by default.</p>
+</div>
+<div class="paragraph">
+<p>The following code listing will compile correctly, because we are explicitely marking the origin as mutable using the <code>MutOrigin</code> type and marking the argument as a reference with mutable origin using the <code>ref[o]</code> syntax.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">my_function_modify</span><span class="p">[</span><span class="n">o</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="k">ref</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+  <span class="n">a</span><span class="p">.</span><span class="nf">set_value</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+  <span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">value</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">my_function_modify</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: Mojo allows a short-hand syntax <code>mut</code> for mutable references in function arguments.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_operators_and_special_methods.html">Operators and special methods</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_memory_management_references_and_pointers.html">Memory management, references and pointers</a> →</p>
+<p>← Previous: <a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_memory_management_references_and_pointers.html">Memory management, references and pointers</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-11 20:04:45 +0100
+Last updated 2026-01-23 18:18:46 +0100
 </div>
 </div>
 </body>

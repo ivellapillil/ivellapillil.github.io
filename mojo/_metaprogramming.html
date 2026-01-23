@@ -2124,7 +2124,7 @@ pre.rouge .gs {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_python_interoperability" class="book toc2 toc-left">
+<body id="_metaprogramming" class="book toc2 toc-left">
 <div id="header">
 <h1>Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</h1>
 <div class="details">
@@ -2163,19 +2163,19 @@ pre.rouge .gs {
 </li>
 <li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
 </li>
-<li><a href="_metaprogramming.html">15. Metaprogramming</a>
+<li><a href="_metaprogramming.html"><span class="toc-current">15. Metaprogramming</span></a>
+<ul class="sectlevel2">
+<li><a href="_metaprogramming.html#_type_of">15.1. <code>type_of</code></a>
+</li>
+<li><a href="_metaprogramming.html#_conforms_to">15.2. <code>conforms_to</code></a>
+</li>
+<li><a href="_metaprogramming.html#_trait_downcast">15.3. <code>trait_downcast</code></a>
+</li>
+</ul>
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html"><span class="toc-current">17. Python interoperability</span></a>
-<ul class="sectlevel2">
-<li><a href="_python_interoperability.html#_importing_a_python_module">17.1. Importing a Python module</a>
-</li>
-<li><a href="_python_interoperability.html#_evaluating_python_expressions">17.2. Evaluating Python expressions</a>
-</li>
-<li><a href="_python_interoperability.html#_other_useful_python_functions">17.3. Other useful Python functions</a>
-</li>
-</ul>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
 <li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
 </li>
@@ -2190,79 +2190,143 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_python_interoperability">17. Python interoperability</h2>
+<h2 id="_metaprogramming">15. Metaprogramming</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As mentioned in the beginning of this book, Mojo is very close to Python in terms of syntax. However, Mojo and Python are semantically two completely different languages, though they share very similar syntax. Python has a huge ecosystem behind it, built over many decades. Mojo allows the developer to leverage this huge ecosystem, with its Python integration capability.</p>
+<p>Metaprogramming blurs the line between code and data by allowing programs to treat other programs or themselves as data. This enables the creation of more dynamic and flexible code that can adapt to different situations at runtime or compile-time. Metaprogramming techniques can be used to generate code, modify existing code, or create domain-specific languages (DSLs) that are tailored to specific problem domains.</p>
 </div>
 <div class="paragraph">
-<p>The integration of Mojo with Python is built on a key insight that from a practical point of view, all Python objects can be represented with a single type. In Mojo it is represented by the <code>PythonObject</code> struct. Mojo uses the actual CPython interpreter for interoperability. The usage of CPython in Mojo enables high fidelity integration with Python, and ensures that the Python objects behave as expected.</p>
+<p>Mojo supports serveral metaprogramming features, such as <code>type_of</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_importing_a_python_module">17.1. Importing a Python module</h3>
+<h3 id="_type_of">15.1. <code>type_of</code></h3>
 <div class="paragraph">
-<p>Mojo has module named <code>python</code> that encapsulates all of the Python integration. Within the <code>python</code> module, there is the facade object that provides the entry point for many of the Python integration capabilities.</p>
-</div>
-<div class="paragraph">
-<p>Importing a Python module is as simple as using the <code>Python.import_module</code> method call, passing it the module name. In case a module does not exist, ensure that the module is installed using the <code>pip</code> or equivalent command. Mojo also supports Python virtual environments.</p>
-</div>
-<div class="paragraph">
-<p>The following code listing provides an example on how to import Python modules and how to use objects from Python.</p>
+<p>The <code>type_of</code> function in Mojo is a built-in function that returns the type of a given expression or variable at compile-time. This can be useful for debugging, type checking, and implementing generic programming patterns.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">python</span> <span class="kn">import</span> <span class="n">Python</span>
-    <span class="k">var</span> <span class="n">difflib</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">import_module</span><span class="p">(</span><span class="sh">"</span><span class="s">difflib</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">list1</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Four</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">list2</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">differ</span> <span class="o">=</span> <span class="n">difflib</span><span class="p">.</span><span class="nc">HtmlDiff</span><span class="p">()</span> <span class="c1"># Get instance of HtmlDiff class.
-</span>    <span class="k">var</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">differ</span><span class="p">.</span><span class="nf">make_file</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Scalar</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">first</span> <span class="o">*</span> <span class="n">second</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int16</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int16</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">var</span> <span class="n">result_i</span><span class="p">:</span> <span class="n">Int16</span> <span class="o">=</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Result Int:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="sh">"</span><span class="s">times</span><span class="sh">"</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="sh">"</span><span class="s">is</span><span class="sh">"</span><span class="p">,</span> <span class="n">result_i</span><span class="p">)</span> <span class="c1"># Output: Result Int: 5 times 10 is 50
+</span>
+    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">Float16</span> <span class="o">=</span> <span class="mf">3.5</span>
+    <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">Float16</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="k">var</span> <span class="n">result_f</span><span class="p">:</span> <span class="n">Float16</span> <span class="o">=</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Result Float</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="sh">"</span><span class="s">times</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sh">"</span><span class="s">is</span><span class="sh">"</span><span class="p">,</span> <span class="n">result_f</span><span class="p">)</span> <span class="c1"># Output: Result Float 3.5 times 2.0 is 7.0
+</span>
+    <span class="c1"># var z: Float32 = 4.0
+</span>    <span class="c1"># print("Result Mixed: ", x, "times", z, "is", multiply(x, z)) # Uncommenting this will cause a type error due to mismatched types
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>type_of</code> function also takes expressions as arguments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">m</span><span class="p">:</span> <span class="nf">type_of</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mf">2.5</span><span class="p">)</span> <span class="c1"># Type of m is FloatLiteral[7.5]
+</span>    <span class="n">m</span> <span class="o">=</span> <span class="mf">7.5</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Value is: </span><span class="sh">"</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="c1">#m = 7.1 # Uncommenting this will cause compile-time error due to type mismatch </span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we use <code>type_of</code> on a multiplcation expression that evaluates to a result at compile-time. This result is part of the type of the variable. So when we try to assign a different value other than the result of the previous expression, it results in a type error.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_evaluating_python_expressions">17.2. Evaluating Python expressions</h3>
+<h3 id="_conforms_to">15.2. <code>conforms_to</code></h3>
 <div class="paragraph">
-<p>You can evaluate Python expressions using <code>Python.evaluate</code> method.</p>
+<p>The <code>conforms_to</code> function in Mojo is a built-in function that checks if a given type conforms to a specified trait or type constraint. This can be useful for ensuring that types meet certain requirements or for implementing generic programming patterns.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">1+2</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Animal</span><span class="p">:</span> <span class="bp">...</span>
+<span class="k">trait</span> <span class="n">CanFly</span><span class="p">:</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Eagle</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Monkey</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">fn</span> <span class="n">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="nd">@parameter</span> 
+    <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It can fly!</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It cannot fly!</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Since Python treats functions as first class, you can even use <code>Python.evaluate</code> to access Python&#8217;s built-in functions.</p>
+<p>Usage:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">str_fn</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">str</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">ABC</span><span class="sh">"</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">XYZ</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">ability</span><span class="p">(</span><span class="nc">Eagle</span><span class="p">())</span> <span class="c1"># Prints: It can fly!
+</span>    <span class="nf">ability</span><span class="p">(</span><span class="nc">Monkey</span><span class="p">())</span> <span class="c1"># Prints: It cannot fly!</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note in the above code listing, how transparently we can transfer Mojo string literals to the Python function, and how seamlessly Mojo operators work over Python objects, invoking the right Python dunder methods. One important constraint is that only <code>PythonObject</code> struct can be passed to and from Python. In the case of Mojo string literals, <code>PythonObject</code> has a constructor that takes <code>StringLiteral</code>, resulting in implicit conversion from <code>StringLiteral</code> to a <code>PythonObject</code> instance. <code>PythonObject</code> has many such constructors for the various Mojo built-in types. <code>PythonObject</code> also implements many traits that enable it to be used within functions such as <code>len</code>, <code>int</code>, <code>str</code> and so on.</p>
+<p>In the above example, we define a trait <code>CanFly</code> and implement it for the <code>Eagle</code> struct. The <code>ability</code> function then checks if the type <code>T</code> conforms to the <code>CanFly</code> trait using the <code>conforms_to</code> function. Depending on whether the type conforms to the trait, it prints whether the animal can fly or not.</p>
+</div>
+<div class="paragraph">
+<p><code>conforms_to</code> can be particularly useful when creating libraries and frameworks, as it allows developers to enforce certain type constraints and ensure that their code behaves correctly with different types, while still maintaining flexibility and reusability.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_other_useful_python_functions">17.3. Other useful Python functions</h3>
+<h3 id="_trait_downcast">15.3. <code>trait_downcast</code></h3>
 <div class="paragraph">
-<p>You can use native Python objects like <code>list</code> and <code>dict</code> using corresponding static methods exposed by <code>Python</code>. <code>Python</code> also exposes <code>type</code> function from Python and can be used to determine the underlying type of the <code>PythonObject</code> struct.</p>
+<p>The <code>trait_downcast</code> function in Mojo is a built-in function that allows you to downcast a value of a trait type to a concrete type that implements that trait. This can be useful when you have a value of a trait type and you need to access methods or properties specific to the concrete type. It can be used in combination with <code>conforms_to</code> to safely downcast only when the type conforms to the desired trait.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_list</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">()</span>
-    <span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">First element</span><span class="sh">"</span><span class="p">)</span>
-    <span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Second element</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">a_list</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Animal</span><span class="p">:</span> <span class="bp">...</span>
+<span class="k">trait</span> <span class="n">CanFly</span><span class="p">:</span> 
+    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Flying high!</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="nc">Eagle</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span> 
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">Monkey</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">fn</span> <span class="n">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="nd">@parameter</span> 
+    <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
+        <span class="n">trait_downcast</span><span class="p">[</span><span class="n">CanFly</span><span class="p">](</span><span class="n">x</span><span class="p">).</span><span class="nf">fly</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It cannot fly!</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">ability</span><span class="p">(</span><span class="nc">Eagle</span><span class="p">())</span> <span class="c1"># Prints: It can fly!
+</span>    <span class="nf">ability</span><span class="p">(</span><span class="nc">Monkey</span><span class="p">())</span> <span class="c1"># Prints: It cannot fly!</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above code listing, we define a trait <code>CanFly</code> and implement it for the <code>Eagle</code> struct. The <code>ability</code> function checks if the type <code>T</code> conforms to the <code>CanFly</code> trait using the <code>conforms_to</code> function. If it does, it uses <code>trait_downcast</code> to downcast the value to the <code>CanFly</code> trait type and calls the <code>fly</code> method. This allows us to access the specific behavior of the <code>Eagle</code> struct when we know it conforms to the <code>CanFly</code> trait.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_mlir_interoperability.html">MLIR interoperability</a> →</p>
+<p>← Previous: <a href="_memory_management_references_and_pointers.html">Memory management, references and pointers</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> →</p>
 </div>
 </div>
 <div id="footer">

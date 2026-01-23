@@ -2157,29 +2157,31 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
+<li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html"><span class="toc-current">13. Memory management, references and pointers</span></a>
+<li><a href="_ownership_and_lifecycle.html">13. Ownership and lifecycle</a>
+</li>
+<li><a href="_memory_management_references_and_pointers.html"><span class="toc-current">14. Memory management, references and pointers</span></a>
 <ul class="sectlevel2">
-<li><a href="_memory_management_references_and_pointers.html#_memory">13.1. Memory</a>
+<li><a href="_memory_management_references_and_pointers.html#_memory">14.1. Memory</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html#_pointers_in_mojo">13.2. Pointers in Mojo</a>
+<li><a href="_memory_management_references_and_pointers.html#_pointers_in_mojo">14.2. Pointers in Mojo</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html#_pointer">13.3. Pointer</a>
+<li><a href="_memory_management_references_and_pointers.html#_pointer">14.3. Pointer</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html#_references">13.4. References</a>
+<li><a href="_memory_management_references_and_pointers.html#_references">14.4. References</a>
 </li>
 </ul>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
+<li><a href="_metaprogramming.html">15. Metaprogramming</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
+<li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">16. Python interoperability</a>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">18. GPU programming</a>
+<li><a href="_gpu_programming.html">19. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2190,10 +2192,10 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_memory_management_references_and_pointers">13. Memory management, references and pointers</h2>
+<h2 id="_memory_management_references_and_pointers">14. Memory management, references and pointers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_memory">13.1. Memory</h3>
+<h3 id="_memory">14.1. Memory</h3>
 <div class="paragraph">
 <p>Most of the computers we use today have memory to store data for processing. The data stored in memory needs to be stored and retrieved, for which we need an address. As an analog, you can think of a large library where books are kept in a shelf within their own cells. In our analog, the computer memory would be the shelf, the book will be data and the location of the cell in the shelf would be the memory address. A pointer in this case would be a variable that holds the memory address. Computer memory addresses are usually integers with its size (number of bits representing the address) depending on the computer architecture.</p>
 </div>
@@ -2209,7 +2211,7 @@ pre.rouge .gs {
 <p>A computer memory is typically divided into many parts, of which the stack and heap are relevant for us.</p>
 </div>
 <div class="sect3">
-<h4 id="_stack">13.1.1. Stack</h4>
+<h4 id="_stack">14.1.1. Stack</h4>
 <div class="paragraph">
 <p>When we are at a library, we usually fetch a book and then read it at a desk. In a way, the "read operation" happens at the desk.
 Similarly, when a thread is instantiated for execution, it is assigned a "working space" from the computer memory, known as <strong>stack</strong>. Within a thread, multiple functions may be getting called. When a function is instantiated for execution, it is assigned a block out of the stack called <strong>stack frame</strong>.</p>
@@ -2225,7 +2227,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect3">
-<h4 id="_heap">13.1.2. Heap</h4>
+<h4 id="_heap">14.1.2. Heap</h4>
 <div class="paragraph">
 <p>Since a stack cannot store data structures that do not know their size at compile time (e.g. a list that dynamically grows at runtime when data is added to it), we use a heap.</p>
 </div>
@@ -2239,7 +2241,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect3">
-<h4 id="_memory_management">13.1.3. Memory management</h4>
+<h4 id="_memory_management">14.1.3. Memory management</h4>
 <div class="paragraph">
 <p>Since memory is a finite resource, we need to manage it very carefully. Additionally, since programs rely on the integrity of the data it works with, care must be taken that the programs work with data that has a well defined lifecycle.</p>
 </div>
@@ -2273,14 +2275,14 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_pointers_in_mojo">13.2. Pointers in Mojo</h3>
+<h3 id="_pointers_in_mojo">14.2. Pointers in Mojo</h3>
 <div class="paragraph">
 <p>Mojo provides many types of pointers to work with heap allocated data. Each pointer type has its own use cases and trade-offs.</p>
 </div>
 <div class="sect3">
-<h4 id="_unsafe_pointer">13.2.1. Unsafe Pointer</h4>
+<h4 id="_unsafe_pointer">14.2.1. Unsafe Pointer</h4>
 <div class="paragraph">
-<p>In order to allocate memory from the heap, we use pointer operations like <code>alloc</code> and <code>free</code>. Mojo provides <code>UnsafePointer</code> type for manually managed pointers. The type is explicitly named as <strong>unsafe</strong>, to indicate that Mojo would not be managing the lifetime of the value pointed by the <code>UnsafePointer</code>. Programmers must take care to ensure that <code>UnsafePointer</code> is carefully managed.</p>
+<p>In order to allocate memory from the heap, we use pointer operations like <code>alloc</code> and <code>free</code>. Mojo provides <code>UnsafePointer</code> type for manually managed pointers. The type is explicitly named as <strong>unsafe</strong>, to indicate that Mojo would not be managing the lifetime of the value pointed by the <code>UnsafePointer</code>. Programmers must take care to ensure that <code>UnsafePointer</code> is carefully managed. However, contrary to pointers in languages like C/C++, Mojo provides some safety mechanisms using <code>Origin</code> to avoid common pitfalls.</p>
 </div>
 <div class="paragraph">
 <p>An example is shown in the following code listing.</p>
@@ -2314,7 +2316,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
 </span>    <span class="nf">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
 </span>    <span class="n">x</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2363,7 +2365,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
         <span class="nf">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -2405,7 +2407,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">z</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
     <span class="nf">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2444,7 +2446,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">].</span><span class="nf">alloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="bp">...</span></code></pre>
@@ -2456,8 +2458,8 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">i</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">j</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
+    <span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">j</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
 </span>    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
 </span>    <span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
@@ -2466,15 +2468,35 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="paragraph">
 <p>In the above example, two pointers were pointing to the same value. When one pointer was used to update the value, the other pointer picked up the updated value. This code is a simple one and it is easy to detect what is happening. However in large code bases especially in multi-threaded scenarios, such cases result in hard to find defects.</p>
 </div>
-<div class="paragraph">
-<p>All bets are off when we use <code>UnsafePointer</code>. Mojo does not track what goes on with its usage. This is by design. <code>UnsafePointer</code> is useful for those cases where the application needs to work intimately with the hardware or the operating system. Therefore, use it with care.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span>
+    <span class="k">fn</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
+</span>        <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
+</span>        <span class="k">pass</span>
+
+    <span class="k">fn</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
+</span>        <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
+</span>
+    <span class="nf">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="nf">print_value</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="bp">...</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>If pointers are such a pain, then why do we use it?</p>
+<p>In the above example, Mojo compiler raises an error in function <code>m_func</code> when we try to modify the value pointed by <code>UnsafePointer</code>. This is because by default the <code>UnsafePointer</code> is immutable. If we want to have a mutable pointer, we need to explicitly declare it as mutable, for example by using <code>MutAnyOrigin</code> as its origin. We will cover origins in detail later.</p>
+</div>
+<div class="paragraph">
+<p>Even though Mojo performs some checks,  all bets are off when we use <code>UnsafePointer</code>. Mojo does not track completely what goes on with its usage. This is by design. <code>UnsafePointer</code> is useful for those cases where the application needs to work intimately with the hardware or the operating system. Therefore, use it with care.</p>
+</div>
+<div class="paragraph">
+<p>If pointers are such a pain, then why do we use it? If you want to work with hardware devices, pointers are a must. If we want to call into operating system APIs, pointers are needed. So while pointers are unsafe, they are necessary for low-level programming.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_arc_pointer">13.2.2. ARC Pointer</h4>
+<h4 id="_arc_pointer">14.2.2. ARC Pointer</h4>
 <div class="paragraph">
 <p>As you have already seen, managing values on the heap requires a lot of care. Some programming languages make it easy to manage values allocated on the heap through the use of a garbage collector. A garbage collector keeps track of values on the heap and as soon as it determines that nothing is using it, it will automatically clear the value and its associated memory (the unused value is the "garbage"). There are different approaches to garbage collection. One of them is reference counting.</p>
 </div>
@@ -2501,7 +2523,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_pointer">13.3. Pointer</h3>
+<h3 id="_pointer">14.3. Pointer</h3>
 <div class="paragraph">
 <p>If <code>ArcPointer</code> keeps a <em>runtime</em> record of its copies so as to ensure that the value is destructed when it is no longer needed, <code>Pointer</code> helps Mojo compiler to track it at compile-time.</p>
 </div>
@@ -2642,7 +2664,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>In the previous code listing the <code>ref_a</code> has a <em>mutable</em> origin, but when it is passed in to <code>change_value</code>, it is turned into an <em>immutable</em> origin. While we can print its value (i.e., read), we cannot change its value as it is immutable.</p>
 </div>
 <div class="paragraph">
-<p>What if we really wanted to pass a mutable pointer to the function? The answer to this lies in <code>MutableOrigin</code>. With <code>MutableOrigin</code> we are indicating to the compiler to <em>not</em> convert the mutable origin carried by the pointer to an immutable one.</p>
+<p>What if we really wanted to pass a mutable pointer to the function? The answer to this lies in <code>MutOrigin</code>. With <code>MutOrigin</code> we are indicating to the compiler to <em>not</em> convert the mutable origin carried by the pointer to an immutable one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2677,13 +2699,13 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="paragraph">
-<p>Here we are taking a <code>MutableOrigin</code> as parameter, which is then passed on to the pointer. The compiler would then preserve the original mutability of the pointer.</p>
+<p>Here we are taking a <code>MutOrigin</code> as parameter, which is then passed on to the pointer. The compiler would then preserve the original mutability of the pointer.</p>
 </div>
 <div class="paragraph">
 <p>Most of the pointer use cases can be solved using <code>Pointer</code>. However, in some low-level programming scenarios, we may need to use <code>UnsafePointer</code> for fine-grained control.</p>
 </div>
 <div class="sect3">
-<h4 id="_ownedpointer">13.3.1. OwnedPointer</h4>
+<h4 id="_ownedpointer">14.3.1. OwnedPointer</h4>
 <div class="paragraph">
 <p>In order to ensure a proper management of memory, it is necessary to have clarity on who owns the responsibility of de-allocating a value. In Mojo, the <code>OwnedPointer</code> type is used to indicate that the pointer owns the value it points to. When an <code>OwnedPointer</code> is destructed, it will also destruct the underlying value and free its memory. Such type of pointers are also known as <em>smart pointers</em>.</p>
 </div>
@@ -2732,7 +2754,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_references">13.4. References</h3>
+<h3 id="_references">14.4. References</h3>
 <div class="paragraph">
 <p>In Mojo, references are used to refer to values stored in memory. References in Mojo are always safe to use, as the compiler tracks their usage and ensures that they do not outlive the value they refer to. References are defined using the <code>ref</code> keyword on a variable definition. This keyword indicates to the compiler that the variable is a reference to another value, and not a value itself. References are not the same as pointers, although they may seem similar. References in Mojo are always valid and cannot be null or dangling. We saw earlier the keyword <code>mut</code> in function arguments. This keyword is used to define references with mutability. The <code>ref</code> is a more generic form of this keyword.</p>
 </div>
@@ -2787,7 +2809,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>In the above code listing, we see that a reference to a value is created and then taken by another function. The original reference remains usable after the take, as the ownership of the reference has not been transferred. The argument is read-only reference, so the function cannot modify the value it refers to.</p>
 </div>
 <div class="paragraph">
-<p>If you want to pass a mutable reference to a function, you can parameterize the <code>ref</code> with a <code>MutableOrigin</code>.</p>
+<p>If you want to pass a mutable reference to a function, you can parameterize the <code>ref</code> with a <code>MutOrigin</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2800,7 +2822,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="paragraph">
-<p>In the above code listing, the function takes a mutable reference to a value. The function can modify the value it refers to, as the reference is parameterized with <code>MutableOrigin</code>. Of course instead of this we could have also used the <code>mut</code> keyword in the function argument itself without having to parameterize the <code>ref</code>.</p>
+<p>In the above code listing, the function takes a mutable reference to a value. The function can modify the value it refers to, as the reference is parameterized with <code>MutOrigin</code>. Of course instead of this we could have also used the <code>mut</code> keyword in the function argument itself without having to parameterize the <code>ref</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>ref</code> without any origin parameterization is equivalent to an immutable origin.</p>
@@ -2809,12 +2831,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_ownership_and_lifecycle.html">Ownership and lifecycle</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_parameters_and_compile_time_programming.html">Parameters and compile-time programming</a> →</p>
+<p>← Previous: <a href="_ownership_and_lifecycle.html">Ownership and lifecycle</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_metaprogramming.html">Metaprogramming</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-11 20:04:45 +0100
+Last updated 2026-01-23 18:18:46 +0100
 </div>
 </div>
 </body>

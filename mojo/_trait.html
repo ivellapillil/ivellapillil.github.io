@@ -2155,7 +2155,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_trait.html#_static_methods_2">8.2. Static methods</a>
 </li>
-<li><a href="_trait.html#_associated_aliases">8.3. Associated aliases</a>
+<li><a href="_trait.html#_associated_comptimes">8.3. Associated comptimes</a>
 </li>
 <li><a href="_trait.html#_default_methods">8.4. Default methods</a>
 </li>
@@ -2167,19 +2167,21 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html">11. Operators and special methods</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html">12. Ownership and lifecycle</a>
+<li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html">13. Memory management, references and pointers</a>
+<li><a href="_ownership_and_lifecycle.html">13. Ownership and lifecycle</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html">14. Parameters and compile-time programming</a>
+<li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
 </li>
-<li><a href="_advanced_usage_of_functions.html">15. Advanced usage of functions</a>
+<li><a href="_metaprogramming.html">15. Metaprogramming</a>
 </li>
-<li><a href="_python_interoperability.html">16. Python interoperability</a>
+<li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_mlir_interoperability.html">17. MLIR interoperability</a>
+<li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">18. GPU programming</a>
+<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">19. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2224,6 +2226,9 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>You may have noticed in the <code>fly_it</code> definition a square bracket with a parameter being passed within it, i.e. <code>[T: Flyable]</code>. Mojo allows values to be passed during <em>compile</em> time to a function or method. Only requirement is that the values must be passed within square brackets. Those are called <strong>parameters</strong>. In other languages, parameters and arguments to functions are interchangeable terms. However, in Mojo those are distinct terms. <em>Parameters</em> are passed during compile time to a function, while <em>arguments</em> are passed at runtime. In the above example, we have passed a compile time parameter <code>T</code> of the type <code>Flyable</code> to <code>fly_it</code>. We then used that type <code>T</code> as the type of the argument <code>f</code>, indirectly assigning <code>Flyable</code> as the type of <code>f</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that trait method without any implementation is declared using <code>&#8230;&#8203;</code> within the body of the trait. This indicates that the method is abstract and must be implemented by the struct that implements the trait.</p>
 </div>
 <div class="paragraph">
 <p>The anatomy of a trait and its usage in a struct is shown in the following diagram.</p>
@@ -2315,23 +2320,23 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_associated_aliases">8.3. Associated aliases</h3>
+<h3 id="_associated_comptimes">8.3. Associated comptimes</h3>
 <div class="paragraph">
-<p>We saw how traits allow us to abstract over methods and even static methods. Another key feature of Mojo traits is that they even let us abstract over aliases. This means that structs that implement traits can override aliases and provide their own aliases. One benefit is when we do not want to prescribe what types the traits use within its methods, instead we want the implementors to provide the types. This makes API designs much more elegant and extensible.</p>
+<p>We saw how traits allow us to abstract over methods and even static methods. Another key feature of Mojo traits is that they even let us abstract over comptimes. This means that structs that implement traits can override comptimes and provide their own comptimes. One benefit is when we do not want to prescribe what types the traits use within its methods, instead we want the implementors to provide the types. This makes API designs much more elegant and extensible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Message</span><span class="p">:</span>
     
-    <span class="k">alias</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">AnyType</span>
-    <span class="k">alias</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="k">comptime</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">AnyType</span>
+    <span class="k">comptime</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">.</span><span class="n">MessageType</span><span class="p">:</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">HelloInt</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
 
-    <span class="k">alias</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Int</span>
-    <span class="k">alias</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">comptime</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Int</span>
+    <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
@@ -2341,8 +2346,8 @@ pre.rouge .gs {
 
 <span class="k">struct</span> <span class="nc">HelloFloat</span><span class="p">(</span><span class="n">Message</span><span class="p">):</span>
 
-    <span class="k">alias</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Float16</span>
-    <span class="k">alias</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">comptime</span> <span class="n">MessageType</span> <span class="o">=</span> <span class="n">Float16</span>
+    <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">3</span>
 
     <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
     
@@ -2367,7 +2372,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, the trait <code>Message</code> defines two aliases, one a constant and the other a return type. The structs <code>HelloInt</code> and <code>HelloFloat</code> implement the <code>Message</code> trait and override the types with their own values. This enables the implementors to sharpen the types and constants that is relevant to the implementor&#8217;s needs.</p>
+<p>In the above example, the trait <code>Message</code> defines two comptimes, one a constant and the other a return type. The structs <code>HelloInt</code> and <code>HelloFloat</code> implement the <code>Message</code> trait and override the types with their own values. This enables the implementors to sharpen the types and constants that is relevant to the implementor&#8217;s needs.</p>
 </div>
 <div class="paragraph">
 <p>The structs can be used directly and also polymorphically, as seen in the function <code>call_message</code>.</p>
@@ -2405,6 +2410,9 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>When we run the program, we see that the default method <code>hello</code> is called on the struct <code>HelloWorld</code>, which in turn calls the <code>get_name</code> method implemented by <code>HelloWorld</code>.</p>
 </div>
+<div class="paragraph">
+<p>If you want to provide a default method, but without any implementation, you can use the <code>pass</code> keyword in the body instead of <code>&#8230;&#8203;</code>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2414,7 +2422,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-11 20:04:45 +0100
+Last updated 2026-01-23 18:18:46 +0100
 </div>
 </div>
 </body>
