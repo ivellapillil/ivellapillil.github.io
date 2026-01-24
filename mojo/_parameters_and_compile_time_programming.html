@@ -2183,6 +2183,8 @@ pre.rouge .gs {
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">12.12. Custom compile-time checks</a>
 </li>
+<li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.13. Parameterized errors</a>
+</li>
 </ul>
 </li>
 <li><a href="_ownership_and_lifecycle.html">13. Ownership and lifecycle</a>
@@ -2684,6 +2686,47 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="paragraph">
 <p>You can think of <code>constrained</code> as a more flexible version of <code>where</code> clauses, when the constraints cannot be expressed easily using <code>where</code> clauses.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parameterized_errors">12.13. Parameterized errors</h3>
+<div class="paragraph">
+<p>Mojo allows us to define parameterized errors. This is useful when we want to abstract away the type of error that could be raised, and let the caller decide on what error type to use.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="nc">ErrorTrait</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="bp">...</span>
+
+<span class="k">struct</span> <span class="nc">MyError</span><span class="p">(</span><span class="n">ErrorTrait</span><span class="p">):</span> 
+    <span class="k">var</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+
+<span class="k">fn</span> <span class="n">raise_error</span><span class="p">[</span><span class="n">ErrorType</span><span class="p">:</span> <span class="n">ErrorTrait</span><span class="p">](</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">ErrorType</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">ErrorType</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
+        <span class="n">raise_error</span><span class="p">[</span><span class="n">MyError</span><span class="p">](</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we defined a custom Trait that represents an error. It requires an <code><em>init</em></code> method that takes a <code>String</code> message. The function <code>raise_error</code> takes a parameter <code>ErrorType</code> that is constrained to be a type that implements the <code>ErrorTrait</code>. Inside the function, we raise an instance of the parameterized type as error. At the function call site, we specify which concrete error type to use, in this case a struct <code>MyError</code> that implements the <code>ErrorTrait</code>.</p>
+</div>
+<div class="paragraph">
+<p>We have basically allowed the caller to determine what error type to use, as long as it conforms to the <code>ErrorTrait</code>. This is quite useful when we want to write generic libraries that can be used in different contexts with different error types.</p>
 </div>
 </div>
 </div>

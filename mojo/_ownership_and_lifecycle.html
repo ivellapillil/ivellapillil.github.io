@@ -2181,6 +2181,8 @@ pre.rouge .gs {
 </li>
 <li><a href="_ownership_and_lifecycle.html#_origin">13.10. Origin</a>
 </li>
+<li><a href="_ownership_and_lifecycle.html#_linear_types">13.11. Linear types</a>
+</li>
 </ul>
 </li>
 <li><a href="_memory_management_references_and_pointers.html">14. Memory management, references and pointers</a>
@@ -2572,7 +2574,92 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
+<p>Here we are taking a parameter that is of type <code>MutOrigin</code>. This parameter is then used in <code>ref</code> which represents a reference. Together the <code>ref[o]</code> syntax indicates that we are passing a reference with origin <code>o</code>. Since <code>o</code> is of type <code>MutOrigin</code>, we are allowed to modify the value within the function. You will learn the <code>ref</code> syntax in a later chapter.</p>
+</div>
+<div class="paragraph">
 <p>Note: Mojo allows a short-hand syntax <code>mut</code> for mutable references in function arguments.</p>
+</div>
+<div class="sect3">
+<h4 id="_origin_of">13.10.1. <code>origin_of</code></h4>
+<div class="paragraph">
+<p>In some cases, we may want to explicitely get the origin of a value. This can be done using the <code>origin_of</code> function. For example, we may want to share a pointer to a value, and to ensure that the pointer always points to a valid value, we need to align the origin of the pointer with the origin of the value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">B</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
+  <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">B</span>
+
+  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+  <span class="k">fn</span> <span class="nf">get_pointer</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="nf">origin_of</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)]:</span>
+    <span class="k">return</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">b</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">()</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">get_pointer</span><span class="p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above code listing, we have a struct <code>A</code> that holds a value of type <code>B</code>. In the <code>get_pointer</code> method, we are returning a pointer to the value held within the struct. In order to ensure that the pointer is valid as long as the value is valid, we are using the <code>origin_of</code> function to get the origin of the value and passing it to the <code>Pointer</code> type. This ensures that the pointer&#8217;s origin is aligned with the value&#8217;s origin. Without using the <code>origin_of</code>, the compiler cannot automatically infer the correct origin and will raise a compile-time error.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_linear_types">13.11. Linear types</h3>
+<div class="paragraph">
+<p>In Mojo, when we define a struct and we do not provide a <code>__del__</code> method, then the compiler creates the destructor automatically for us. Most of the time this is the desired behavior. However, there are cases where we want to have more control over the lifecycle of a struct. For example, we may want to ensure that a struct is used only once and then destroyed. This is where linear types come into play.</p>
+</div>
+<div class="paragraph">
+<p>A linear type is a type that can be used only once. This means that once a value of a linear type is used, it cannot be used again. This is useful for ensuring that resources are not leaked and are properly released when they are no longer needed. This means a linear type cannot be copied or moved. The destruction of a linear type must be explicit and not just because it goes out-of-scope.</p>
+</div>
+<div class="paragraph">
+<p>In Mojo, copy and move are already explicitely opted-in. You can additionally place <code>@explicit_destroy</code> decorator to a struct to make it a linear type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@explicit_destroy</span>
+<span class="k">struct</span> <span class="n">Linear</span><span class="p">:</span>
+  <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
+
+  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+  
+  <span class="k">fn</span> <span class="nf">destroy_me</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Destroying Linear with value: </span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Linear</span><span class="p">):</span>
+  <span class="k">pass</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">l</span><span class="p">:</span> <span class="n">Linear</span> <span class="o">=</span> <span class="nc">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="nf">my_function</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">^</span><span class="p">.</span><span class="nf">destroy_me</span><span class="p">()</span>  <span class="c1"># Commenting this out will result in a compile-time error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we have defined a struct <code>Linear</code> that is marked with the <code>@explicit_destroy</code> decorator. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Moveable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
+</div>
+<div class="paragraph">
+<p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__del__</code>, the struct is assumed automatically to implement <code>ImplicitlyDestructible</code> trait. By marking the struct with <code>@explicit_destroy</code>, we are indicating that the struct does not implement <code>ImplicitlyDestructible</code> trait, and hence the destruction must be explicit.</p>
+</div>
+<div class="paragraph">
+<p>Linear types are useful for managing resources that need to be used in a controlled manner, such as file handles, network connections, or other system resources. By using linear types, we can ensure that these resources are properly released when they are no longer needed, preventing resource leaks and ensuring the stability of our applications. It allows for compiler enforced resource management, reducing the chances of runtime errors related to resource handling.</p>
 </div>
 </div>
 </div>
