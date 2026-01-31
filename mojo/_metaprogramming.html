@@ -2171,6 +2171,12 @@ pre.rouge .gs {
 </li>
 <li><a href="_metaprogramming.html#_trait_downcast">15.3. <code>trait_downcast</code></a>
 </li>
+<li><a href="_metaprogramming.html#_size_of">15.4. <code>size_of</code></a>
+</li>
+<li><a href="_metaprogramming.html#_get_type_name">15.5. <code>get_type_name</code></a>
+</li>
+<li><a href="_metaprogramming.html#_struct_reflection_functions">15.6. Struct Reflection Functions</a>
+</li>
 </ul>
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
@@ -2196,7 +2202,7 @@ pre.rouge .gs {
 <p>Metaprogramming blurs the line between code and data by allowing programs to treat other programs or themselves as data. This enables the creation of more dynamic and flexible code that can adapt to different situations at runtime or compile-time. Metaprogramming techniques can be used to generate code, modify existing code, or create domain-specific languages (DSLs) that are tailored to specific problem domains.</p>
 </div>
 <div class="paragraph">
-<p>Mojo supports serveral metaprogramming features, such as <code>type_of</code>.</p>
+<p>Mojo supports serveral metaprogramming features, some of which are shown below. Mojo metaprogramming features are primarily focused on compile-time reflection and therefore may result in longer compile times.</p>
 </div>
 <div class="sect2">
 <h3 id="_type_of">15.1. <code>type_of</code></h3>
@@ -2321,6 +2327,170 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>In the above code listing, we define a trait <code>CanFly</code> and implement it for the <code>Eagle</code> struct. The <code>ability</code> function checks if the type <code>T</code> conforms to the <code>CanFly</code> trait using the <code>conforms_to</code> function. If it does, it uses <code>trait_downcast</code> to downcast the value to the <code>CanFly</code> trait type and calls the <code>fly</code> method. This allows us to access the specific behavior of the <code>Eagle</code> struct when we know it conforms to the <code>CanFly</code> trait.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_size_of">15.4. <code>size_of</code></h3>
+<div class="paragraph">
+<p>The <code>size_of</code> function in Mojo is a built-in function that returns the size, in bytes, of a given type at compile-time. This is useful for tasks such as memory management, serialization, interfacing with hardware, among others.</p>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">sys.info</span> <span class="kn">import</span> <span class="n">size_of</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Int16 is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Int16</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 2 bytes
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Float64 is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Float64</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 8 bytes
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bool is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Bool</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 1 byte</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_type_name">15.5. <code>get_type_name</code></h3>
+<div class="paragraph">
+<p>The <code>get_type_name</code> function in Mojo is a built-in function that returns the name of a given type at compile-time. In addition to being useful for debugging and logging purposes, it can also be used in metaprogramming scenarios where type information is needed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::struct_decl[]
+</span><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
+<span class="c1"># end::struct_decl[]
+</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="c1"># tag::get_type_name[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
+
+    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
+
+    <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
+</span>    <span class="n">print_type_name</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: String
+</span>
+    <span class="c1"># end::get_type_name[]
+</span>
+    <span class="c1"># tag::struct_use[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
+        <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="nd">@parameter</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]]())</span>
+
+    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span>
+
+    <span class="c1"># end::struct_use[]</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_struct_reflection_functions">15.6. Struct Reflection Functions</h3>
+<div class="paragraph">
+<p>Mojo provides several reflection functions that allow you to inspect the fields of a struct at compile-time. These functions include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>struct_field_count[T]()</code>: Returns the number of fields in the struct type <code>T</code>.</p>
+</li>
+<li>
+<p><code>struct_field_names[T]()</code>: Returns a tuple of the names of the fields in the struct type <code>T</code>.</p>
+</li>
+<li>
+<p><code>struct_field_types[T]()</code>: Returns a tuple of the types of the fields in the struct type <code>T</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::struct_decl[]
+</span><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
+<span class="c1"># end::struct_decl[]
+</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="c1"># tag::get_type_name[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
+
+    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
+
+    <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
+</span>    <span class="n">print_type_name</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: String
+</span>
+    <span class="c1"># end::get_type_name[]
+</span>
+    <span class="c1"># tag::struct_use[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
+        <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="nd">@parameter</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]]())</span>
+
+    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span>
+
+    <span class="c1"># end::struct_use[]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::struct_decl[]
+</span><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
+<span class="c1"># end::struct_decl[]
+</span>
+<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="c1"># tag::get_type_name[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
+
+    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
+
+    <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
+</span>    <span class="n">print_type_name</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: String
+</span>
+    <span class="c1"># end::get_type_name[]
+</span>
+    <span class="c1"># tag::struct_use[]
+</span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
+        <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
+
+    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+        <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
+        <span class="nd">@parameter</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]]())</span>
+
+    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span>
+
+    <span class="c1"># end::struct_use[]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we define a struct <code>Person</code> with two fields: <code>name</code> and <code>age</code>. The <code>print_struct</code> function uses the reflection functions to get the number of fields, their names, and their types at compile-time. It then prints this information to the console. All these happen at compile-time, unlike many other programming languages where such reflection is typically done at runtime. Compiletime reflection leads to more efficient code as it avoids the overhead of runtime reflection.</p>
 </div>
 </div>
 </div>

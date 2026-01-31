@@ -2368,6 +2368,9 @@ pre.rouge .gs {
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Please note that <code>deinit</code> also works for normal methods, only condition being that <code>deinit</code> is applied on <code>self</code> argument. Those methods then act as a destructor.</p>
+</div>
 <div class="sect3">
 <h4 id="_eager_destruction">13.7.1. Eager destruction</h4>
 <div class="paragraph">
@@ -2390,7 +2393,10 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_copyinit">13.8. <code>__copyinit__</code></h3>
 <div class="paragraph">
-<p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be implicitely copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages. In order to ensure that developers do not accidently copy large values, Mojo requires explicit declaration of the trait <code>ImplicitlyCopyable</code> for the struct in order to enable copy semantics. By explicitly declaring the trait, the developer indicates that it is safe to copy the struct.</p>
+<p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be implicitely copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages.</p>
+</div>
+<div class="paragraph">
+<p>In order to ensure that developers do not accidently copy large values, Mojo requires explicit declaration of the trait <code>ImplicitlyCopyable</code> on the struct to enable copy semantics. By explicitly declaring the trait, the developer indicates that it is safe to copy the struct.</p>
 </div>
 <div class="paragraph">
 <p>Mojo compiler tries to optimize away copies as much as possible, especially where the reference is not being used later on.</p>
@@ -2439,6 +2445,29 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>In the previous code listing, within the <code><em>copyinit</em></code>, we are allocating new memory for holding the copy of the value from <code>other</code>. The <code>other</code> has type <code>Self</code>, which means the same type as the struct defining the <code><em>copyinit</em></code> - in this case <code>MyNumber</code>.</p>
 </div>
+<div class="paragraph">
+<p>Mojo compiler generates a default implementation of <code><em>copyinit</em></code> if the struct implements the <code>ImplicitlyCopyable</code> trait. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is suffucient, unless your struct holds resources that need special handling during copy.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">v</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a1</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a1</span>  <span class="c1"># This will invoke the auto-generated __copyinit__
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a1.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a1</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a1.val: 10
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a2.val: 10</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_moveinit">13.9. <code>__moveinit__</code></h3>
@@ -2481,7 +2510,27 @@ pre.rouge .gs {
 <p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the <code><em>moveinit</em></code> and <code><em>copyinit</em></code> are actually called.</p>
 </div>
 <div class="paragraph">
-<p>If your struct implements trait <code>Moveable</code>, and you do not provide your own implementation of <code><em>moveinit</em></code>, the compiler will generate a default implementation for you. Similary, if your struct implements trait <code>ImplicitlyCopyable</code>, and you do not provide your own implementation of <code><em>copyinit</em></code>, the compiler will generate a default implementation for you. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is suffucient, unless your struct holds resources that need special handling during copy or move operations.</p>
+<p>Mojo requires explicit declaration of the trait <code>Moveable</code> to enable move semantics. Mojo compiler generates a default implementation of <code><em>moveinit</em></code> if the struct implements the <code>Moveable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">B</span><span class="p">(</span><span class="n">Movable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">v</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">b1</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">b2</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">b1</span><span class="o">^</span>  <span class="c1"># This will invoke the auto-generated __moveinit__
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">b2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: b2.val: 20
+</span>    <span class="c1"># print("b1.val:", b1.val)  # This would be an error since b1 has been moved</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>The different lifecycle operations are illustrated in the following diagram.</p>
@@ -2612,6 +2661,31 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>In the above code listing, we have a struct <code>A</code> that holds a value of type <code>B</code>. In the <code>get_pointer</code> method, we are returning a pointer to the value held within the struct. In order to ensure that the pointer is valid as long as the value is valid, we are using the <code>origin_of</code> function to get the origin of the value and passing it to the <code>Pointer</code> type. This ensures that the pointer&#8217;s origin is aligned with the value&#8217;s origin. Without using the <code>origin_of</code>, the compiler cannot automatically infer the correct origin and will raise a compile-time error.</p>
+</div>
+<div class="paragraph">
+<p>Sometimes we may want to define a struct that holds a reference with a specific origin. This can be done by defining the struct with a type parameter that represents the origin and use that type parameter to define the origin of the reference within the struct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">ARef</span><span class="p">[</span><span class="n">o</span><span class="p">:</span> <span class="n">Origin</span><span class="p">]:</span>
+  <span class="k">var</span> <span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]</span>
+
+  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">val_ref</span><span class="p">:</span> <span class="n">ARef</span><span class="p">[</span><span class="n">o</span><span class="o">=</span><span class="nf">origin_of</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span> <span class="o">=</span> <span class="nc">ARef</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">val_ref</span><span class="p">.</span><span class="n">p</span><span class="p">[])</span> <span class="c1"># Prints "Hello"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, within <code>ARef</code>, we are holding a pointer to a value we get from outside. In order to ensure that the pointer is valid as long as the value is valid, we need to ensure that the origin of <code>ARef</code> is same as the origin of the value being pointed to. This is done by defining a type parameter <code>o</code> of type <code>Origin</code> for the struct <code>ARef</code>, and using that type parameter to define the origin of the pointer within the struct. When we create an instance of <code>ARef</code>, we need to provide the correct origin using the <code>origin_of</code> function to ensure that the pointer is valid. As you can see, the <code>origin_of</code> function brings clarity to which value&#8217;s origin we are referring to.</p>
 </div>
 </div>
 </div>
