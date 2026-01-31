@@ -2328,8 +2328,8 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Message</span><span class="p">:</span>
     
-    <span class="k">comptime</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">AnyType</span>
-    <span class="k">comptime</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="k">comptime</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">ImplicitlyDestructible</span> <span class="c1"># Ignore ImplicitlyDestructible for the moment. It will be explained in later chapters.
+</span>    <span class="k">comptime</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">fn</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">.</span><span class="n">MessageType</span><span class="p">:</span> <span class="bp">...</span>
 

@@ -2261,9 +2261,9 @@ pre.rouge .gs {
         <span class="k">with</span> <span class="n">result_buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_result_buf</span><span class="p">:</span> <span class="c1"># Map the device buffers to host buffers to print
 </span>            <span class="nf">print</span><span class="p">(</span><span class="n">host_result_buf</span><span class="p">)</span> <span class="c1"># Show the contents of the host result_buffer
 </span>        
-        <span class="k">var</span> <span class="n">compiled_fn</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">compile_function_checked</span><span class="p">[</span><span class="n">add_two</span><span class="p">,</span> <span class="n">add_two</span><span class="p">]()</span> <span class="c1"># Compile the kernel function for the device
+        <span class="k">var</span> <span class="n">compiled_fn</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">compile_function</span><span class="p">[</span><span class="n">add_two</span><span class="p">,</span> <span class="n">add_two</span><span class="p">]()</span> <span class="c1"># Compile the kernel function for the device
 </span>
-        <span class="n">ctx</span><span class="p">.</span><span class="nf">enqueue_function_checked</span><span class="p">(</span>
+        <span class="n">ctx</span><span class="p">.</span><span class="nf">enqueue_function</span><span class="p">(</span>
             <span class="n">compiled_fn</span><span class="p">,</span>
             <span class="n">result_buf</span><span class="p">,</span>
             <span class="n">input_buf1</span><span class="p">,</span>
