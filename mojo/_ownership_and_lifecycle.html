@@ -2510,10 +2510,10 @@ pre.rouge .gs {
 <p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the <code><em>moveinit</em></code> and <code><em>copyinit</em></code> are actually called.</p>
 </div>
 <div class="paragraph">
-<p>Mojo requires explicit declaration of the trait <code>Moveable</code> to enable move semantics. Mojo compiler generates a default implementation of <code><em>moveinit</em></code> if the struct implements the <code>Moveable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
+<p>Mojo requires explicit declaration of the trait <code>Movable</code> to enable move semantics. Mojo compiler generates a default implementation of <code><em>moveinit</em></code> if the struct implements the <code>Movable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
 </div>
 <div class="paragraph">
-<p>If your struct implements <code>ImplicitlyCopyable</code>, then <code>Moveable</code> is implemented automatically (<code>ImplicitlyCopyable</code> implements the <code>Moveable</code> trait); this is useful because Mojo compiler can sometimes optimize copy to move.</p>
+<p>If your struct implements <code>ImplicitlyCopyable</code>, then <code>Movable</code> is implemented automatically (<code>ImplicitlyCopyable</code> implements the <code>Movable</code> trait); this is useful because Mojo compiler can sometimes optimize copy to move.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2731,7 +2731,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a struct <code>Linear</code> that is marked with the <code>@explicit_destroy</code> decorator. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Moveable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
+<p>In the above example, we have defined a struct <code>Linear</code> that is marked with the <code>@explicit_destroy</code> decorator. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Movable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
 </div>
 <div class="paragraph">
 <p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__del__</code>, the struct is assumed automatically to implement <code>ImplicitlyDestructible</code> trait. By marking the struct with <code>@explicit_destroy</code>, we are indicating that the struct does not implement <code>ImplicitlyDestructible</code> trait, and hence the destruction must be explicit.</p>
