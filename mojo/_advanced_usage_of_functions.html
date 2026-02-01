@@ -2284,7 +2284,7 @@ pre.rouge .gs {
 <p>So far we have seen that we can pass arguments to functions and they would use those arguments within their body. There is another technique for functions to get values from outside of the function body, which is commonly known as closure.</p>
 </div>
 <div class="paragraph">
-<p>In a closure, we define a function that captures values outside of its function body. The values that are captured must be defined before the definition of the function itself. Another constraint is that the data type of the captured values must implement <code>__copyinit__</code>, as the value of the variable is <strong>copied</strong> over to the function.</p>
+<p>In a closure, we define a function that captures values outside of its function body. The values that are captured must be defined before the definition of the function itself. Another constraint is that the data type of the captured values must implement either <code>ImplicitlyCopyable</code> or <code>Copyable</code> trait, as the value of the variable is <strong>copied</strong> over to the function.</p>
 </div>
 <div class="listingblock">
 <div class="content">

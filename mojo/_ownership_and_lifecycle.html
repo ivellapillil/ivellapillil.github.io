@@ -2512,6 +2512,9 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>Mojo requires explicit declaration of the trait <code>Moveable</code> to enable move semantics. Mojo compiler generates a default implementation of <code><em>moveinit</em></code> if the struct implements the <code>Moveable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
 </div>
+<div class="paragraph">
+<p>If your struct implements <code>ImplicitlyCopyable</code>, then <code>Moveable</code> is implemented automatically (<code>ImplicitlyCopyable</code> implements the <code>Moveable</code> trait); this is useful because Mojo compiler can sometimes optimize copy to move.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">B</span><span class="p">(</span><span class="n">Movable</span><span class="p">):</span>
