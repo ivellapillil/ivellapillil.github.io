@@ -2169,17 +2169,19 @@ pre.rouge .gs {
 </li>
 <li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html"><span class="toc-current">18. MLIR interoperability</span></a>
+<li><a href="_c_interoperability.html">18. C interoperability</a>
+</li>
+<li><a href="_mlir_interoperability.html"><span class="toc-current">19. MLIR interoperability</span></a>
 <ul class="sectlevel2">
-<li><a href="_mlir_interoperability.html#_mlir_attr">18.1. __mlir_attr</a>
+<li><a href="_mlir_interoperability.html#_mlir_attr">19.1. __mlir_attr</a>
 </li>
-<li><a href="_mlir_interoperability.html#_mlir_type">18.2. __mlir_type</a>
+<li><a href="_mlir_interoperability.html#_mlir_type">19.2. __mlir_type</a>
 </li>
-<li><a href="_mlir_interoperability.html#_mlir_op">18.3. __mlir_op</a>
+<li><a href="_mlir_interoperability.html#_mlir_op">19.3. __mlir_op</a>
 </li>
 </ul>
 </li>
-<li><a href="_gpu_programming.html">19. GPU programming</a>
+<li><a href="_gpu_programming.html">20. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2190,7 +2192,7 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_mlir_interoperability">18. MLIR interoperability</h2>
+<h2 id="_mlir_interoperability">19. MLIR interoperability</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mojo supports ahead-of-time compilation. This means that we can run Mojo compiler over our source code to generate the machine code that gets executed on the computer. For a developer it may look as if Mojo reads the source code and directly generates the machine code. However, like many modern compilers, Mojo creates an intermediate representation of our source code before it generates the machine code. This intermediate representation (IR) is a simplified form of the program, which is easier to optimize and reason about. Many compilers use IRs that are custom built for the language supported by the compiler. Mojo does not have its own IR infrastructure, instead it uses Multi-Level Intermediate Representation (MLIR). Unlike other language IRs, MLIR is designed to be extensible and is capable of supporting many programming languages and  different types of processors.</p>
@@ -2232,7 +2234,7 @@ pre.rouge .gs {
 <p>At first, the code listing may look a bit strange. Mojo&#8217;s MLIR elements start with <code>__mlir</code>. There are three different elements: <code>__mlir_attr</code>, <code>__mlir_type</code> and <code>__mlir_op</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_mlir_attr">18.1. __mlir_attr</h3>
+<h3 id="_mlir_attr">19.1. __mlir_attr</h3>
 <div class="paragraph">
 <p>As the name suggests, <code>__mlir_attr</code> provides ability to define a MLIR attribute (similar to a compile-time constant) along with its data type.</p>
 </div>
@@ -2246,7 +2248,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mlir_type">18.2. __mlir_type</h3>
+<h3 id="_mlir_type">19.2. __mlir_type</h3>
 <div class="paragraph">
 <p>The <code>__mlir_type</code> provides ability to refer to a given MLIR <em>type</em>.</p>
 </div>
@@ -2260,7 +2262,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mlir_op">18.3. __mlir_op</h3>
+<h3 id="_mlir_op">19.3. __mlir_op</h3>
 <div class="paragraph">
 <p>The <code>__mlir_op</code> provides ability to refer to a MLIR operation.</p>
 </div>
@@ -2284,12 +2286,12 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_python_interoperability.html">Python interoperability</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_gpu_programming.html">GPU programming</a> →</p>
+<p>← Previous: <a href="_c_interoperability.html">C interoperability</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_gpu_programming.html">GPU programming</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-23 18:18:46 +0100
+Last updated 2026-02-13 21:35:53 +0100
 </div>
 </div>
 </body>

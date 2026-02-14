@@ -2195,7 +2195,9 @@ pre.rouge .gs {
 </li>
 <li><a href="_types.html#_dict_literals">5.25. Dict literals</a>
 </li>
-<li><a href="_types.html#_type_inference">5.26. Type inference</a>
+<li><a href="_types.html#_variant">5.26. Variant</a>
+</li>
+<li><a href="_types.html#_type_inference">5.27. Type inference</a>
 </li>
 </ul>
 </li>
@@ -2223,9 +2225,11 @@ pre.rouge .gs {
 </li>
 <li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">18. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">19. GPU programming</a>
+<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">20. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2688,7 +2692,32 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_inference">5.26. Type inference</h3>
+<h3 id="_variant">5.26. Variant</h3>
+<div class="paragraph">
+<p>Sometimes known as tagged union or sum type, <code>Variant</code> is a type that can hold values of different types. A <code>Variant</code> can be defined to hold values of specific types only. When you try to assign a value of a type that is not part of the defined types for that <code>Variant</code>, Mojo compiler raises an error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">utils</span> <span class="kn">import</span> <span class="n">Variant</span>
+
+    <span class="k">comptime</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">v1</span><span class="p">:</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">var</span> <span class="n">v2</span><span class="p">:</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello Variant</span><span class="sh">"</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="c1"># Prints 100
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="n">String</span><span class="p">])</span> <span class="c1"># Prints Hello Variant
+</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">Int</span><span class="p">]())</span>      <span class="c1"># Prints True
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">v2</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">String</span><span class="p">]())</span>   <span class="c1"># Prints True
+</span>
+    <span class="c1">#print(v1[Float64])  # Uncommenting this line will raise an error</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above code, we define a <code>Variant</code> type called <code>IntOrString</code> that can hold either <code>Int</code> or <code>String</code> values. We then create two variables <code>v1</code> and <code>v2</code> of type <code>IntOrString</code>, assigning them an <code>Int</code> and a <code>String</code> respectively. We can access the underlying value by specifying the type in square brackets (these are called parameters in Mojo, we will cover those later).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type_inference">5.27. Type inference</h3>
 <div class="paragraph">
 <p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
 </div>
@@ -2710,7 +2739,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-23 18:18:46 +0100
+Last updated 2026-02-13 21:35:53 +0100
 </div>
 </div>
 </body>

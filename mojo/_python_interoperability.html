@@ -2175,11 +2175,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_python_interoperability.html#_other_useful_python_functions">17.3. Other useful Python functions</a>
 </li>
+<li><a href="_python_interoperability.html#_calling_a_mojo_function_from_python">17.4. Calling a Mojo function from Python</a>
+</li>
 </ul>
 </li>
-<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">18. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">19. GPU programming</a>
+<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">20. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2259,15 +2263,61 @@ pre.rouge .gs {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_calling_a_mojo_function_from_python">17.4. Calling a Mojo function from Python</h3>
+<div class="paragraph">
+<p>You can also call a Mojo function from Python. In fact, Mojo allows you to call Mojo functions without having to even compile the Mojo code. This is possible through dynamic compilation and loading of Mojo code.</p>
+</div>
+<div class="listingblock">
+<div class="title">mymath.mojo</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">python</span> <span class="kn">import</span> <span class="n">PythonObject</span>
+<span class="kn">from</span> <span class="n">python.bindings</span> <span class="kn">import</span> <span class="n">PythonModuleBuilder</span>
+<span class="kn">from</span> <span class="n">os</span> <span class="kn">import</span> <span class="n">abort</span>
+
+<span class="nd">@export</span>
+<span class="k">fn</span> <span class="nc">PyInit_mymath</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PythonObject</span><span class="p">:</span> <span class="c1"># Function name must be PyInit_&lt;module_name&gt;
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="nc">PythonModuleBuilder</span><span class="p">(</span><span class="sh">"</span><span class="s">mymath</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Create a new Python module named "mymath"
+</span>        <span class="n">m</span><span class="p">.</span><span class="n">def_function</span><span class="p">[</span><span class="n">sub</span><span class="p">](</span><span class="sh">"</span><span class="s">sub</span><span class="sh">"</span><span class="p">,</span> <span class="n">docstring</span><span class="o">=</span><span class="sh">"</span><span class="s">Subtract two numbers</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Add the `sub` function to the module with a docstring
+</span>        <span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="nf">finalize</span><span class="p">()</span> <span class="c1"># Finalize the module and return it to Python
+</span>    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nf">abort</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">Could not create module:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span> <span class="c1"># Can't proceed if we can't create the module
+</span>
+<span class="k">fn</span> <span class="nf">sub</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">PythonObject</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">PythonObject</span><span class="p">)</span> <span class="k">raises</span> <span class="o">-&gt;</span> <span class="n">PythonObject</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above code listing, we are defining a module named <code>mymath</code> that has a function <code>sub</code> which takes two integers and returns their difference.</p>
+</div>
+<div class="paragraph">
+<p>There is some boilerplate required to define a Python-accessible module in Mojo. We use <code>PythonModuleBuilder</code> to build the module. We then add the <code>sub</code> function to the module using the <code>def_function</code> method, which takes the function name, function documentation, and a reference to the actual function itself as parameters. Finally, we call <code>finalize</code> method to create the module.</p>
+</div>
+<div class="paragraph">
+<p>We can call this function from Python as shown in the following code listing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="python"><span class="kn">import</span> <span class="n">mojo.importer</span> <span class="c1"># Required to import Mojo files
+</span><span class="kn">import</span> <span class="n">mymath</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">mymath</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that in the above code listing, we import <code>mojo.importer</code> to enable importing of Mojo modules in Python. The <code>mojo.importer</code> finds the relevant Mojo module, compiles it if necessary, and loads it into Python, making the <code>sub</code> function available for use. We can then import the <code>mymath</code> module and call the <code>sub</code> function defined in it, passing the required arguments.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_mlir_interoperability.html">MLIR interoperability</a> →</p>
+<p>← Previous: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_c_interoperability.html">C interoperability</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-23 18:18:46 +0100
+Last updated 2026-02-13 21:35:53 +0100
 </div>
 </div>
 </body>

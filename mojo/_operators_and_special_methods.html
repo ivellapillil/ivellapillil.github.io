@@ -2169,6 +2169,10 @@ pre.rouge .gs {
 </li>
 <li><a href="_operators_and_special_methods.html#_other_special_methods">11.6. Other special methods</a>
 </li>
+<li><a href="_operators_and_special_methods.html#_literal_collection_forms">11.7. Literal Collection Forms</a>
+</li>
+<li><a href="_operators_and_special_methods.html#_set_literal">11.8. Set Literal</a>
+</li>
 </ul>
 </li>
 <li><a href="_parameters_and_compile_time_programming.html">12. Parameters and compile-time programming</a>
@@ -2183,9 +2187,11 @@ pre.rouge .gs {
 </li>
 <li><a href="_python_interoperability.html">17. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">18. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">18. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">19. GPU programming</a>
+<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">20. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -4007,6 +4013,94 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_literal_collection_forms">11.7. Literal Collection Forms</h3>
+<div class="paragraph">
+<p>Mojo provides literal forms for some built-in collection types. Literal forms are special syntactical constructs that allow us to create instances of a type without explicitly calling the constructor. Two of the most common collection literal forms are for <code>List</code> and <code>Dict</code> types.</p>
+</div>
+<div class="sect3">
+<h4 id="_list_literal">11.7.1. List Literal</h4>
+<div class="paragraph">
+<p>A list literal is a syntactical construct that allows us to create an instance of <code>List</code> type without explicitly calling the constructor. The list literal is represented by square brackets <code>[]</code>, with elements separated by commas. By default, the type instantiated by Mojo for a list literal is <code>List</code>. But if you have a custom type, and want to have the same literal form, you can define a method that takes <code><em>list_literal</em></code> argument.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyList</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">items</span><span class="p">:</span> <span class="n">VariadicList</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">__list_literal__</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[]):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">items</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_list</span><span class="p">:</span> <span class="n">MyList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we defined a custom list type <code>MyList</code> that can be instantiated using the list literal syntax. The constructor of <code>MyList</code> takes a <code><em>list_literal</em></code> argument as the last argument. The argument is of type <code>Tuple</code>. The actual values of the list literal is assigned to the <code>items</code> argument. The <code><em>list_literal</em></code> argument can be thought of as a special marker argument that is only used when the list literal syntax is used to instantiate the type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dict_literal">11.7.2. Dict Literal</h4>
+<div class="paragraph">
+<p>A dict literal is a syntactical construct that allows us to create an instance of <code>Dict</code> type without explicitly calling the constructor. The dict literal is represented by curly braces <code>{}</code>, with key-value pairs separated by commas, and keys and values separated by colons. By default, the type instantiated by Mojo for a dict literal is <code>Dict</code>. But if you have a custom type, and want to have the same literal form, you can define a method that takes <code><em>dict_literal</em></code> argument.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyDict</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">var</span> <span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="k">var</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="n">__dict_literal__</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[]):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="o">^</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">^</span>    </code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_dict</span><span class="p">:</span> <span class="n">MyDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">keys</span><span class="p">))</span>  <span class="c1"># Output: 3
+</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># Output: 3</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we defined a custom dict type <code>MyDict</code> that can be instantiated using the dict literal syntax. The constructor of <code>MyDict</code> takes a <code><em>dict_literal</em></code> argument as the last argument. The argument is of type <code>Tuple</code>. The actual key-value pairs of the dict literal is assigned to the <code>keys</code> and <code>values</code> arguments. Similar to the <code><em>list_literal</em></code> argument, the <code><em>dict_literal</em></code> argument can be thought of as a special marker argument that is only used when the dict literal syntax is used to instantiate the type.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_set_literal">11.8. Set Literal</h3>
+<div class="paragraph">
+<p>Similar to List and Dict literals, a set literal is a syntactical construct that allows us to create an instance of <code>Set</code> type without explicitly calling the constructor. The set literal is represented by curly braces <code>{}</code>, with elements separated by commas. By default, the type instantiated by Mojo for a set literal is <code>Set</code>. But if you have a custom type, and want to have the same literal form, you can define a method that takes <code><em>set_literal</em></code> argument.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MySet</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">items</span><span class="p">:</span> <span class="n">VariadicList</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
+    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">__set_literal__</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[]):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">items</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_set</span><span class="p">:</span> <span class="n">MySet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_set</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we defined a custom set type <code>MySet</code> that can be instantiated using the set literal syntax. The constructor of <code>MySet</code> takes a <code><em>set_literal</em></code> argument as the last argument. The argument is of type <code>Tuple</code>. The actual values of the set literal is assigned to the <code>items</code> argument (as you may have noticed, it is similar to the List Literal). Same as the <code><em>list_literal</em></code> argument, the <code><em>set_literal</em></code> argument can be thought of as a special marker argument that is only used when the set literal syntax is used to instantiate the type.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph nav-footer">
@@ -4015,7 +4109,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-23 18:18:46 +0100
+Last updated 2026-02-13 21:35:53 +0100
 </div>
 </div>
 </body>
