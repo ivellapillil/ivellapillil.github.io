@@ -2145,21 +2145,19 @@ pre.rouge .gs {
 </li>
 <li><a href="_functions.html#_fn">3.2. fn</a>
 </li>
-<li><a href="_functions.html#_benefits_of_fn_over_def">3.3. Benefits of <code>fn</code> over <code>def</code></a>
+<li><a href="_functions.html#_default_return_types">3.3. Default return types</a>
 </li>
-<li><a href="_functions.html#_default_return_types">3.4. Default return types</a>
+<li><a href="_functions.html#_main_function">3.4. <code>main</code> function</a>
 </li>
-<li><a href="_functions.html#_main_function">3.5. <code>main</code> function</a>
+<li><a href="_functions.html#_different_styles_of_writing_functions">3.5. Different styles of writing functions</a>
 </li>
-<li><a href="_functions.html#_different_styles_of_writing_functions">3.6. Different styles of writing functions</a>
+<li><a href="_functions.html#_arguments_passed_to_functions">3.6. Arguments passed to functions</a>
 </li>
-<li><a href="_functions.html#_arguments_passed_to_functions">3.7. Arguments passed to functions</a>
+<li><a href="_functions.html#_nested_functions">3.7. Nested functions</a>
 </li>
-<li><a href="_functions.html#_nested_functions">3.8. Nested functions</a>
+<li><a href="_functions.html#_keyword_arguments">3.8. Keyword arguments</a>
 </li>
-<li><a href="_functions.html#_keyword_arguments">3.9. Keyword arguments</a>
-</li>
-<li><a href="_functions.html#_default_value">3.10. Default value</a>
+<li><a href="_functions.html#_default_value">3.9. Default value</a>
 </li>
 </ul>
 </li>
@@ -2308,63 +2306,13 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="sect2">
-<h3 id="_benefits_of_fn_over_def">3.3. Benefits of <code>fn</code> over <code>def</code></h3>
-<div class="paragraph">
-<p>As mentioned earlier, one of the benefits of using <code>fn</code> is to provide information to the compiler that would be used by the compiler to produce a highly performance code. The second benefit is to enforce program correctness.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s look into the following program.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When you execute the above program, you would see the result as <code>2.5</code>. Behind the scenes, the expression <code>add(1, 1.5)</code> added two different types. The first argument was of type <code>Int</code> and the second argument was of type <code>Float16</code>. The addition&#8217;s result is of type <code>Float16</code>.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">FloatLiteral vs Float</div>
-<div class="paragraph">
-<p>I am glossing over when I say that <code>1.5</code> is a <code>Float16</code>. Since it is provided in the source code directly, its actual type is <code>FloatLiteral</code> which gets converted to Float16 at runtime. <code>FloatLiteral</code> is a special type that represents all floating point literals in the source code. It can be converted to any of the floating point types like <code>Float16</code>, <code>Float32</code>, <code>Float64</code> or <code>Float128</code> depending upon the context. We will come back to this in detail in later chapters.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Mojo ensures that we can pass values to functions that can be converted to the declared type of the function argument. In this case, <code>1.5</code> can be converted to <code>Float16</code>, so the program works fine. If we pass a Float to a parameter of type <code>Int</code>, then the compiler would complain that <code>Float</code> cannot be converted to <code>Int</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you now execute the above program, you would get a compiler error (you may have slightly different error message depending upon the version of the Mojo compiler used).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">addition_return_fn_2</span><span class="p">.</span><span class="n">mojo</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span> <span class="n">error</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">call</span> <span class="n">to</span> <span class="sh">'</span><span class="s">add</span><span class="sh">'</span><span class="p">:</span> <span class="n">argument</span> <span class="c1">#1 cannot be converted from 'FloatLiteral' to 'Int'</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The Mojo compiler complains because we have strictly restricted the argument type of <code>b</code> to <code>Int</code> and Mojo compiler cannot convert the passed value to <code>Int</code>. You have a guarantee from the Mojo compiler that only those values that can be converted safely into <code>Int</code> will be allowed to be passed. This is known as type safety.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_default_return_types">3.4. Default return types</h3>
+<h3 id="_default_return_types">3.3. Default return types</h3>
 <div class="paragraph">
 <p>In Mojo, when you omit the return type, the function defaults to return <code>None</code>, which indicates that there is no value being returned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_main_function">3.5. <code>main</code> function</h3>
+<h3 id="_main_function">3.4. <code>main</code> function</h3>
 <div class="paragraph">
 <p>There is a special function called <code>main</code> in Mojo, which is the function that is used by the compiler to determine the main entrance of a program. When you call a program executable created by Mojo, the very first function that is executed is the <code>main</code> function.</p>
 </div>
@@ -2379,7 +2327,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="sect2">
-<h3 id="_different_styles_of_writing_functions">3.6. Different styles of writing functions</h3>
+<h3 id="_different_styles_of_writing_functions">3.5. Different styles of writing functions</h3>
 <div class="paragraph">
 <p>A function can be defined in different styles.</p>
 </div>
@@ -2401,19 +2349,19 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 <p>Note that all the above style is also valid for <code>fn</code> functions. You can define the function body in the same line as the function definition only if the whole body is just a single line.</p>
 </div>
 <div class="sect3">
-<h4 id="_semicolon">3.6.1. Semicolon</h4>
+<h4 id="_semicolon">3.5.1. Semicolon</h4>
 <div class="paragraph">
 <p>In the source code shown above, you may have noticed a semicolon in the body of function <code>func3</code>. Semicolon can be used to separate statements, which allow the statements to be written in a single line. Mojo follows the philosophy of Python, so use semicolon sparingly and only when it improves reading and understanding of code.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ellipses_in_functions">3.6.2. Ellipses in functions</h4>
+<h4 id="_ellipses_in_functions">3.5.2. Ellipses in functions</h4>
 <div class="paragraph">
 <p>In Mojo you would often see <code>&#8230;&#8203;</code> defined in the function body. Ellipsis is just a built-in constant in Mojo, and is a placeholder. Within a function, it just means that the body is not yet implemented and the Mojo compiler will not complain about the missing body. Ellipses have other uses and we will cover them in subsequent chapters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pass_in_functions">3.6.3. <code>pass</code> in functions</h4>
+<h4 id="_pass_in_functions">3.5.3. <code>pass</code> in functions</h4>
 <div class="paragraph">
 <p>The <code>pass</code> keyword has a similar role as <code>&#8230;&#8203;</code> in functions. It particularly tells the compiler that the implementation has been omitted.</p>
 </div>
@@ -2423,7 +2371,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="sect2">
-<h3 id="_arguments_passed_to_functions">3.7. Arguments passed to functions</h3>
+<h3 id="_arguments_passed_to_functions">3.6. Arguments passed to functions</h3>
 <div class="paragraph">
 <p>Arguments passed to a function cannot be modified within the function. Such arguments are said to be immutable as the function body cannot modify their value. This kind of restriction is helpful in large programs as the code that calls the function does not get surprised that the value it passed to a function has suddenly changed unexpectedly.</p>
 </div>
@@ -2449,7 +2397,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nested_functions">3.8. Nested functions</h3>
+<h3 id="_nested_functions">3.7. Nested functions</h3>
 <div class="paragraph">
 <p>Mojo supports nesting of function within other functions. This applies to both <code>fn</code> and <code>def</code> style functions.</p>
 </div>
@@ -2469,7 +2417,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_keyword_arguments">3.9. Keyword arguments</h3>
+<h3 id="_keyword_arguments">3.8. Keyword arguments</h3>
 <div class="paragraph">
 <p>Sometimes when functions take lots of arguments, it is much more clear if the name of the argument is specified when calling the function. Mojo supports keyword arguments, which is basically the ability to specify the argument name when we assign a value to that argument during a function call.</p>
 </div>
@@ -2547,7 +2495,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_default_value">3.10. Default value</h3>
+<h3 id="_default_value">3.9. Default value</h3>
 <div class="paragraph">
 <p>Mojo allows assigning default values to function arguments, which means when the caller does not pass a value to the argument, the function will take the given default value. That function argument therefore becomes optional for the caller. The default value must be of the same data type as the declared data type of the argument.</p>
 </div>
