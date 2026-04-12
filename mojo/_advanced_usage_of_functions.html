@@ -2200,11 +2200,11 @@ pre.rouge .gs {
 <p>In previous chapters you saw how we declare types of variables and how we use them. In Mojo you can assign also a function to a variable. The type of the variable is determined by the function&#8217;s signature, i.e., it is a combination of the argument types and return type of the function.</p>
 </div>
 <div class="paragraph">
-<p>In the following code listing, you can see the variable <code>my_fn_var</code> is of type <code>fn(Int, Int) &#8594; Int</code> and is assigned a function with the same signature as the type of <code>my_fn_var</code>. Another thing to note is that the assigned function does not have the trailing <code>()</code> which is usual in a function call. This is because we are not calling the function <code>adder</code>, instead we are binding the function to the variable <code>my_fn_var</code>. In fact, we do <strong>not</strong> want to call <code>adder</code> at that point of time.</p>
+<p>In the following code listing, you can see the variable <code>my_fn_var</code> is of type <code>def(Int, Int) &#8594; Int</code> and is assigned a function with the same signature as the type of <code>my_fn_var</code>. Another thing to note is that the assigned function does not have the trailing <code>()</code> which is usual in a function call. This is because we are not calling the function <code>adder</code>, instead we are binding the function to the variable <code>my_fn_var</code>. In fact, we do <strong>not</strong> want to call <code>adder</code> at that point of time.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
 </div>
 </div>
@@ -2213,7 +2213,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="nf">fn</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_fn_var</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
@@ -2230,13 +2230,13 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">suber</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<span class="k">def</span> <span class="nf">suber</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="nf">fn</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2260,10 +2260,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">diver</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">diver</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
+    <span class="k">return</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-<span class="k">fn</span> <span class="n">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">fn</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2286,11 +2286,11 @@ pre.rouge .gs {
 <p>So far we have seen that we can pass arguments to functions and they would use those arguments within their body. There is another technique for functions to get values from outside of the function body, which is commonly known as closure.</p>
 </div>
 <div class="paragraph">
-<p>In a closure, we define a function that captures values outside of its function body. The values that are captured must be defined before the definition of the function itself. Another constraint is that the data type of the captured values must implement either <code>ImplicitlyCopyable</code> or <code>Copyable</code> trait, as the value of the variable is <strong>copied</strong> over to the function.</p>
+<p>In a closure, we define a function that captures values outside of its function body. The values that are captured must be defined before the definition of the function itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">exec_rt_closure</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">fn</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">escaping</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_rt_closure</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">unified</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="n">bin_op</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2303,20 +2303,20 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">rt_y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="k">fn</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="n">unified</span> <span class="p">{</span><span class="k">read</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
         <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">rt_y</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">exec_rt_closure</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">ander</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The closure shown above is known as a runtime closure. The type of the closure is <code>fn() escaping &#8594; T</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions.</p>
+<p>The closure shown above is known as a runtime closure. The type of the closure is <code>def(Int) unified &#8594; Int</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions. At the point of creating the closure, values are captured and copied over to the closure. However, Mojo needs to be told explicitly about the captured values by using <code>unified{read var_name}</code> syntax. This is because Mojo needs to know what is the access pattern of the captured variable, i.e., whether it is read-only or read-write. In the example above, the captured variable <code>rt_y</code> is only read within the closure and therefore we use <code>unified{read rt_y}</code> to indicate that. If we were to write to <code>rt_y</code> within the closure, then we would have used <code>unified{mut rt_y}</code> instead. You can pass more than one captured variable to the closure by separating them with comma, for example <code>unified{read var1, mut var2}</code>.</p>
 </div>
 <div class="paragraph">
-<p>However, the runtime closure <strong>cannot</strong> be passed as a <strong>parameter</strong> to other functions. In order to pass a closure as a parameter to other functions, we need to use a compile-time closure. Such closures are decorated by <code>@parameter</code>. The type of the closure is <code>fn() capturing &#8594; T</code>. The following example demonstrates such a compile-time closure.</p>
+<p>However, the runtime closure <strong>cannot</strong> be passed as a <strong>parameter</strong> to other functions. In order to pass a closure as a parameter to other functions, we need to use a compile-time closure. Such closures are decorated by <code>@parameter</code>. The type of the closure is <code>def() capturing &#8594; T</code>. The following example demonstrates such a compile-time closure.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">fn</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2330,7 +2330,7 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">ct_y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="nd">@parameter</span>
-    <span class="k">fn</span> <span class="nf">multer</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">multer</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
         <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ct_y</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">exec_ct_closure</span><span class="p">[</span><span class="n">multer</span><span class="p">](</span><span class="mi">10</span><span class="p">))</span></code></pre>
 </div>
@@ -2346,7 +2346,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add_all</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add_all</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
         <span class="n">result</span><span class="o">+=</span> <span class="n">i</span>
@@ -2366,7 +2366,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">names_dob</span><span class="p">(</span><span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">names_dob</span><span class="p">(</span><span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
     <span class="k">for</span> <span class="k">var</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namedobs</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span></code></pre>
 </div>
@@ -2396,10 +2396,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2417,10 +2417,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">add</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="n">add</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Bool</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Bool</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">ai</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">a</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="k">var</span> <span class="n">bi</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">b</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="n">ai</span> <span class="o">+</span> <span class="n">bi</span></code></pre>
@@ -2440,10 +2440,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">subkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span></code></pre>
 </div>
 </div>
@@ -2464,10 +2464,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">addposkw</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">addposkw</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">addposkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">addposkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2486,12 +2486,12 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyArray</span><span class="p">:</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-    <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">idx</span>
 
-    <span class="k">fn</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">anotheridx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">anotheridx</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">anotheridx</span></code></pre>
 </div>
 </div>
@@ -2513,10 +2513,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">ref</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">ref</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">ref</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">ref</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
 </div>
 </div>

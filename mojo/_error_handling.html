@@ -2212,7 +2212,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">raise</span> <span class="nc">Error</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span>
@@ -2238,7 +2238,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">raise_str_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">raise_str_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">raise</span> <span class="sh">"</span><span class="s">String error is allowed</span><span class="sh">"</span>
     <span class="k">else</span><span class="p">:</span>
@@ -2263,7 +2263,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">raise_call</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="c1"># Need to either have 'raises' in the signature, or wrap with try-except
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">raise_call</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="c1"># Need to either have 'raises' in the signature, or wrap with try-except
 </span>    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2317,10 +2317,10 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">MyError</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span> 
     <span class="k">var</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
 
-<span class="k">fn</span> <span class="nf">raise_custom_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">MyError</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">raise_custom_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">MyError</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">raise</span> <span class="nc">MyError</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span>

@@ -2536,7 +2536,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">introspect</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">DType</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">introspect</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">DType</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Is signed:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">is_signed</span><span class="p">())</span>
     
     <span class="nf">introspect</span><span class="p">(</span><span class="n">DType</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> </code></pre>
@@ -2609,7 +2609,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">e</span><span class="p">:</span> <span class="n">Tuple</span> <span class="o">=</span> <span class="p">()</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">e</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[]</span> <span class="o">=</span> <span class="p">()</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></code></pre>
 </div>
 </div>
@@ -2698,7 +2698,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">utils</span> <span class="kn">import</span> <span class="n">Variant</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">std.utils</span> <span class="kn">import</span> <span class="n">Variant</span>
 
     <span class="k">comptime</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
     <span class="k">var</span> <span class="n">v1</span><span class="p">:</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="mi">100</span>

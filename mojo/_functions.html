@@ -2143,21 +2143,19 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="_functions.html#_def">3.1. def</a>
 </li>
-<li><a href="_functions.html#_fn">3.2. fn</a>
+<li><a href="_functions.html#_default_return_types">3.2. Default return types</a>
 </li>
-<li><a href="_functions.html#_default_return_types">3.3. Default return types</a>
+<li><a href="_functions.html#_main_function">3.3. <code>main</code> function</a>
 </li>
-<li><a href="_functions.html#_main_function">3.4. <code>main</code> function</a>
+<li><a href="_functions.html#_different_styles_of_writing_functions">3.4. Different styles of writing functions</a>
 </li>
-<li><a href="_functions.html#_different_styles_of_writing_functions">3.5. Different styles of writing functions</a>
+<li><a href="_functions.html#_arguments_passed_to_functions">3.5. Arguments passed to functions</a>
 </li>
-<li><a href="_functions.html#_arguments_passed_to_functions">3.6. Arguments passed to functions</a>
+<li><a href="_functions.html#_nested_functions">3.6. Nested functions</a>
 </li>
-<li><a href="_functions.html#_nested_functions">3.7. Nested functions</a>
+<li><a href="_functions.html#_keyword_arguments">3.7. Keyword arguments</a>
 </li>
-<li><a href="_functions.html#_keyword_arguments">3.8. Keyword arguments</a>
-</li>
-<li><a href="_functions.html#_default_value">3.9. Default value</a>
+<li><a href="_functions.html#_default_value">3.8. Default value</a>
 </li>
 </ul>
 </li>
@@ -2213,59 +2211,36 @@ pre.rouge .gs {
 <h3 id="_def">3.1. def</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">name</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter your name: </span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above code, <code>def my_function(text: String):</code> defined a function named <code>my_function</code> and declared that it takes an argument <code>text</code> of type <code>String</code>.
+<p>In the above code, <code>def my_function(text: String) raises:</code> defined a function named <code>my_function</code> and declared that it takes an argument <code>text</code> of type <code>String</code>.
 The word that appears after <code>:</code> is called a type annotation. This declaration says that the function argument <code>text</code> will contain <strong>only</strong> Strings. More importantly, it will <strong>never</strong> contain any other content than Strings. When we tell Mojo compiler that the <code>text</code> will take only `String`s, it can generate a very specific and highly optimized code that handles only `String`s.</p>
 </div>
 <div class="paragraph">
 <p>The following statement <code>my_function("Hello World!")</code> calls that function <code>my_function</code> and passes "Hello World!" as the argument where <code>text</code> was declared.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed that after <code>def my_function(text: String):</code>, there is a new line and 4 spaces before the statements <code>var name = input("Enter your name: ")</code> and <code>print(text + name)</code>. This is because Mojo, like Python, uses whitespace indentation to demarcate the function&#8217;s body. Many mainstream programming languages use braces "{}" for function body. However, Mojo uses indented whitespace and is particular about the whitespace being aligned. You will find this syntax not only for function bodies, but also for other statements that expect a block. We will come to those cases in later chapters. Please notice that the statement <code>my_function("Hello World!")</code> appears differently aligned than <code>print(text + name)</code>. This is because <code>my_function("Hello World!")</code> is not part of the `my_function&#8217;s body itself.</p>
+<p>You may have noticed that after <code>def my_function(text: String) raises:</code>, there is a new line and 4 spaces before the statements <code>var name = input("Enter your name: ")</code> and <code>print(text + name)</code>. This is because Mojo, like Python, uses whitespace indentation to demarcate the function&#8217;s body. Many mainstream programming languages use braces "{}" for function body. However, Mojo uses indented whitespace and is particular about the whitespace being aligned. You will find this syntax not only for function bodies, but also for other statements that expect a block. We will come to those cases in later chapters. Please notice that the statement <code>my_function("Hello World!")</code> appears differently aligned than <code>print(text + name)</code>. This is because <code>my_function("Hello World!")</code> is not part of the `my_function&#8217;s body itself.</p>
 </div>
 <div class="paragraph">
-<p>The following illustration shows the simplified structure of a Mojo function.</p>
+<p>Another thing to notice is the <code>raises</code> keyword in the function definition. This is a special keyword that indicates that the function may raise an exception. We will cover exceptions in a later chapter.</p>
+</div>
+<div class="paragraph">
+<p>The following illustration shows the structure of a Mojo function.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="resources/graphics/Function_Structure_Def.jpeg" alt="Function Structure Def">
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_fn">3.2. fn</h3>
 <div class="paragraph">
-<p>The other way to define is function is by using the keyword <code>fn</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
-    <span class="k">var</span> <span class="n">name</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter your name: </span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The body of the <code>fn</code> functions are also demarcated by whitespace similar to <code>def</code> functions. One main difference is that in <code>def</code> functions, we can raise errors without declaring them. However, in <code>fn</code> functions, we must declare all errors that the function may raise. In the above example, we declared that <code>my_function</code> may raise an error with the keyword <code>raises</code>. Why do we need to declare the errors that a function may raise? The answer is that the <code>input</code> function may raise an error if the input operation fails. Since <code>my_function</code> calls <code>input</code>, it may also raise that error. By declaring the error, we are telling the Mojo compiler that we are aware of the error. If the <code>raise</code> keyword is omitted, the Mojo compiler will complain that we have not handled the error that may be raised by <code>input</code>. We will come back to error handling in detail in later chapters.</p>
-</div>
-<div class="paragraph">
-<p>The following illustration shows the simplified structure of a <code>fn</code> function.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="resources/graphics/Function_Structure_Fn.jpeg" alt="Function Structure Fn">
-</div>
-</div>
-<div class="paragraph">
-<p>You may have noticed one additional concept that we did not yet touch upon. The return type. Both <code>fn</code> and <code>def</code> functions support returning values from the function. So far we have not used it. However, in many cases we want to call functions to perform calculations and after the calculations are completed, we expect a result as output from the function. The following examples show such a use case in both <code>def</code> and <code>fn</code> forms.</p>
+<p>Functions may also return a value. In order to return a value, we can use the <code>return</code> keyword followed by the value that we want to return. The return type of the function can be declared with <code>&#8594;</code> followed by the type of the return value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2273,14 +2248,6 @@ The word that appears after <code>:</code> is called a type annotation. This dec
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2298,21 +2265,15 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 <span class="mi">3</span></code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">mojo</span> <span class="n">addition_return_fn</span><span class="p">.</span><span class="n">mojo</span>
-<span class="mi">3</span></code></pre>
-</div>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_default_return_types">3.3. Default return types</h3>
+<h3 id="_default_return_types">3.2. Default return types</h3>
 <div class="paragraph">
 <p>In Mojo, when you omit the return type, the function defaults to return <code>None</code>, which indicates that there is no value being returned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_main_function">3.4. <code>main</code> function</h3>
+<h3 id="_main_function">3.3. <code>main</code> function</h3>
 <div class="paragraph">
 <p>There is a special function called <code>main</code> in Mojo, which is the function that is used by the compiler to determine the main entrance of a program. When you call a program executable created by Mojo, the very first function that is executed is the <code>main</code> function.</p>
 </div>
@@ -2327,7 +2288,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="sect2">
-<h3 id="_different_styles_of_writing_functions">3.5. Different styles of writing functions</h3>
+<h3 id="_different_styles_of_writing_functions">3.4. Different styles of writing functions</h3>
 <div class="paragraph">
 <p>A function can be defined in different styles.</p>
 </div>
@@ -2346,22 +2307,22 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="paragraph">
-<p>Note that all the above style is also valid for <code>fn</code> functions. You can define the function body in the same line as the function definition only if the whole body is just a single line.</p>
+<p>You can define the function body in the same line as the function definition only if the whole body is just a single line.</p>
 </div>
 <div class="sect3">
-<h4 id="_semicolon">3.5.1. Semicolon</h4>
+<h4 id="_semicolon">3.4.1. Semicolon</h4>
 <div class="paragraph">
 <p>In the source code shown above, you may have noticed a semicolon in the body of function <code>func3</code>. Semicolon can be used to separate statements, which allow the statements to be written in a single line. Mojo follows the philosophy of Python, so use semicolon sparingly and only when it improves reading and understanding of code.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ellipses_in_functions">3.5.2. Ellipses in functions</h4>
+<h4 id="_ellipses_in_functions">3.4.2. Ellipses in functions</h4>
 <div class="paragraph">
 <p>In Mojo you would often see <code>&#8230;&#8203;</code> defined in the function body. Ellipsis is just a built-in constant in Mojo, and is a placeholder. Within a function, it just means that the body is not yet implemented and the Mojo compiler will not complain about the missing body. Ellipses have other uses and we will cover them in subsequent chapters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pass_in_functions">3.5.3. <code>pass</code> in functions</h4>
+<h4 id="_pass_in_functions">3.4.3. <code>pass</code> in functions</h4>
 <div class="paragraph">
 <p>The <code>pass</code> keyword has a similar role as <code>&#8230;&#8203;</code> in functions. It particularly tells the compiler that the implementation has been omitted.</p>
 </div>
@@ -2371,17 +2332,17 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 </div>
 </div>
 <div class="sect2">
-<h3 id="_arguments_passed_to_functions">3.6. Arguments passed to functions</h3>
+<h3 id="_arguments_passed_to_functions">3.5. Arguments passed to functions</h3>
 <div class="paragraph">
 <p>Arguments passed to a function cannot be modified within the function. Such arguments are said to be immutable as the function body cannot modify their value. This kind of restriction is helpful in large programs as the code that calls the function does not get surprised that the value it passed to a function has suddenly changed unexpectedly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2397,36 +2358,36 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nested_functions">3.7. Nested functions</h3>
+<h3 id="_nested_functions">3.6. Nested functions</h3>
 <div class="paragraph">
-<p>Mojo supports nesting of function within other functions. This applies to both <code>fn</code> and <code>def</code> style functions.</p>
+<p>Mojo supports nesting of function within other functions.</p>
 </div>
 <div class="paragraph">
 <p>Nesting of functions limit the scope of the nested function to just the outer function. For example in the following code listing, it is not possible to call <code>nested</code> within <code>main</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">outer</span><span class="p">():</span>
-    <span class="k">fn</span> <span class="nf">nested</span><span class="p">():</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">nested</span><span class="p">():</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">I am nested</span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">nested</span><span class="p">()</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">outer</span><span class="p">()</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_keyword_arguments">3.8. Keyword arguments</h3>
+<h3 id="_keyword_arguments">3.7. Keyword arguments</h3>
 <div class="paragraph">
 <p>Sometimes when functions take lots of arguments, it is much more clear if the name of the argument is specified when calling the function. Mojo supports keyword arguments, which is basically the ability to specify the argument name when we assign a value to that argument during a function call.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">first</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span></code></pre>
@@ -2440,10 +2401,10 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># compiler error</span></code></pre>
 </div>
 </div>
@@ -2460,10 +2421,10 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
@@ -2476,10 +2437,10 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
     <span class="c1">#print(my_function(1, 2, 3)) # Uncommenting would result in compiler error.</span></code></pre>
 </div>
@@ -2490,12 +2451,9 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <div class="paragraph">
 <p>Keyword arguments make APIs ergonomic, as the programmer does not have to remember in which position what value need to be passed. It improves code readability and maintainability. It also reduces accidental mistakes when programmer wrongly assumes the order of the arguments.</p>
 </div>
-<div class="paragraph">
-<p>Keyword arguments are applicable for both <code>def</code> and <code>fn</code> forms.</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_default_value">3.9. Default value</h3>
+<h3 id="_default_value">3.8. Default value</h3>
 <div class="paragraph">
 <p>Mojo allows assigning default values to function arguments, which means when the caller does not pass a value to the argument, the function will take the given default value. That function argument therefore becomes optional for the caller. The default value must be of the same data type as the declared data type of the argument.</p>
 </div>
@@ -2504,16 +2462,13 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">deft_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">deft_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># 'second' defaults to '10'
 </span>    <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Default values are applicable for both <code>def</code> and <code>fn</code> forms.</p>
 </div>
 </div>
 </div>

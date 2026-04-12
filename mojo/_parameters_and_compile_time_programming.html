@@ -2163,27 +2163,35 @@ pre.rouge .gs {
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_conditional_execution_at_compile_time">12.2. Conditional execution at compile-time</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_functions">12.3. Parameters in functions</a>
+<li><a href="_parameters_and_compile_time_programming.html#_compile_time_if">12.3. Compile-time <code>if</code></a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_keyword_parameters">12.4. Keyword parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_compile_time_for">12.4. Compile-time <code>for</code></a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_inferred_only_parameters">12.5. Inferred-only parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_compile_time_expressions">12.5. Compile-time expressions</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_variadic_parameters">12.6. Variadic parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_functions">12.6. Parameters in functions</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_default_values_in_parameters">12.7. Default values in parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_keyword_parameters">12.7. Keyword parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">12.8. Parameters in structs, traits</a>
+<li><a href="_parameters_and_compile_time_programming.html#_inferred_only_parameters">12.8. Inferred-only parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_trait_composition">12.9. Trait composition</a>
+<li><a href="_parameters_and_compile_time_programming.html#_variadic_parameters">12.9. Variadic parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">12.10. Conditional conformance</a>
+<li><a href="_parameters_and_compile_time_programming.html#_default_values_in_parameters">12.10. Default values in parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_where_clauses">12.11. <code>where</code> clauses</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">12.11. Parameters in structs, traits</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">12.12. Custom compile-time checks</a>
+<li><a href="_parameters_and_compile_time_programming.html#_trait_composition">12.12. Trait composition</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.13. Parameterized errors</a>
+<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">12.13. Conditional conformance</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_where_clauses">12.14. <code>where</code> clauses</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">12.15. Custom compile-time checks</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.16. Parameterized errors</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_partially_bound_parameters">12.17. Partially bound parameters</a>
 </li>
 </ul>
 </li>
@@ -2230,7 +2238,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
 </div>
 </div>
@@ -2256,14 +2264,14 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span><span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+</span><span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
 <span class="k">comptime</span> <span class="n">added_conditionally</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
@@ -2277,13 +2285,66 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameters_in_functions">12.3. Parameters in functions</h3>
+<h3 id="_compile_time_if">12.3. Compile-time <code>if</code></h3>
+<div class="paragraph">
+<p>You can use <code>comptime if</code> to execute conditional code at compile-time. The <code>comptime if</code> is similar to the regular <code>if</code>, but it is executed at compile-time. The code inside the <code>comptime if</code> block is only compiled if the condition is true at compile-time. When <code>comptime</code> is used for <code>if</code> statement, it also applies to the <code>else</code> and <code>elif</code> blocks.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
+</span>    <span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+    <span class="k">comptime</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]():</span> 
+        <span class="n">x</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compile_time_for">12.4. Compile-time <code>for</code></h3>
+<div class="paragraph">
+<p>Similar to <code>comptime if</code>, we can also use <code>comptime for</code> to execute a loop at compile-time. The code inside the <code>comptime for</code> is unrolled at compile-time, and the results are kept in the executable file. This means that actually the loop does not exist at runtime, and there is no performance cost for it at runtime.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">comptime</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above code approximately compiles to a code similar to the following code listing, where the loop is unrolled and the results are kept in the executable file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compile_time_expressions">12.5. Compile-time expressions</h3>
+<div class="paragraph">
+<p>If you want to execute an expression at compile-time, you can use <code>comptime</code> for that. The expression will be evaluated at compile-time, and the result will be kept in the executable file. This avoids having to create a comptime constant or a function just to evaluate that expression.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">comptime</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">comptime</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span> <span class="c1"># Prints 3</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parameters_in_functions">12.6. Parameters in functions</h3>
 <div class="paragraph">
 <p>We saw that we can use <code>comptime</code> to execute functions at compile time. What if we do not want to execute the function at compile-time, but just "parameterize" the function at compile-time, so that when it is finally run during the program execution, it uses that passed-in parameters? Mojo provides a solution to that by providing capability for compile-time parameterization. To achieve this, we pass <strong>parameters</strong> within <strong>square brackets</strong>. For example: <code>add[my_param: Int]()</code>. So in short, when we want to pass to a function values at <strong>runtime</strong>, we pass it within <strong>parenthesis</strong>, and if we want to pass to a function values at <strong>compile-time</strong>, we pass it within <strong>square brackets</strong>. Note that we are distinguishing between parameters and arguments. In Mojo parameters are compile-time values and arguments are runtime values.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">add</span><span class="p">[</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">[</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">if</span> <span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
@@ -2293,7 +2354,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span>    <span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+</span>    <span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
 </div>
 </div>
@@ -2308,7 +2369,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">add_ints</span><span class="p">[</span><span class="n">IntType</span><span class="p">:</span> <span class="n">Intable</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">IntType</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">IntType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add_ints</span><span class="p">[</span><span class="n">IntType</span><span class="p">:</span> <span class="n">Intable</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">IntType</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">IntType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nc">Int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2322,14 +2383,14 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_keyword_parameters">12.4. Keyword parameters</h3>
+<h3 id="_keyword_parameters">12.7. Keyword parameters</h3>
 <div class="paragraph">
 <p>So far we have seen how we can pass parameters by position. Similar to the keyword arguments that we pass to functions, we can pass parameter values using the name of the parameter. The rules of the keyword parameters are the same as the keyword arguments for functions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">div_compile_time</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">div_compile_time</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
+    <span class="k">return</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2345,34 +2406,34 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_inferred_only_parameters">12.5. Inferred-only parameters</h3>
+<h3 id="_inferred_only_parameters">12.8. Inferred-only parameters</h3>
 <div class="paragraph">
 <p>Mojo allows parameter types to depend on other parameter types. For example, suppose we have two structs, <code>Scheme</code> and <code>Location</code>. We could define <code>Location</code> as a struct that takes a <code>Scheme</code> value as its input parameter, as in <code>Location[scheme: Scheme]</code>. This means that <code>Location</code> depends on <code>Scheme</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">Scheme</span><span class="p">(</span><span class="n">Stringable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">Scheme</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">comptime</span> <span class="n">HTTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">http</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">comptime</span> <span class="n">FTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">ftp</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">var</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">scheme</span>
 
-    <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">scheme</span>
 
-<span class="k">struct</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">](</span><span class="n">Stringable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+<span class="k">struct</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">](</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     
     <span class="k">var</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
     
-    <span class="k">fn</span> <span class="nf">__str__</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nc">String</span><span class="p">(</span><span class="n">Self</span><span class="p">.</span><span class="n">scheme</span><span class="p">)</span> <span class="o">+</span> <span class="sh">"</span><span class="s">://</span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">location</span></code></pre>
+    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Self</span><span class="p">.</span><span class="n">scheme</span><span class="p">.</span><span class="nf">as_string</span><span class="p">()</span> <span class="o">+</span> <span class="sh">"</span><span class="s">://</span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">location</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2380,8 +2441,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2397,8 +2458,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location2</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location2</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2417,8 +2478,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_location3</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">](</span><span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">location</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location3</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">](</span><span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2431,7 +2492,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variadic_parameters">12.6. Variadic parameters</h3>
+<h3 id="_variadic_parameters">12.9. Variadic parameters</h3>
 <div class="paragraph">
 <p>Sometimes we want to be able to pass any number of parameters, without being restricted to a particular number of parameters. When we prefix a parameter with <code>*</code>, Mojo allows us to pass any number of values to it.</p>
 </div>
@@ -2440,9 +2501,9 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">add_all</span><span class="p">[</span><span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add_all</span><span class="p">[</span><span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nc">VariadicList</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
         <span class="n">result</span><span class="o">+=</span> <span class="n">i</span>
     <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
@@ -2460,14 +2521,14 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_default_values_in_parameters">12.7. Default values in parameters</h3>
+<h3 id="_default_values_in_parameters">12.10. Default values in parameters</h3>
 <div class="paragraph">
 <p>Mojo allows default values to be used for parameters.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">sub</span><span class="p">[</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">if</span> <span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">sub</span><span class="p">[</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+    <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="k">if</span> <span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2484,7 +2545,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameters_in_structs_traits">12.8. Parameters in structs, traits</h3>
+<h3 id="_parameters_in_structs_traits">12.11. Parameters in structs, traits</h3>
 <div class="paragraph">
 <p>Similar to functions, we can also pass compile-time parameters to structs, traits.</p>
 </div>
@@ -2493,10 +2554,10 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span><span class="p">,</span> <span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">]:</span>
     <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nc">Int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">get_value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">Self</span><span class="p">.</span><span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
@@ -2522,7 +2583,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_trait_composition">12.9. Trait composition</h3>
+<h3 id="_trait_composition">12.12. Trait composition</h3>
 <div class="paragraph">
 <p>We saw how a struct can implement multiple traits. We also saw how a trait can inherit from multiple traits. In order to achieve good code reuse, it is adviced to define traits that are focused on a single responsibility. This is called the <strong>Interface Segregation Principle</strong> in software design. When we strictly follow this principle, we end up with many small traits that define a single behavior. Now suppose that we want to define a reusable method that uses multiple traits. One way to achieve this is to define a new trait that inherits from the individual traits, and then define the reusable method to use that trait. However, this approach results in a proliferation of traits that are just used to compose other traits.</p>
 </div>
@@ -2532,26 +2593,26 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Flyable</span><span class="p">:</span>
-    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
 
 <span class="k">trait</span> <span class="n">Walkable</span><span class="p">:</span>
-    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Crow </span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
     
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="sh">"</span><span class="s">Crow is flying</span><span class="sh">"</span>
     
-    <span class="k">fn</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="sh">"</span><span class="s">Crow is walking</span><span class="sh">"</span>
 
-<span class="k">fn</span> <span class="n">bird</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span><span class="p">](</span><span class="n">animal</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">bird</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span><span class="p">](</span><span class="n">animal</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">fly</span><span class="p">())</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">walk</span><span class="p">())</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">crow</span> <span class="o">=</span> <span class="nc">Crow</span><span class="p">()</span>
     <span class="nf">bird</span><span class="p">(</span><span class="n">crow</span><span class="p">)</span></code></pre>
 </div>
@@ -2569,7 +2630,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditional_conformance">12.10. Conditional conformance</h3>
+<h3 id="_conditional_conformance">12.13. Conditional conformance</h3>
 <div class="paragraph">
 <p>We can also overload methods based on concrete types of <code>self</code> itself. In the following code listing, the version of the <code>hello</code> method chosen depends on the concrete type of the passed parameter <code>T</code>. Note that here the <code>self</code> type is explicitly defined, unlike how we usually specify <code>self</code>.</p>
 </div>
@@ -2577,12 +2638,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]:</span>
     
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2602,12 +2663,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloCount</span><span class="p">[</span><span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
     
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2626,16 +2687,16 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_where_clauses">12.11. <code>where</code> clauses</h3>
+<h3 id="_where_clauses">12.14. <code>where</code> clauses</h3>
 <div class="paragraph">
 <p>Mojo provides <code>where</code> clauses to provide additional constraints on parameters, which are not possible to express using just the type system. The <code>where</code> clause expressions are evaluated at compile-time. If the expression evaluates to <code>False</code>, then a compile-time error is produced.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">PositiveNumber</span><span class="p">[</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span> <span class="n">where</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]:</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="bp">...</span>
-    <span class="k">fn</span> <span class="nf">print_value</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The positive number is: </span><span class="sh">"</span> <span class="o">+</span> <span class="nc">String</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">))</span></code></pre>
 </div>
 </div>
@@ -2658,21 +2719,21 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_compile_time_checks">12.12. Custom compile-time checks</h3>
+<h3 id="_custom_compile_time_checks">12.15. Custom compile-time checks</h3>
 <div class="paragraph">
 <p>When we develop a program, we often make assumptions about the arguments we receive or the context in which we execute a function and so on. We can use <code>if</code> statements to validate those assumptions, but it is possible that there is a performance cost to such validations. Many programming languages provide a facility known as assertion, to validate those assumptions with minimal impact to the runtime performance of the code.</p>
 </div>
 <div class="paragraph">
-<p>Mojo goes one step further by providing compile-time assertions with the function <code>constrained</code>.</p>
+<p>Mojo goes one step further by providing compile-time assertions with <code>comptime assert</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">print_times</span><span class="p">[</span><span class="n">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">]():</span>
-    <span class="n">constrained</span><span class="p">[</span><span class="n">times</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">"</span><span class="s">times must be greater than zero</span><span class="sh">"</span><span class="p">]()</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_times</span><span class="p">[</span><span class="n">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">]():</span>
+    <span class="k">comptime</span> <span class="k">assert</span> <span class="n">times</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">"</span><span class="s">times must be greater than zero</span><span class="sh">"</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">print_times</span><span class="p">[</span><span class="mi">2</span><span class="p">]()</span>
     <span class="n">print_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]()</span></code></pre>
 </div>
@@ -2681,32 +2742,29 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <p>If you try to compile the code listed above, you would get a compile time error, with the message: <code>times must be greater than zero</code>.</p>
 </div>
 <div class="paragraph">
-<p>This happens because in our function <code>print_times</code> we have an assertion using <code>constrained</code> function that checks that our compile-time parameter <code>times</code> is greater than zero. If we call the function with a value for <code>times</code> that is greater than zero, then the code compiles without any errors. However, if we pass a value that is less than or equal to zero, it will produce the same compile time error message as the one that is passed as the second parameter of the <code>constrained</code> function call.</p>
+<p>This happens because in our function <code>print_times</code> we have an assertion using <code>comptime assert</code> that checks that our compile-time parameter <code>times</code> is greater than zero. If we call the function with a value for <code>times</code> that is greater than zero, then the code compiles without any errors. However, if we pass a value that is less than or equal to zero, it will produce the same compile time error message as the one that is passed as the second argument of the <code>comptime assert</code> statement.</p>
 </div>
 <div class="paragraph">
-<p>The <code>constrained</code> function is quite useful to validate our assumptions about given parameters at compile-time. If during the compile-time the <code>constrained</code> function executes successfully, then that piece of validation code does not even have to appear in the final binary, resulting in zero performance impact at runtime.</p>
-</div>
-<div class="paragraph">
-<p>You can think of <code>constrained</code> as a more flexible version of <code>where</code> clauses, when the constraints cannot be expressed easily using <code>where</code> clauses.</p>
+<p>The <code>comptime assert</code> statement is quite useful to validate our assumptions about given parameters at compile-time. If during the compile-time the <code>comptime assert</code> statement executes successfully, then that piece of validation code does not even have to appear in the final binary, resulting in zero performance impact at runtime.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameterized_errors">12.13. Parameterized errors</h3>
+<h3 id="_parameterized_errors">12.16. Parameterized errors</h3>
 <div class="paragraph">
 <p>Mojo allows us to define parameterized errors. This is useful when we want to abstract away the type of error that could be raised, and let the caller decide on what error type to use.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="nc">ErrorTrait</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">MyError</span><span class="p">(</span><span class="n">ErrorTrait</span><span class="p">):</span> 
     <span class="k">var</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
 
-<span class="k">fn</span> <span class="n">raise_error</span><span class="p">[</span><span class="n">ErrorType</span><span class="p">:</span> <span class="n">ErrorTrait</span><span class="p">](</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">ErrorType</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">raise_error</span><span class="p">[</span><span class="n">ErrorType</span><span class="p">:</span> <span class="n">ErrorTrait</span><span class="p">](</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">ErrorType</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">raise</span> <span class="nc">ErrorType</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -2729,6 +2787,38 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="paragraph">
 <p>We have basically allowed the caller to determine what error type to use, as long as it conforms to the <code>ErrorTrait</code>. This is quite useful when we want to write generic libraries that can be used in different contexts with different error types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_partially_bound_parameters">12.17. Partially bound parameters</h3>
+<div class="paragraph">
+<p>In some cases, we may want to partially bind parameters to a function, and leave the rest of the parameters to be specified by the caller.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">comptime</span> <span class="n">IntDict</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="c1"># The key type is bound but not the value type.
+</span>    <span class="c1"># var a = IntDict() # Uncommenting this line will result in a compile time error because the type of the values is not specified.
+</span>    <span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span> <span class="c1"># Now the type of the values is fully specified as String.
+</span>    <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span>
+    <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># Prints: {1: Hello, 2: World}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we have defined a dictionary <code>IntDict</code> that takes an <code>Int</code> as key and a value of an unknown type (represented by <code>_</code>). We have partially bound the type of the key to be <code>Int</code>, while leaving the type of the value to be specified by the caller. This allows us to create different dictionaries with different value types, while still having the key type fixed as <code>Int</code>. Here you would have noticed that we could reuse <code>Dict</code> type while keeping the type of the key fixed.</p>
+</div>
+<div class="paragraph">
+<p>You can treat partially bound types similar to other types. For example, you can create an instance of a partially bound type, and pass it to a function that expects that type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">use_int_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">_</span><span class="p">]):</span> <span class="c1"># You can use partially bound types similar to other types.
+</span>        <span class="bp">...</span>
+    <span class="nf">use_int_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Partially binding parameters is quite useful to create reusable abstractions with some fixed parameters and some flexible parameters. Such types come in handy when we want to create libraries that can be used in different contexts with different types, while still having some fixed parameters that are common across those contexts.</p>
 </div>
 </div>
 </div>

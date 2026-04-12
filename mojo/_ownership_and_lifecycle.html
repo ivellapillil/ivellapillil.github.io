@@ -2175,9 +2175,9 @@ pre.rouge .gs {
 </li>
 <li><a href="_ownership_and_lifecycle.html#_del">13.7. <code>__del__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_copyinit">13.8. <code>__copyinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_copy_constructor">13.8. Copy constructor</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_moveinit">13.9. <code>__moveinit__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_move_constructor">13.9. Move constructor</a>
 </li>
 <li><a href="_ownership_and_lifecycle.html#_origin">13.10. Origin</a>
 </li>
@@ -2238,9 +2238,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_read</span><span class="p">(</span><span class="k">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_read</span><span class="p">(</span><span class="k">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span>
-<span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also read
+<span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also read
 </span>    <span class="bp">...</span></code></pre>
 </div>
 </div>
@@ -2255,7 +2255,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_owned</span><span class="p">(</span><span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_owned</span><span class="p">(</span><span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span></code></pre>
 </div>
 </div>
@@ -2267,7 +2267,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_mut</span><span class="p">(</span><span class="k">mut</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_mut</span><span class="p">(</span><span class="k">mut</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span></code></pre>
 </div>
 </div>
@@ -2279,7 +2279,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">value_out</span><span class="p">(</span><span class="k">out</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_out</span><span class="p">(</span><span class="k">out</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span></code></pre>
 </div>
 </div>
@@ -2305,19 +2305,19 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
-    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2341,25 +2341,25 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
-    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
 </div>
@@ -2393,9 +2393,9 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_copyinit">13.8. <code>__copyinit__</code></h3>
+<h3 id="_copy_constructor">13.8. Copy constructor</h3>
 <div class="paragraph">
-<p>Mojo invokes the <code><em>copyinit</em></code> for all the cases where a value needs to be implicitely copied. For example, when a variable is assigned to another one, the <code><em>copyinit</em></code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, <code><em>copyinit</em></code> gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the <code><em>copyinit</em></code> it is expected that you initialize your member fields with values copied from the "other" struct. <code><em>copyinit</em></code> is also known as copy constructor in other languages.</p>
+<p>Mojo invokes the <code><em>init</em>(out self, *, copy: Self)</code> for all the cases where a value needs to be implicitely copied. For example, when a variable is assigned to another one, the <code><em>init</em>(out self, *, copy: Self)</code> may be called for the assignee. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>init</em></code>, the copy constructor gets an additional argument of the same type as the struct in which the method is declared (the type of itself is named as <code>Self</code> in Mojo). In the copy constructor, it is expected that you initialize your member fields with values copied from the "other" struct. Please note that Mojo expects the name of the copy constructor to be exactly <code><em>init</em>(out self, *, copy: Self)</code>. The <code>copy</code> keyword is used to indicate that this is a copy constructor. If you do not follow this exact signature, the compiler will not recognize it as a copy constructor and will not call it when a copy operation is needed.</p>
 </div>
 <div class="paragraph">
 <p>In order to ensure that developers do not accidently copy large values, Mojo requires explicit declaration of the trait <code>ImplicitlyCopyable</code> on the struct to enable copy semantics. By explicitly declaring the trait, the developer indicates that it is safe to copy the struct.</p>
@@ -2405,27 +2405,27 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
     <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
-    <span class="k">fn</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__copyinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2437,7 +2437,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span> <span class="c1"># Calling __copyinit__ on other_num
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span> <span class="c1"># Calling copy constructor on other_num
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
     <span class="n">other_num</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
@@ -2445,17 +2445,17 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the previous code listing, within the <code><em>copyinit</em></code>, we are allocating new memory for holding the copy of the value from <code>other</code>. The <code>other</code> has type <code>Self</code>, which means the same type as the struct defining the <code><em>copyinit</em></code> - in this case <code>MyNumber</code>.</p>
+<p>In the previous code listing, within the copy constructor, we are allocating new memory for holding the copy of the value from <code>copy</code>. The <code>copy</code> has type <code>Self</code>, which means the same type as the struct defining the copy constructor - in this case <code>MyNumber</code>.</p>
 </div>
 <div class="paragraph">
-<p>Mojo compiler generates a default implementation of <code><em>copyinit</em></code> if the struct implements the <code>ImplicitlyCopyable</code> trait. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is suffucient, unless your struct holds resources that need special handling during copy.</p>
+<p>Mojo compiler generates a default implementation of the copy constructor if the struct implements the <code>ImplicitlyCopyable</code> trait. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is suffucient, unless your struct holds resources that need special handling during copy.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">v</span></code></pre>
 </div>
 </div>
@@ -2465,31 +2465,31 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a1</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a1</span>  <span class="c1"># This will invoke the auto-generated __copyinit__
+    <span class="k">var</span> <span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a1</span>  <span class="c1"># This will invoke the auto-generated copy constructor
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a1.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a1</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a1.val: 10
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a2.val: 10</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_moveinit">13.9. <code>__moveinit__</code></h3>
+<h3 id="_move_constructor">13.9. Move constructor</h3>
 <div class="paragraph">
-<p>Mojo invokes the <code><em>moveinit</em></code> for cases where a value needs to be physically moved. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to <code><em>copyinit</em></code>, <code><em>moveinit</em></code> has the second argument annotated with <code>deinit</code>. The <code>deinit</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In <code><em>moveinit</em></code>, we reassign the values from the <code>other</code> struct to the struct which defines the <code><em>moveinit</em></code>.</p>
+<p>Mojo invokes the <code><em>init</em>(out self, *, deinit take: Self)</code> for cases where a value needs to be physically moved. This method is quite similar to the <code><em>init</em></code> method in the sense that it initializes the struct. In contrast to the copy constructor, the move constructor has the second argument annotated with <code>deinit</code>. The <code>deinit</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In the move constructor, we reassign the values from the <code>take</code> struct to the struct which defines the move constructor. Similar to the copy constructor, the move constructor must be named exactly <code><em>init</em>(out self, *, deinit take: Self)</code> for the compiler to recognize it as a move constructor and call it when a move operation is needed. The <code>take</code> keyword is used to indicate that this is a move constructor.</p>
 </div>
 <div class="paragraph">
-<p>One thing to note is that the <code><em>moveinit</em></code> may not be always called when a value is "moved" (even when using the transfer <code>^</code> operator). You can think of move as a transfer of ownership, but sometimes the compiler is not able to optimize it to a simple transfer of ownership (logical move), instead needs to copy the value to a new location and clear the old location (physical move). Physical move happens for example when a value is moving from a short-lived stack frame to a longer lived one.</p>
+<p>One thing to note is that the move constructor may not be always called when a value is "moved" (even when using the transfer <code>^</code> operator). You can think of move as a transfer of ownership, but sometimes the compiler is not able to optimize it to a simple transfer of ownership (logical move), instead needs to copy the value to a new location and clear the old location (physical move). Physical move happens for example when a value is moving from a short-lived stack frame to a longer lived one.</p>
 </div>
 <div class="paragraph">
-<p>Move operations are particularly useful for cases where copy operations are expensive. For example, in Mojo move semantics are used for <code>String</code>. This ensures that the string operations are as much efficient as possible.</p>
+<p>Move operations are particularly useful for cases where copy operations are expensive. For example, in Mojo move semantics are used for <code>String</code>. This ensures that the string operations are as efficient as possible.</p>
 </div>
 <div class="paragraph">
 <p>To indicate a transfer of ownership, the caret <code>^</code> operator is used. The caret operator is more of a hint to the compiler that we want to transfer the ownership of the value. The compiler may still decide to copy the value instead of moving, if it thinks copying is more optimal.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">__moveinit__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">other</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">take</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2509,10 +2509,10 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the <code><em>moveinit</em></code> and <code><em>copyinit</em></code> are actually called.</p>
+<p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the move constructor and copy constructor are actually called.</p>
 </div>
 <div class="paragraph">
-<p>Mojo requires explicit declaration of the trait <code>Movable</code> to enable move semantics. Mojo compiler generates a default implementation of <code><em>moveinit</em></code> if the struct implements the <code>Movable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
+<p>Mojo requires explicit declaration of the trait <code>Movable</code> to enable move semantics. Mojo compiler generates a default implementation of the move constructor if the struct implements the <code>Movable</code> trait. Most of the time this is suffucient, unless your struct holds resources that need special handling during move.</p>
 </div>
 <div class="paragraph">
 <p>If your struct implements <code>ImplicitlyCopyable</code>, then <code>Movable</code> is implemented automatically (<code>ImplicitlyCopyable</code> implements the <code>Movable</code> trait); this is useful because Mojo compiler can sometimes optimize copy to move.</p>
@@ -2522,7 +2522,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">B</span><span class="p">(</span><span class="n">Movable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">v</span></code></pre>
 </div>
 </div>
@@ -2532,7 +2532,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">b1</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">b2</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">b1</span><span class="o">^</span>  <span class="c1"># This will invoke the auto-generated __moveinit__
+    <span class="k">var</span> <span class="n">b2</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">b1</span><span class="o">^</span>  <span class="c1"># This will invoke the auto-generated move constructor
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">b2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: b2.val: 20
 </span>    <span class="c1"># print("b1.val:", b1.val)  # This would be an error since b1 has been moved</span></code></pre>
 </div>
@@ -2567,13 +2567,13 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
-  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-  <span class="k">fn</span> <span class="nf">set_value</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>  
 
-<span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
   <span class="k">pass</span></code></pre>
 </div>
 </div>
@@ -2594,7 +2594,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">my_function_modify_wrong</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function_modify_wrong</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
   <span class="c1"># a.set_value(20) # Uncommenting this line will cause a compile-time error
 </span>  <span class="bp">...</span></code></pre>
 </div>
@@ -2615,7 +2615,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="n">my_function_modify</span><span class="p">[</span><span class="n">o</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="k">ref</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function_modify</span><span class="p">[</span><span class="n">o</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="k">ref</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="n">a</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
   <span class="n">a</span><span class="p">.</span><span class="nf">set_value</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
   <span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
@@ -2642,16 +2642,16 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">B</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
-  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">struct</span> <span class="n">A</span><span class="p">:</span>
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">B</span>
 
-  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">B</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">B</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-  <span class="k">fn</span> <span class="nf">get_pointer</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="nf">origin_of</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)]:</span>
+  <span class="k">def</span> <span class="nf">get_pointer</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="nf">origin_of</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)]:</span>
     <span class="k">return</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2676,7 +2676,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">ARef</span><span class="p">[</span><span class="n">o</span><span class="p">:</span> <span class="n">Origin</span><span class="p">]:</span>
   <span class="k">var</span> <span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]</span>
 
-  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span></code></pre>
 </div>
 </div>
@@ -2712,13 +2712,13 @@ pre.rouge .gs {
 <span class="k">struct</span> <span class="n">Linear</span><span class="p">:</span>
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
-  <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
   
-  <span class="k">fn</span> <span class="nf">destroy_me</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">destroy_me</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Destroying Linear with value: </span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
 
-<span class="k">fn</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Linear</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Linear</span><span class="p">):</span>
   <span class="k">pass</span></code></pre>
 </div>
 </div>

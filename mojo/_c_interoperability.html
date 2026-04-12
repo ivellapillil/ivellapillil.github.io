@@ -2209,9 +2209,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">sys.ffi</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">external_call</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.ffi</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">external_call</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">random_no</span> <span class="o">=</span> <span class="n">external_call</span><span class="p">[</span><span class="sh">"</span><span class="s">rand</span><span class="sh">"</span><span class="p">,</span> <span class="n">c_int</span><span class="p">]()</span> <span class="c1"># Call the C function 'rand' which returns a random integer
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Random number:</span><span class="sh">"</span><span class="p">,</span> <span class="n">random_no</span><span class="p">)</span> <span class="c1"># Prints: Random number: &lt;some random integer&gt;
 </span></code></pre>
@@ -2227,10 +2227,10 @@ pre.rouge .gs {
 <p>You can also call functions from a shared library. To do this, you would use <code>OwnedDLHandle</code> to load the shared library and then get the desired function from it using the <code>get_function</code> method. Once you have the function, you can call it like a normal Mojo function.</p>
 </div>
 <div class="paragraph">
-<p>The following is a simple custom C function. Create a file named <code>mymul.c</code> and add the following code to it:</p>
+<p>The following is a simple custom C function. Create a file named <code>c_mymul.c</code> and add the following code to it:</p>
 </div>
 <div class="listingblock">
-<div class="title">mymul.c</div>
+<div class="title">c_mymul.c</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">mul</span><span class="p">(</span><span class="kt">int</span> <span class="n">first</span><span class="p">,</span> <span class="kt">int</span> <span class="n">second</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">*</span> <span class="n">second</span><span class="p">;</span>
@@ -2246,15 +2246,15 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="title">mul_call.mojo</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">sys.ffi</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">OwnedDLHandle</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.ffi</span> <span class="kn">import</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">OwnedDLHandle</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># Load the shared library containing the C function 'mul'. 
 </span>    <span class="c1"># This assumes the library is for MacOS and is in the 
 </span>    <span class="c1"># current directory.
 </span>    <span class="k">try</span><span class="p">:</span>
-        <span class="n">lib_handle</span> <span class="o">=</span> <span class="nc">OwnedDLHandle</span><span class="p">(</span><span class="sh">"</span><span class="s">./libmymul.dylib</span><span class="sh">"</span><span class="p">)</span>
-        <span class="n">mul_fn</span> <span class="o">=</span> <span class="n">lib_handle</span><span class="p">.</span><span class="n">get_function</span><span class="p">[</span><span class="nf">fn</span><span class="p">(</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">c_int</span><span class="p">](</span><span class="sh">"</span><span class="s">mul</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Get the 'mul' function from the library
+        <span class="n">lib_handle</span> <span class="o">=</span> <span class="nc">OwnedDLHandle</span><span class="p">(</span><span class="sh">"</span><span class="s">./libc_mymul.dylib</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">mul_fn</span> <span class="o">=</span> <span class="n">lib_handle</span><span class="p">.</span><span class="n">get_function</span><span class="p">[</span><span class="nf">def</span><span class="p">(</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">c_int</span><span class="p">](</span><span class="sh">"</span><span class="s">mul</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Get the 'mul' function from the library
 </span>        <span class="n">result</span> <span class="o">=</span> <span class="nf">mul_fn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Call the C function 'mul' with arguments 5 and 10
 </span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Result is</span><span class="sh">"</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="c1"># Prints: Result is 50
 </span>        <span class="n">_</span> <span class="o">=</span> <span class="n">lib_handle</span> <span class="c1"># Keep alive
@@ -2263,7 +2263,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above code listing, we are loading the shared library <code>libmymul.dylib</code> using <code>OwnedDLHandle</code>. We then get the <code>mul</code> function from the library using <code>get_function</code>. The <code>get_function</code> method takes a function type as a parameter, which specifies the types of the function&#8217;s arguments and its return type. It additionally takes the name of the function as argument. Finally, we call the <code>mul</code> function with the arguments <code>5</code> and <code>10</code>, and print the result.</p>
+<p>In the above code listing, we are loading the shared library <code>libc_mymul.dylib</code> using <code>OwnedDLHandle</code>. We then get the <code>mul</code> function from the library using <code>get_function</code>. The <code>get_function</code> method takes a function type as a parameter, which specifies the types of the function&#8217;s arguments and its return type. It additionally takes the name of the function as argument. Finally, we call the <code>mul</code> function with the arguments <code>5</code> and <code>10</code>, and print the result.</p>
 </div>
 <div class="paragraph">
 <p>You may have noticed that towards the end of the code listing, we have a line <code>_ = lib_handle</code>. This is to ensure that the <code>lib_handle</code> variable is kept alive until the end of the function, preventing it from being deallocated while we are still using the function from the library. Remember that Mojo eagerly deallocates resources that are no longer in use, so it&#8217;s important to keep the library handle alive as long as you need to call functions from it.</p>
@@ -2278,7 +2278,7 @@ pre.rouge .gs {
 <p>To statically link a C library, you would first compile the C code into an object file using a C compiler. Then, you can use the <code>-Xlinker</code> option with the Mojo compiler to link the object file with your Mojo code.</p>
 </div>
 <div class="listingblock">
-<div class="title">mymul.c</div>
+<div class="title">c_mymul.c</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="kt">int</span> <span class="nf">mul</span><span class="p">(</span><span class="kt">int</span> <span class="n">first</span><span class="p">,</span> <span class="kt">int</span> <span class="n">second</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">first</span> <span class="o">*</span> <span class="n">second</span><span class="p">;</span>
@@ -2290,7 +2290,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code>cc -c mymul.c -o mymul.o</code></pre>
+<pre class="rouge highlight"><code>cc -c c_mymul.c -o c_mymul.o</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2299,9 +2299,9 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="title">mul_static.mojo</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="Mojo">from sys.ffi import c_int, external_call
+<pre class="rouge highlight"><code data-lang="Mojo">from std.ffi import c_int, external_call
 
-fn main():
+def main():
     result = external_call["mul", c_int](5, 10) # Call the C function 'mul' with arguments 5 and 10
     print("Result is", result) # Prints: Result is 50</code></pre>
 </div>
@@ -2311,7 +2311,7 @@ fn main():
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code>mojo build -Xlinker mymul.o mul_static.mojo</code></pre>
+<pre class="rouge highlight"><code>mojo build -Xlinker c_mymul.o mul_static.mojo</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2327,7 +2327,7 @@ fn main():
 <div class="title">add.mojo</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="Mojo">@export
-fn add(a: Int32, b: Int32) -&gt; Int32:
+def add(a: Int32, b: Int32) -&gt; Int32:
     return a + b</code></pre>
 </div>
 </div>
@@ -2346,7 +2346,7 @@ fn add(a: Int32, b: Int32) -&gt; Int32:
 <p>Usage:</p>
 </div>
 <div class="listingblock">
-<div class="title">myadd.c</div>
+<div class="title">c_myadd.c</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span>
@@ -2366,7 +2366,7 @@ fn add(a: Int32, b: Int32) -&gt; Int32:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code>cc myadd.c add.o -o myadd</code></pre>
+<pre class="rouge highlight"><code>cc c_myadd.c add.o -o c_myadd</code></pre>
 </div>
 </div>
 <div class="paragraph">

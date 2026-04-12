@@ -2205,11 +2205,11 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mickey</span><span class="sh">"</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mouse</span><span class="sh">"</span>
 
-    <span class="k">fn</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">last_name</span></code></pre>
 </div>
 </div>
@@ -2251,18 +2251,18 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mickey</span><span class="sh">"</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Mouse</span><span class="sh">"</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="c1"># Second initializer
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="c1"># Second initializer
 </span>        <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="n">fname</span>
         <span class="k">self</span><span class="p">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="n">lname</span>
 
-    <span class="k">fn</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="c1"># Instance method
+    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="c1"># Instance method
 </span>        <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">last_name</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">client</span><span class="p">:</span> <span class="n">Person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="sh">"</span><span class="s">Donald</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Duck</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Instantiating Person
 </span>    <span class="nf">print</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get_full_name</span><span class="p">())</span> <span class="c1"># Calling an instance method</span></code></pre>
 </div>
@@ -2286,17 +2286,17 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Vehicle</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
 
-    <span class="k">fn</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">model_name</span>
     
     <span class="nd">@staticmethod</span>
-    <span class="k">fn</span> <span class="nf">get_default_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">get_default_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
         <span class="k">return</span> <span class="sh">"</span><span class="s">VW</span><span class="sh">"</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">v</span><span class="p">:</span> <span class="n">Vehicle</span> <span class="o">=</span> <span class="nc">Vehicle</span><span class="p">(</span><span class="sh">"</span><span class="s">Mercedes</span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="nf">get_model</span><span class="p">())</span> <span class="c1"># Call instance method
 </span>    <span class="nf">print</span><span class="p">(</span><span class="n">Vehicle</span><span class="p">.</span><span class="nf">get_default_model</span><span class="p">())</span> <span class="c1"># Call static method
@@ -2332,13 +2332,13 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">String</span>
 
     <span class="nd">@implicit</span> 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
 
-    <span class="k">fn</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> 
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">model_name</span>
     
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">v</span><span class="p">:</span> <span class="n">Vehicle</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Ford</span><span class="sh">"</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="nf">get_model</span><span class="p">())</span></code></pre>
 </div>
@@ -2359,10 +2359,10 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">last_name</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">client</span><span class="p">:</span> <span class="n">Person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">first_name</span><span class="o">=</span><span class="sh">"</span><span class="s">Donald</span><span class="sh">"</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="sh">"</span><span class="s">Duck</span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get_full_name</span><span class="p">())</span></code></pre>
 </div>
@@ -2380,10 +2380,10 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">first_name</span><span class="p">:</span> <span class="n">String</span>
     <span class="k">var</span> <span class="n">last_name</span><span class="p">:</span> <span class="n">String</span>
 
-    <span class="k">fn</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_full_name</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span> <span class="o">+</span> <span class="k">self</span><span class="p">.</span><span class="n">last_name</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">client</span><span class="p">:</span> <span class="n">Person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">last_name</span><span class="o">=</span><span class="sh">"</span><span class="s">Duck</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Compiler error: missing 'first_name' argument
 </span>    <span class="nf">print</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get_full_name</span><span class="p">())</span></code></pre>
 </div>

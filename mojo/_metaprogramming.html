@@ -2213,7 +2213,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">fn</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Scalar</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Scalar</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nf">type_of</span><span class="p">(</span><span class="n">first</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">first</span> <span class="o">*</span> <span class="n">second</span></code></pre>
 </div>
 </div>
@@ -2263,14 +2263,13 @@ pre.rouge .gs {
 <span class="k">trait</span> <span class="n">CanFly</span><span class="p">:</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Eagle</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span> 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Monkey</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-<span class="k">fn</span> <span class="n">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="nd">@parameter</span> 
-    <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="k">comptime</span> <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It can fly!</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It cannot fly!</span><span class="sh">"</span><span class="p">)</span></code></pre>
@@ -2301,18 +2300,17 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Animal</span><span class="p">:</span> <span class="bp">...</span>
 <span class="k">trait</span> <span class="n">CanFly</span><span class="p">:</span> 
-    <span class="k">fn</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Flying high!</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">struct</span> <span class="nc">Eagle</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span> 
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
 <span class="k">struct</span> <span class="nc">Monkey</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">fn</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
-<span class="k">fn</span> <span class="n">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="nd">@parameter</span> 
-    <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="k">comptime</span> <span class="k">if</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
         <span class="n">trait_downcast</span><span class="p">[</span><span class="n">CanFly</span><span class="p">](</span><span class="n">x</span><span class="p">).</span><span class="nf">fly</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It cannot fly!</span><span class="sh">"</span><span class="p">)</span></code></pre>
@@ -2323,7 +2321,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">ability</span><span class="p">(</span><span class="nc">Eagle</span><span class="p">())</span> <span class="c1"># Prints: It can fly!
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">ability</span><span class="p">(</span><span class="nc">Eagle</span><span class="p">())</span> <span class="c1"># Prints: Flying high!
 </span>    <span class="nf">ability</span><span class="p">(</span><span class="nc">Monkey</span><span class="p">())</span> <span class="c1"># Prints: It cannot fly!</span></code></pre>
 </div>
 </div>
@@ -2343,7 +2341,7 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">sys.info</span> <span class="kn">import</span> <span class="n">size_of</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Int16 is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Int16</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 2 bytes
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Float64 is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Float64</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 8 bytes
 </span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Bool is </span><span class="sh">"</span><span class="p">,</span> <span class="n">size_of</span><span class="p">[</span><span class="n">Bool</span><span class="p">](),</span> <span class="sh">"</span><span class="s"> bytes</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints 1 byte</span></code></pre>
@@ -2363,12 +2361,12 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
 <span class="c1"># end::struct_decl[]
 </span>
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
     <span class="c1"># tag::get_type_name[]
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
 
-    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
 
     <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
@@ -2380,12 +2378,11 @@ pre.rouge .gs {
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
         <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
-        <span class="nd">@parameter</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+        <span class="k">comptime</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
             <span class="k">comptime</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">comptime</span> <span class="n">field_type</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">field_type</span><span class="p">]())</span>
@@ -2422,12 +2419,12 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
 <span class="c1"># end::struct_decl[]
 </span>
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
     <span class="c1"># tag::get_type_name[]
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
 
-    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
 
     <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
@@ -2439,12 +2436,11 @@ pre.rouge .gs {
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
         <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
-        <span class="nd">@parameter</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+        <span class="k">comptime</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
             <span class="k">comptime</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">comptime</span> <span class="n">field_type</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">field_type</span><span class="p">]())</span>
@@ -2465,12 +2461,12 @@ pre.rouge .gs {
     <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
 <span class="c1"># end::struct_decl[]
 </span>
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
     <span class="c1"># tag::get_type_name[]
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="n">get_type_name</span>
 
-    <span class="k">fn</span> <span class="n">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The type of the value is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">T</span><span class="p">]())</span>
 
     <span class="n">print_type_name</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># Prints: The type of the value is: Int
@@ -2482,12 +2478,11 @@ pre.rouge .gs {
 </span>    <span class="kn">from</span> <span class="n">reflection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">struct_field_count</span><span class="p">,</span> 
         <span class="n">struct_field_names</span><span class="p">,</span> <span class="n">struct_field_types</span><span class="p">)</span>
 
-    <span class="k">fn</span> <span class="n">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct_field_count</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">struct_field_names</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
         <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">struct_field_types</span><span class="p">[</span><span class="n">T</span><span class="p">]()</span>
-        <span class="nd">@parameter</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+        <span class="k">comptime</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
             <span class="k">comptime</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">comptime</span> <span class="n">field_type</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">: </span><span class="sh">"</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">get_type_name</span><span class="p">[</span><span class="n">field_type</span><span class="p">]())</span>

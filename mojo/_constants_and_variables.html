@@ -2212,13 +2212,13 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span>
 
-<span class="k">fn</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">circumference</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">area</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span></code></pre>
 </div>
@@ -2252,7 +2252,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">comptime</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">3</span>
@@ -2278,7 +2278,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">3</span>
@@ -2302,7 +2302,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">3</span>
@@ -2332,10 +2332,10 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">MY_VALUE</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">MY_VALUE</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2352,10 +2352,10 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="n">Int</span>
 
-<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyInt</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">MyInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyInt</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
@@ -2437,12 +2437,12 @@ outer y: 1</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">fn</span> <span class="nf">main</span><span class="p">():</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">var</span> <span class="sb">`var`</span> <span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">var</span> <span class="sb">`with space`</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">2</span>
 
-    <span class="k">fn</span> <span class="sb">`with#symbol`</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">3</span>
+    <span class="k">def</span> <span class="err">`</span><span class="nf">with</span><span class="c1">#symbol`() -&gt; Int:
+</span>        <span class="k">return</span> <span class="mi">3</span>
 
     <span class="nf">print</span><span class="p">(</span><span class="sb">`var`</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="sb">`with space`</span><span class="p">)</span>
