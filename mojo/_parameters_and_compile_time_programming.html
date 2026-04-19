@@ -2179,7 +2179,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_default_values_in_parameters">12.10. Default values in parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs_traits">12.11. Parameters in structs, traits</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameters_in_structs">12.11. Parameters in structs</a>
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_trait_composition">12.12. Trait composition</a>
 </li>
@@ -2192,6 +2192,10 @@ pre.rouge .gs {
 <li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.16. Parameterized errors</a>
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_partially_bound_parameters">12.17. Partially bound parameters</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_parametric_aliases">12.18. Parametric aliases</a>
+</li>
+<li><a href="_parameters_and_compile_time_programming.html#_dependent_types">12.19. Dependent types</a>
 </li>
 </ul>
 </li>
@@ -2545,9 +2549,9 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameters_in_structs_traits">12.11. Parameters in structs, traits</h3>
+<h3 id="_parameters_in_structs">12.11. Parameters in structs</h3>
 <div class="paragraph">
-<p>Similar to functions, we can also pass compile-time parameters to structs, traits.</p>
+<p>Similar to functions, we can also pass compile-time parameters to structs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2571,7 +2575,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>We can also have keyword parameters for structs, and traits.</p>
+<p>We can also have keyword parameters for structs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2579,7 +2583,16 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In the previous example, the parameters were passed and processed similar to how we did in functions. Basically, what we can do with parameters for functions, we can do the same for structs, and traits.</p>
+<p>In the previous example, the parameters were passed and processed similar to how we did in functions. Basically, what we can do with parameters for functions, we can do the same for structs.</p>
+</div>
+<div class="paragraph">
+<p>You can also use <code>comptime</code> to define an alias for a struct with specific parameters. This is useful when you want to reuse the same struct with the same parameters in multiple places in your code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">comptime</span> <span class="n">MyStructAlias</span> <span class="o">=</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStructAlias</span><span class="p">(</span><span class="mi">20</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2819,6 +2832,73 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="paragraph">
 <p>Partially binding parameters is quite useful to create reusable abstractions with some fixed parameters and some flexible parameters. Such types come in handy when we want to create libraries that can be used in different contexts with different types, while still having some fixed parameters that are common across those contexts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parametric_aliases">12.18. Parametric aliases</h3>
+<div class="paragraph">
+<p>Earlier we saw that we can use <code>comptime</code> to define an alias for a struct with specific parameters. We can also define aliases with parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::parametric_alias[]
+</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
+</span>    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># We can use the alias similar to a normal type, but the value type needs to satisfy the constraints specified in the alias definition (in this case, it needs to implement the traits Intable and Copyable).
+</span>    <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># Prints: {1: 1, 2: 2}
+</span>    <span class="c1"># var b = IntDict[String]() # Uncommenting this line will result in a compile time error because the value type String does not satisfy the constraints specified in the alias definition (it does not implement the traits Intable and Copyable).
+</span>    <span class="c1"># end::parametric_alias[]
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we have defined a parametric alias <code>StringKeyedDict</code> for a dictionary where the key type is always <code>String</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additonal constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>StringKeyedDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code> and <code>Copyable</code>. This means that we can only use the <code>StringKeyedDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dependent_types">12.19. Dependent types</h3>
+<div class="paragraph">
+<p>Many programming languages have a clear distinction between types and values. Types are used to define how data is structured, while values are the actual data that we manipulate in our programs. Mojo blurs the line between types and values by allowing types to depend on values. This is a powerful feature that allows us to express complex relationships between types and values, and to define invariants in the type system. In short,
+dependent types are types that depend on values. Mojo allows us to define dependent types using parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::dependent_types[]
+</span><span class="k">def</span> <span class="nf">append</span><span class="p">[</span><span class="n">N</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">:</span> <span class="n">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">]:</span> <span class="c1"># The return type has a dependent type that depends on the parameters N and M
+</span>    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">](</span><span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+<span class="c1"># end::dependent_types[]
+</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::dependent_types_use[]
+</span>    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="nf">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span>    <span class="c1"># var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error 
+</span>    <span class="c1"># end::dependent_types_use[]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="nf">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+</span>    <span class="c1"># var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error </span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we have a function <code>append</code> that takes two arrays with different lengths, and returns a new array that is the concatenation of the two input arrays. The return type of the function is a dependent type that depends on the lengths of the input arrays. The length of the returned array is the sum of the lengths of the input arrays. This allows us to define the output type in relation to the input types, and to ensure that the function is used correctly with respect to the lengths of the input arrays. If we try to use the <code>append</code> function with arrays of incompatible lengths, we would get a compile-time error, as the dependent type would not be satisfied. This helps us to catch errors at compile-time, which would have been caught at runtime in other programming languages without dependent types.</p>
 </div>
 </div>
 </div>

@@ -2290,6 +2290,29 @@ pre.rouge .gs {
 <div class="paragraph">
 <p><code>conforms_to</code> can be particularly useful when creating libraries and frameworks, as it allows developers to enforce certain type constraints and ensure that their code behaves correctly with different types, while still maintaining flexibility and reusability.</p>
 </div>
+<div class="paragraph">
+<p>You can also conditionally implement a trait using <code>conforms_to</code> in a <code>where</code> clause. This allows you to implement a trait for a type only if that type conforms to another trait or type constraint.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Parent</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span> <span class="n">where</span> <span class="nf">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">)):</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span><span class="p">):</span>
+        <span class="bp">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">ability</span><span class="p">(</span><span class="nc">Parent</span><span class="p">(</span><span class="nc">Eagle</span><span class="p">()))</span> <span class="c1"># Prints: It can fly!
+</span>    <span class="nf">ability</span><span class="p">(</span><span class="nc">Parent</span><span class="p">(</span><span class="nc">Monkey</span><span class="p">()))</span> <span class="c1"># Prints: It cannot fly!</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we define a struct <code>Parent</code> that takes a type parameter <code>T</code> which must conform to the <code>Animal</code> trait. Additionally, we specify that <code>Parent</code> itself implements the <code>CanFly</code> trait if and only if <code>T</code> conforms to the <code>CanFly</code> trait using the <code>conforms_to</code> function in the <code>where</code> clause. This allows us to create instances of <code>Parent</code> with different types and have the behavior of <code>Parent</code> depend on whether the type parameter conforms to the <code>CanFly</code> trait or not. The type system will enforce these constraints at compile time, ensuring that the code behaves correctly based on the traits implemented by the type parameter. This feature allows for more flexible and reusable code while still maintaining type safety.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_trait_downcast">15.3. <code>trait_downcast</code></h3>
