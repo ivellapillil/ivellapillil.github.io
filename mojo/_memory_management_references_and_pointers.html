@@ -2177,13 +2177,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2471,6 +2473,21 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="paragraph">
 <p>If pointers are such a pain, then why do we use it? If you want to work with hardware devices, pointers are a must. If we want to call into operating system APIs, pointers are needed. So while pointers are unsafe, they are necessary for low-level programming.</p>
+</div>
+<div class="sect4">
+<h5 id="_null_pointers">Null pointers</h5>
+<div class="paragraph">
+<p>Sometimes we may want to have a pointer that does not point to any value, especially when we need to interface with external libraries or operating system APIs. A pointer that does not point to any value is known as a null pointer. In Mojo, we can use <code>Optional</code> wrapping a pointer to represent a nullable pointer. The <code>Optional</code> type indicates that the pointer can either have a value (i.e., it points to a value) or it can be null (i.e., it does not point to any value). Usage of <code>Optional</code> makes it explicit in the code that the pointer can be null, and therefore programmers need to handle the null case explicitly, avoiding potential null pointer dereference issues. Optional with pointers is a zero cost abstraction, meaning that it does not introduce any overhead compared to using null pointers, as the compiler optimizes it away whenever possible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">nullable_ptr</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">ImmutAnyOrigin</span><span class="p">]]()</span> <span class="c1"># Nullable pointer
+</span>    <span class="k">if</span> <span class="n">nullable_ptr</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">nullable_ptr</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Nothing is printed as the pointer is null
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Pointer is null</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2814,7 +2831,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

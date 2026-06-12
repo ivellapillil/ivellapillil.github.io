@@ -2124,7 +2124,7 @@ pre.rouge .gs {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_functions" class="book toc2 toc-left">
+<body id="_organizing_code_with_modules_and_packages" class="book toc2 toc-left">
 <div id="header">
 <h1>Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</h1>
 <div class="details">
@@ -2139,25 +2139,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_getting_started.html">2. Getting started</a>
 </li>
-<li><a href="_functions.html"><span class="toc-current">3. Functions</span></a>
-<ul class="sectlevel2">
-<li><a href="_functions.html#_def">3.1. def</a>
-</li>
-<li><a href="_functions.html#_default_return_types">3.2. Default return types</a>
-</li>
-<li><a href="_functions.html#_main_function">3.3. <code>main</code> function</a>
-</li>
-<li><a href="_functions.html#_different_styles_of_writing_functions">3.4. Different styles of writing functions</a>
-</li>
-<li><a href="_functions.html#_arguments_passed_to_functions">3.5. Arguments passed to functions</a>
-</li>
-<li><a href="_functions.html#_nested_functions">3.6. Nested functions</a>
-</li>
-<li><a href="_functions.html#_keyword_arguments">3.7. Keyword arguments</a>
-</li>
-<li><a href="_functions.html#_default_value">3.8. Default value</a>
-</li>
-</ul>
+<li><a href="_functions.html">3. Functions</a>
 </li>
 <li><a href="_constants_and_variables.html">4. Constants and variables</a>
 </li>
@@ -2185,7 +2167,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
+<li><a href="_organizing_code_with_modules_and_packages.html"><span class="toc-current">17. Organizing code with modules and packages</span></a>
+<ul class="sectlevel2">
+<li><a href="_organizing_code_with_modules_and_packages.html#_modules">17.1. Modules</a>
+</li>
+<li><a href="_organizing_code_with_modules_and_packages.html#_packages">17.2. Packages</a>
+</li>
+<li><a href="_organizing_code_with_modules_and_packages.html#_compiled_packages">17.3. Compiled packages</a>
+</li>
+</ul>
 </li>
 <li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
@@ -2204,279 +2194,164 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_functions">3. Functions</h2>
+<h2 id="_organizing_code_with_modules_and_packages">17. Organizing code with modules and packages</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter you saw how a function <code>print</code> is being called in a program. In order to call a function, the function must be defined somewhere. In Mojo, there are two ways to define a function. The first way is inspired by Rust and the second by Python. Both styles are equally first class in Mojo and both have their own use cases.</p>
+<p>Large codebases can become difficult to maintain and navigate if all the code is in a single file. To address this issue, we typically split the code into multiple files. In Mojo, we can use modules and packages to organize our code.</p>
 </div>
 <div class="sect2">
-<h3 id="_def">3.1. def</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
-    <span class="k">var</span> <span class="n">name</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter your name: </span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
+<h3 id="_modules">17.1. Modules</h3>
 <div class="paragraph">
-<p>In the above code, <code>def my_function(text: String) raises:</code> defined a function named <code>my_function</code> and declared that it takes an argument <code>text</code> of type <code>String</code>.
-The word that appears after <code>:</code> is called a type annotation. This declaration says that the function argument <code>text</code> will contain <strong>only</strong> Strings. More importantly, it will <strong>never</strong> contain any other content than Strings. When we tell Mojo compiler that the <code>text</code> will take only `String`s, it can generate a very specific and highly optimized code that handles only `String`s.</p>
-</div>
-<div class="paragraph">
-<p>The following statement <code>my_function("Hello World!")</code> calls that function <code>my_function</code> and passes "Hello World!" as the argument where <code>text</code> was declared.</p>
-</div>
-<div class="paragraph">
-<p>You may have noticed that after <code>def my_function(text: String) raises:</code>, there is a new line and 4 spaces before the statements <code>var name = input("Enter your name: ")</code> and <code>print(text + name)</code>. This is because Mojo, like Python, uses whitespace indentation to demarcate the function&#8217;s body. Many mainstream programming languages use braces "{}" for function body. However, Mojo uses indented whitespace and is particular about the whitespace being aligned. You will find this syntax not only for function bodies, but also for other statements that expect a block. We will come to those cases in later chapters. Please notice that the statement <code>my_function("Hello World!")</code> appears differently aligned than <code>print(text + name)</code>. This is because <code>my_function("Hello World!")</code> is not part of the `my_function&#8217;s body itself.</p>
-</div>
-<div class="paragraph">
-<p>Another thing to notice is the <code>raises</code> keyword in the function definition. This is a special keyword that indicates that the function may raise an exception. We will cover exceptions in a later chapter.</p>
-</div>
-<div class="paragraph">
-<p>The following illustration shows the structure of a Mojo function.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="resources/graphics/Function_Structure_Def.jpeg" alt="Function Structure Def">
-</div>
-</div>
-<div class="paragraph">
-<p>Functions may also return a value. In order to return a value, we can use the <code>return</code> keyword followed by the value that we want to return. The return type of the function can be declared with <code>&#8594;</code> followed by the type of the return value.</p>
+<p>In Mojo, a module is a file that contains code. You can define functions, classes, and variables in a module. To use the code from a module, you can import it using the <code>import</code> statement.</p>
 </div>
 <div class="listingblock">
+<div class="title">my_module.mojo</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_module_message</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello from my_module!</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you run the above program, you get the output as <code>3</code>.</p>
-</div>
-<div class="paragraph">
-<p>The function <code>add</code> took two <code>Int</code> arguments and performed an addition. Then it returned that result with keyword <code>return</code>, which was then shown on the terminal using the <code>print</code> function. The return value of the function is of type <code>Int</code>, which was explicitely delcared with <code>&#8594; Int</code> declaration. The <code>Int</code> type represents all integer values, including both positive and negative values. The actual value is passed during the function call statement (call site).</p>
-</div>
-<div class="paragraph">
-<p>The statement <code>print(add(1, 2))</code> actually made two function calls. The inner function call <code>add</code> got executed first and then the outer function call <code>print</code>. This is called the nesting of function calls. The result from the inner function call was passed to the outer function call.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">mojo</span> <span class="n">addition_return_def</span><span class="p">.</span><span class="n">mojo</span>
-<span class="mi">3</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_default_return_types">3.2. Default return types</h3>
-<div class="paragraph">
-<p>In Mojo, when you omit the return type, the function defaults to return <code>None</code>, which indicates that there is no value being returned.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_main_function">3.3. <code>main</code> function</h3>
-<div class="paragraph">
-<p>There is a special function called <code>main</code> in Mojo, which is the function that is used by the compiler to determine the main entrance of a program. When you call a program executable created by Mojo, the very first function that is executed is the <code>main</code> function.</p>
+<p>Usage:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span></code></pre>
+    <span class="c1"># tag::module[]
+</span>    <span class="kn">import</span> <span class="n">my_module</span>
+    <span class="n">my_module</span><span class="p">.</span><span class="nf">print_module_message</span><span class="p">()</span>
+    <span class="c1"># end::module[]
+</span>
+    <span class="c1"># tag::package[]
+</span>    <span class="kn">import</span> <span class="n">mypackage.mypackagedmodule</span> <span class="k">as</span> <span class="n">mpm</span>
+    <span class="n">mpm</span><span class="p">.</span><span class="nf">print_packaged_module_message</span><span class="p">()</span>
+    <span class="c1"># end::package[]
+</span>
+    <span class="c1"># tag::package_with_init[]
+</span>    <span class="kn">import</span> <span class="n">mypackage2</span>
+    <span class="n">mypackage2</span><span class="p">.</span><span class="nf">print_packaged_module_message2</span><span class="p">()</span>
+    <span class="c1"># end::package_with_init[]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you execute the above program, the main function will be called automatically and the text <code>Hello World!</code> will be printed.</p>
+<p>In the above example, we have a module named <code>my_module</code> that contains a function <code>print_module_message</code>. We import this module in our <code>main.mojo</code> file and call the function to print a message.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_different_styles_of_writing_functions">3.4. Different styles of writing functions</h3>
+<h3 id="_packages">17.2. Packages</h3>
 <div class="paragraph">
-<p>A function can be defined in different styles.</p>
+<p>A package is a collection of modules (and therefore files) organized in a directory. You can import modules from a package using the <code>import</code> statement or the <code>from &#8230;&#8203; import &#8230;&#8203;</code> statement. You can also nest packages within packages to create a hierarchical structure.</p>
+</div>
+<div class="paragraph">
+<p>What separates a normal directory from a package is the presence of an <code><em>init</em>.mojo</code> file. This file can be empty, but it must be present for the directory to be recognized as a package.</p>
+</div>
+<div class="listingblock">
+<div class="title">mypackage/mypackagedmodule.mojo</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_packaged_module_message</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello from mypackagedmodule!</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">mypackage/<em>init</em>.mojo</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># This is empty on purpose. It allows us to treat the "mypackage" directory as a package, enabling us to import modules from it.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="bp">...</span>
-
-<span class="k">def</span> <span class="nf">func2</span><span class="p">():</span> <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">func3</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">);</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Good bye!</span><span class="sh">"</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">func4</span><span class="p">():</span> 
-    <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="bp">...</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::module[]
+</span>    <span class="kn">import</span> <span class="n">my_module</span>
+    <span class="n">my_module</span><span class="p">.</span><span class="nf">print_module_message</span><span class="p">()</span>
+    <span class="c1"># end::module[]
+</span>
+    <span class="c1"># tag::package[]
+</span>    <span class="kn">import</span> <span class="n">mypackage.mypackagedmodule</span> <span class="k">as</span> <span class="n">mpm</span>
+    <span class="n">mpm</span><span class="p">.</span><span class="nf">print_packaged_module_message</span><span class="p">()</span>
+    <span class="c1"># end::package[]
+</span>
+    <span class="c1"># tag::package_with_init[]
+</span>    <span class="kn">import</span> <span class="n">mypackage2</span>
+    <span class="n">mypackage2</span><span class="p">.</span><span class="nf">print_packaged_module_message2</span><span class="p">()</span>
+    <span class="c1"># end::package_with_init[]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You can define the function body in the same line as the function definition only if the whole body is just a single line.</p>
+<p>In the above code, we have a directory named <code>mypackage</code> that contains a file named <code>mypackagedmodule</code>, along with <code><em>init</em>.mojo</code>. We import this module in our <code>main.mojo</code> file and call the function to print a message.</p>
+</div>
+<div class="paragraph">
+<p>As you can see, the module and package system in Mojo is rather simple and straightforward. It allows you to organize your code in a way that is easy to maintain and navigate, especially as your codebase grows larger.</p>
 </div>
 <div class="sect3">
-<h4 id="_semicolon">3.4.1. Semicolon</h4>
+<h4 id="_init_mojo_file">17.2.1. <code><em>init</em>.mojo</code> file</h4>
 <div class="paragraph">
-<p>In the source code shown above, you may have noticed a semicolon in the body of function <code>func3</code>. Semicolon can be used to separate statements, which allow the statements to be written in a single line. Mojo follows the philosophy of Python, so use semicolon sparingly and only when it improves reading and understanding of code.</p>
+<p>The <code><em>init</em>.mojo</code> file need not be empty. You can use it to import modules or functions that you want to be available when the package is imported. This can be useful for creating a cleaner and more convenient API for your package.</p>
+</div>
+<div class="listingblock">
+<div class="title">mypackage2/mypackagedmodule2.mojo</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_packaged_module_message2</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello from mypackagedmodule2!</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_ellipses_in_functions">3.4.2. Ellipses in functions</h4>
+<div class="listingblock">
+<div class="title">mypackage2/<em>init</em>.mojo</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">.mypackagedmodule2</span> <span class="kn">import</span> <span class="n">print_packaged_module_message2</span></code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>In Mojo you would often see <code>&#8230;&#8203;</code> defined in the function body. Ellipsis is just a built-in constant in Mojo, and is a placeholder. Within a function, it just means that the body is not yet implemented and the Mojo compiler will not complain about the missing body. Ellipses have other uses and we will cover them in subsequent chapters.</p>
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::module[]
+</span>    <span class="kn">import</span> <span class="n">my_module</span>
+    <span class="n">my_module</span><span class="p">.</span><span class="nf">print_module_message</span><span class="p">()</span>
+    <span class="c1"># end::module[]
+</span>
+    <span class="c1"># tag::package[]
+</span>    <span class="kn">import</span> <span class="n">mypackage.mypackagedmodule</span> <span class="k">as</span> <span class="n">mpm</span>
+    <span class="n">mpm</span><span class="p">.</span><span class="nf">print_packaged_module_message</span><span class="p">()</span>
+    <span class="c1"># end::package[]
+</span>
+    <span class="c1"># tag::package_with_init[]
+</span>    <span class="kn">import</span> <span class="n">mypackage2</span>
+    <span class="n">mypackage2</span><span class="p">.</span><span class="nf">print_packaged_module_message2</span><span class="p">()</span>
+    <span class="c1"># end::package_with_init[]</span></code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_pass_in_functions">3.4.3. <code>pass</code> in functions</h4>
 <div class="paragraph">
-<p>The <code>pass</code> keyword has a similar role as <code>&#8230;&#8203;</code> in functions. It particularly tells the compiler that the implementation has been omitted.</p>
+<p>In the above code, you can see that we are not mentioning the <code>mypackagedmodule2</code> module in our <code>main.mojo</code> file. Instead, we are importing it in the <code><em>init</em>.mojo</code> file of the package. This allows us to call the function from <code>mypackagedmodule2</code> directly after importing the package, without needing to specify the module name.</p>
 </div>
 <div class="paragraph">
-<p>One good rule of thumb is to use <code>pass</code> where you know that there is no need for an implementation and use <code>&#8230;&#8203;</code> when you are expecting some implementation in the future (or in inherited entities - we will come to that later).</p>
+<p>This allows us to keep the internal structure of the package hidden from the users of the package, and provides a cleaner and more convenient API. It also allows us to provide some level of backwards compatibility if we decide to change the internal structure of the package in the future.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_arguments_passed_to_functions">3.5. Arguments passed to functions</h3>
+<h3 id="_compiled_packages">17.3. Compiled packages</h3>
 <div class="paragraph">
-<p>Arguments passed to a function cannot be modified within the function. Such arguments are said to be immutable as the function body cannot modify their value. This kind of restriction is helpful in large programs as the code that calls the function does not get surprised that the value it passed to a function has suddenly changed unexpectedly.</p>
+<p>Sometimes you do not want to distribute the source code of your package, but still want others to be able to use it. In such cases, you can distribute a compiled version of your package. This is similar to how you might distribute a compiled library in other programming languages. To create a compiled package, you can use the <code>mojo precompile</code> command to compile your package into a binary format. You can then distribute this compiled package to others, who can import and use it just like they would with a regular package.</p>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Executing the above listed code results in compilation error.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code>error: expression must be mutable in assignment
-    a = a + 1
-    ^
-mojo: error: failed to parse the provided Mojo</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_nested_functions">3.6. Nested functions</h3>
-<div class="paragraph">
-<p>Mojo supports nesting of function within other functions.</p>
-</div>
-<div class="paragraph">
-<p>Nesting of functions limit the scope of the nested function to just the outer function. For example in the following code listing, it is not possible to call <code>nested</code> within <code>main</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">nested</span><span class="p">():</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">I am nested</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">nested</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">outer</span><span class="p">()</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_keyword_arguments">3.7. Keyword arguments</h3>
-<div class="paragraph">
-<p>Sometimes when functions take lots of arguments, it is much more clear if the name of the argument is specified when calling the function. Mojo supports keyword arguments, which is basically the ability to specify the argument name when we assign a value to that argument during a function call.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">first</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the previous listing, we can see there are three different ways to call the function with keyword arguments. The first one specifies the name of the both arguments when passing the value. The second call demonstrates that when using the keyword arguments, the order of the arguments does not matter, as Mojo knows with the name itself which argument gets which value. In the third call, we see that we can mix and match positional argument with the keyword argument; however, here the order is important as the positional values must appear in the order in which they were declared in the function definition. Keyword arguments follow positional arguments.</p>
-</div>
-<div class="paragraph">
-<p>What if you as an API designer want some arguments to be always specified positionally? In this case, you can enforce positional arguments by using a special argument, <code>/</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># compiler error</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Executing the above listed code results in compilation error.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code>error: invalid call to 'my_function2': positional-only arguments passed as keyword operands: 'first', 'second'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also mix and match position-only arguments with keyword arguments. The <code>/</code> can be the last argument, in which case all the function arguments would be position-only. It cannot be the first argument though.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here the first two arguments are strictly position-only, while the third can be passed as keyword or positional as desired.</p>
-</div>
-<div class="paragraph">
-<p>What if you wanted some arguments to be always keyword only? In this case, you can enforce keyword arguments by using the special argument, <code>*</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">third</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-    <span class="c1">#print(my_function(1, 2, 3)) # Uncommenting would result in compiler error.</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similar to <code>/</code>, you can also mix and match keyword-only arguments with positional arguments. The <code>*</code> can be the first argument, in which case all the function arguments would be keyword-only. It cannot be the last argument though.</p>
-</div>
-<div class="paragraph">
-<p>Keyword arguments make APIs ergonomic, as the programmer does not have to remember in which position what value need to be passed. It improves code readability and maintainability. It also reduces accidental mistakes when programmer wrongly assumes the order of the arguments.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_default_value">3.8. Default value</h3>
-<div class="paragraph">
-<p>Mojo allows assigning default values to function arguments, which means when the caller does not pass a value to the argument, the function will take the given default value. That function argument therefore becomes optional for the caller. The default value must be of the same data type as the declared data type of the argument.</p>
-</div>
-<div class="paragraph">
-<p>This feature is quite useful when defining ergonomic APIs, providing sensible default values for the caller, making the function easier to use.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">deft_function</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">second</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># 'second' defaults to '10'
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">pixi</span> <span class="n">run</span> <span class="n">mojo</span> <span class="n">precompile</span> <span class="n">mypackage</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_getting_started.html">Getting started</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_constants_and_variables.html">Constants and variables</a> →</p>
+<p>← Previous: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_python_interoperability.html">Python interoperability</a> →</p>
 </div>
 </div>
 <div id="footer">

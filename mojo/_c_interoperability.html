@@ -2167,23 +2167,25 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html"><span class="toc-current">18. C interoperability</span></a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
+</li>
+<li><a href="_c_interoperability.html"><span class="toc-current">19. C interoperability</span></a>
 <ul class="sectlevel2">
-<li><a href="_c_interoperability.html#_calling_a_standard_c_function">18.1. Calling a standard C function</a>
+<li><a href="_c_interoperability.html#_calling_a_standard_c_function">19.1. Calling a standard C function</a>
 </li>
-<li><a href="_c_interoperability.html#_calling_a_function_from_a_shared_library">18.2. Calling a function from a shared library</a>
+<li><a href="_c_interoperability.html#_calling_a_function_from_a_shared_library">19.2. Calling a function from a shared library</a>
 </li>
-<li><a href="_c_interoperability.html#_statically_linking_a_c_library">18.3. Statically linking a C library</a>
+<li><a href="_c_interoperability.html#_statically_linking_a_c_library">19.3. Statically linking a C library</a>
 </li>
-<li><a href="_c_interoperability.html#_calling_mojo_from_c">18.4. Calling Mojo from C</a>
+<li><a href="_c_interoperability.html#_calling_mojo_from_c">19.4. Calling Mojo from C</a>
 </li>
 </ul>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2194,13 +2196,13 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_c_interoperability">18. C interoperability</h2>
+<h2 id="_c_interoperability">19. C interoperability</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is said that the world runs on C. Many of the popular programming languages have the capability to interoperate with C, and Mojo is no exception. Mojo provides developers with the ability to call functions which are implemented in the C programming language. This enables them to leverage existing libraries and codebases written in C.</p>
 </div>
 <div class="sect2">
-<h3 id="_calling_a_standard_c_function">18.1. Calling a standard C function</h3>
+<h3 id="_calling_a_standard_c_function">19.1. Calling a standard C function</h3>
 <div class="paragraph">
 <p>Calling a C function from Mojo is straightforward. You can use the <code>external_call</code> function from the <code>ffi</code> module to call a C function. The <code>external_call</code> takes in the name of the C function and its return type as parameters. The arguments to the C function can be passed as arguments to the <code>external_call</code> function.</p>
 </div>
@@ -2222,7 +2224,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_calling_a_function_from_a_shared_library">18.2. Calling a function from a shared library</h3>
+<h3 id="_calling_a_function_from_a_shared_library">19.2. Calling a function from a shared library</h3>
 <div class="paragraph">
 <p>You can also call functions from a shared library. To do this, you would use <code>OwnedDLHandle</code> to load the shared library and then get the desired function from it using the <code>get_function</code> method. Once you have the function, you can call it like a normal Mojo function.</p>
 </div>
@@ -2254,7 +2256,7 @@ pre.rouge .gs {
 </span>    <span class="c1"># current directory.
 </span>    <span class="k">try</span><span class="p">:</span>
         <span class="n">lib_handle</span> <span class="o">=</span> <span class="nc">OwnedDLHandle</span><span class="p">(</span><span class="sh">"</span><span class="s">./libc_mymul.dylib</span><span class="sh">"</span><span class="p">)</span>
-        <span class="n">mul_fn</span> <span class="o">=</span> <span class="n">lib_handle</span><span class="p">.</span><span class="n">get_function</span><span class="p">[</span><span class="nf">def</span><span class="p">(</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">c_int</span><span class="p">](</span><span class="sh">"</span><span class="s">mul</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Get the 'mul' function from the library
+        <span class="n">mul_fn</span> <span class="o">=</span> <span class="n">lib_handle</span><span class="p">.</span><span class="n">get_function</span><span class="p">[</span><span class="nf">def</span><span class="p">(</span><span class="n">c_int</span><span class="p">,</span> <span class="n">c_int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">c_int</span><span class="p">](</span><span class="sh">"</span><span class="s">mul</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Get the 'mul' function from the library
 </span>        <span class="n">result</span> <span class="o">=</span> <span class="nf">mul_fn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Call the C function 'mul' with arguments 5 and 10
 </span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Result is</span><span class="sh">"</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="c1"># Prints: Result is 50
 </span>        <span class="n">_</span> <span class="o">=</span> <span class="n">lib_handle</span> <span class="c1"># Keep alive
@@ -2270,7 +2272,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_statically_linking_a_c_library">18.3. Statically linking a C library</h3>
+<h3 id="_statically_linking_a_c_library">19.3. Statically linking a C library</h3>
 <div class="paragraph">
 <p>If you do not prefer to dynamically load a shared library, you can also statically link a C library with your Mojo code. This involves compiling the C code into an object file and then linking it with your Mojo code during the compilation process.</p>
 </div>
@@ -2319,7 +2321,7 @@ def main():
 </div>
 </div>
 <div class="sect2">
-<h3 id="_calling_mojo_from_c">18.4. Calling Mojo from C</h3>
+<h3 id="_calling_mojo_from_c">19.4. Calling Mojo from C</h3>
 <div class="paragraph">
 <p>Just as you can call C functions from Mojo, you can also call Mojo functions from C. This involves compiling the Mojo code into an object file and then linking it with your C code.</p>
 </div>
@@ -2384,7 +2386,7 @@ def add(a: Int32, b: Int32) -&gt; Int32:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

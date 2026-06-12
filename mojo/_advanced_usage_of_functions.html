@@ -2177,13 +2177,15 @@ pre.rouge .gs {
 </li>
 </ul>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2200,7 +2202,7 @@ pre.rouge .gs {
 <p>In previous chapters you saw how we declare types of variables and how we use them. In Mojo you can assign also a function to a variable. The type of the variable is determined by the function&#8217;s signature, i.e., it is a combination of the argument types and return type of the function.</p>
 </div>
 <div class="paragraph">
-<p>In the following code listing, you can see the variable <code>my_fn_var</code> is of type <code>def(Int, Int) &#8594; Int</code> and is assigned a function with the same signature as the type of <code>my_fn_var</code>. Another thing to note is that the assigned function does not have the trailing <code>()</code> which is usual in a function call. This is because we are not calling the function <code>adder</code>, instead we are binding the function to the variable <code>my_fn_var</code>. In fact, we do <strong>not</strong> want to call <code>adder</code> at that point of time.</p>
+<p>In the following code listing, you can see the variable <code>my_fn_var</code> is of type <code>def(Int, Int) thin &#8594; Int</code> and is assigned a function with the same signature as the type of <code>my_fn_var</code>. Another thing to note is that the assigned function does not have the trailing <code>()</code> which is required in a function call. This is because we are <strong>not calling</strong> the function <code>adder</code>, instead we are binding the function to the variable <code>my_fn_var</code>. In fact, we do <strong>not</strong> want to call <code>adder</code> at that point of time.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2213,12 +2215,15 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">my_fn_var</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>In the example, we see that we defined a function <code>adder</code> and then assigned that function to a variable. We later execute that variable as if it is a function.</p>
+</div>
+<div class="paragraph">
+<p>You may have noticed the use of <code>thin</code> effect when declaring the function type. Function pointers in Mojo must be declared with the <code>thin</code> effect.</p>
 </div>
 <div class="sect2">
 <h3 id="_higher_order_functions">16.1. Higher-order functions</h3>
@@ -2236,7 +2241,7 @@ pre.rouge .gs {
 <span class="k">def</span> <span class="nf">suber</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2256,14 +2261,14 @@ pre.rouge .gs {
 <p>In this code listing we see that the function <code>exec</code> is a higher-order function that takes another function as argument. The <code>exec</code> function executes the passed-in function within a loop to calculate a result. We can pass two different functions to the same <code>exec</code> function, and the <code>exec</code> will treat both the passed functions the same way. In this way we have built a generic function that does not need to know what the passed-in does, instead it just executes them and calculates results.</p>
 </div>
 <div class="paragraph">
-<p>Functions can also passed as parameters to another function. The main difference is that the functions are then passed at compile-time instead of at runtime.</p>
+<p>Functions can also be passed as parameters to another function. The main difference is that the functions are then passed at compile-time instead of at runtime.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">diver</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
     <span class="k">return</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2290,7 +2295,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_rt_closure</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">unified</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="n">bin_op</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_rt_closure</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="n">bin_op</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2303,20 +2308,20 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">rt_y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="n">unified</span> <span class="p">{</span><span class="k">read</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span><span class="k">read</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
         <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">rt_y</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">exec_rt_closure</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">ander</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The closure shown above is known as a runtime closure. The type of the closure is <code>def(Int) unified &#8594; Int</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions. At the point of creating the closure, values are captured and copied over to the closure. However, Mojo needs to be told explicitly about the captured values by using <code>unified{read var_name}</code> syntax. This is because Mojo needs to know what is the access pattern of the captured variable, i.e., whether it is read-only or read-write. In the example above, the captured variable <code>rt_y</code> is only read within the closure and therefore we use <code>unified{read rt_y}</code> to indicate that. If we were to write to <code>rt_y</code> within the closure, then we would have used <code>unified{mut rt_y}</code> instead. You can pass more than one captured variable to the closure by separating them with comma, for example <code>unified{read var1, mut var2}</code>.</p>
+<p>The closure shown above is known as a runtime closure. The type of the closure is <code>def(Int) &#8594; Int</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions. At the point of creating the closure, values are captured and copied over to the closure. However, Mojo needs to be told explicitly about the captured values by using <code>{read/mut var_name}</code> syntax. This is because Mojo needs to know what is the access pattern of the captured variable, i.e., whether it is read-only or read-write. In the example above, the captured variable <code>rt_y</code> is only read within the closure and therefore we use <code>{read rt_y}</code> to indicate that. If we were to write to <code>rt_y</code> within the closure, then we would have used <code>{mut rt_y}</code> instead. You can pass more than one captured variable to the closure by separating them with comma, for example <code>{read var1, mut var2}</code>.</p>
 </div>
 <div class="paragraph">
 <p>However, the runtime closure <strong>cannot</strong> be passed as a <strong>parameter</strong> to other functions. In order to pass a closure as a parameter to other functions, we need to use a compile-time closure. Such closures are decorated by <code>@parameter</code>. The type of the closure is <code>def() capturing &#8594; T</code>. The following example demonstrates such a compile-time closure.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="n">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="k">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -2399,8 +2404,11 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span></code></pre>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">b</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2409,7 +2417,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">))</span></code></pre>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2533,12 +2541,12 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_metaprogramming.html">Metaprogramming</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_python_interoperability.html">Python interoperability</a> →</p>
+<p>← Previous: <a href="_metaprogramming.html">Metaprogramming</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_organizing_code_with_modules_and_packages.html">Organizing code with modules and packages</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

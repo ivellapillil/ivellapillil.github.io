@@ -2183,13 +2183,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2213,7 +2215,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
-    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span>
+    <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span>
 
 <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="mf">3.14</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
@@ -2234,7 +2236,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span>
 
 <span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
-    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span>
+    <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span>
 
 <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="n">Float16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float16</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
@@ -2458,7 +2460,7 @@ outer y: 1</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

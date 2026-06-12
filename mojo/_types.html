@@ -2157,47 +2157,51 @@ pre.rouge .gs {
 </li>
 <li><a href="_types.html#_stringliteral">5.6. StringLiteral</a>
 </li>
-<li><a href="_types.html#_floatliteral">5.7. FloatLiteral</a>
+<li><a href="_types.html#_tstring">5.7. TString</a>
 </li>
-<li><a href="_types.html#_float16">5.8. Float16</a>
+<li><a href="_types.html#_floatliteral">5.8. FloatLiteral</a>
 </li>
-<li><a href="_types.html#_float32">5.9. Float32</a>
+<li><a href="_types.html#_float16">5.9. Float16</a>
 </li>
-<li><a href="_types.html#_float64">5.10. Float64</a>
+<li><a href="_types.html#_float32">5.10. Float32</a>
 </li>
-<li><a href="_types.html#_int8">5.11. Int8</a>
+<li><a href="_types.html#_float64">5.11. Float64</a>
 </li>
-<li><a href="_types.html#_uint8">5.12. UInt8</a>
+<li><a href="_types.html#_int8">5.12. Int8</a>
 </li>
-<li><a href="_types.html#_int16">5.13. Int16</a>
+<li><a href="_types.html#_uint8">5.13. UInt8</a>
 </li>
-<li><a href="_types.html#_uint16">5.14. UInt16</a>
+<li><a href="_types.html#_int16">5.14. Int16</a>
 </li>
-<li><a href="_types.html#_int32">5.15. Int32</a>
+<li><a href="_types.html#_uint16">5.15. UInt16</a>
 </li>
-<li><a href="_types.html#_uint32">5.16. UInt32</a>
+<li><a href="_types.html#_int32">5.16. Int32</a>
 </li>
-<li><a href="_types.html#_int64">5.17. Int64</a>
+<li><a href="_types.html#_uint32">5.17. UInt32</a>
 </li>
-<li><a href="_types.html#_uint64">5.18. UInt64</a>
+<li><a href="_types.html#_int64">5.18. Int64</a>
 </li>
-<li><a href="_types.html#_bfloat16">5.19. BFloat16</a>
+<li><a href="_types.html#_uint64">5.19. UInt64</a>
 </li>
-<li><a href="_types.html#_simd">5.20. SIMD</a>
+<li><a href="_types.html#_bfloat16">5.20. BFloat16</a>
 </li>
-<li><a href="_types.html#_dtype">5.21. DType</a>
+<li><a href="_types.html#_simd">5.21. SIMD</a>
 </li>
-<li><a href="_types.html#_type_safety">5.22. Type safety</a>
+<li><a href="_types.html#_dtype">5.22. DType</a>
 </li>
-<li><a href="_types.html#_tuple">5.23. Tuple</a>
+<li><a href="_types.html#_type_safety">5.23. Type safety</a>
 </li>
-<li><a href="_types.html#_list_literals">5.24. List literals</a>
+<li><a href="_types.html#_tuple">5.24. Tuple</a>
 </li>
-<li><a href="_types.html#_dict_literals">5.25. Dict literals</a>
+<li><a href="_types.html#_list_literals">5.25. List literals</a>
 </li>
-<li><a href="_types.html#_variant">5.26. Variant</a>
+<li><a href="_types.html#_dict_literals">5.26. Dict literals</a>
 </li>
-<li><a href="_types.html#_type_inference">5.27. Type inference</a>
+<li><a href="_types.html#_variant">5.27. Variant</a>
+</li>
+<li><a href="_types.html#_optional">5.28. Optional</a>
+</li>
+<li><a href="_types.html#_type_inference">5.29. Type inference</a>
 </li>
 </ul>
 </li>
@@ -2223,13 +2227,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2360,7 +2366,41 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_floatliteral">5.7. FloatLiteral</h3>
+<h3 id="_tstring">5.7. TString</h3>
+<div class="paragraph">
+<p>Similar to Python, Mojo provides template strings, which are represented by <code>TString</code> type. A <code>TString</code> is a string that can contain embedded expressions. One main difference from Python is that in Mojo, the interpolation of the embedded expressions happens at compile time. The formatting of the string is also done lazily on request. This means that if you do not use the <code>TString</code> variable, then the formatting of the string will not happen at all. This is a great optimization as it avoids unnecessary formatting of strings that are never used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">std.format.tstring</span> <span class="kn">import</span> <span class="n">TString</span>
+    <span class="k">var</span> <span class="n">a_var</span> <span class="o">=</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
+    <span class="k">var</span> <span class="n">tstr</span> <span class="o">=</span> <span class="n">t</span><span class="sh">"</span><span class="s">Hello TString {a_var}!</span><span class="sh">"</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">(1 + 2) is {1 + 2}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Evaluates the expression inside the curly braces and includes the result in the string
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">Length of {a_var} is {a_var.byte_length()}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Can call functions inside the curly braces as well</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you want to escape the braces, you can use double braces <code>{{</code> and <code>}}</code> to represent literal <code>{</code> and <code>}</code> respectively. The usual <code>\n</code> and <code>t</code> escape sequences are also supported in <code>TString</code> literals.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">(1 + 2) is {{1 + 2}}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">New </span><span class="se">\n</span><span class="s">line</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Supports escape sequences like \n for new line, \t for tab, etc.</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you want to escape <code>\n</code> and other such escape sequences, you can use raw <code>TString</code> literals. Raw <code>TString</code> literals are represented by prefixing the string with <code>rt</code>. In raw <code>TString</code> literals, the escape sequences are not processed and are treated as literal characters. The interpolation still happens in raw <code>TString</code> literals though.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="n">rt</span><span class="sh">"</span><span class="se">\n</span><span class="s"> is not escaped.</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">rt</span><span class="sh">"</span><span class="se">\n</span><span class="s"> is not escaped but can still interpolate </span><span class="sh">'</span><span class="s">{a_var}</span><span class="sh">'"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_floatliteral">5.8. FloatLiteral</h3>
 <div class="paragraph">
 <p><code>FloatLiteral</code> is the type that Mojo compiler assigns to a value when you provide a decimal separated numeric value in the source code. The <code>FloatLiteral</code> is "double precision", which is represented with 64 bits. The mantissa part of the value is represented by 52 bits and the exponent part of the value is represented by 11 bits. The last remaining bit is used for sign.</p>
 </div>
@@ -2374,7 +2414,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float16">5.8. Float16</h3>
+<h3 id="_float16">5.9. Float16</h3>
 <div class="paragraph">
 <p><code>Float16</code> is a 16 bit floating point type, also know as "half precision". On some machines lower precision types can be much faster than higher precision types and so are quite useful if high precision is not important in your domain.</p>
 </div>
@@ -2385,7 +2425,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float32">5.9. Float32</h3>
+<h3 id="_float32">5.10. Float32</h3>
 <div class="paragraph">
 <p><code>Float32</code> is a 32 bit floating point type, also known as "single precision". This type has 23 bit mantissa, 8 bit exponent and the last bit used for sign.</p>
 </div>
@@ -2396,7 +2436,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_float64">5.10. Float64</h3>
+<h3 id="_float64">5.11. Float64</h3>
 <div class="paragraph">
 <p><code>Float64</code> is a 64 bit floating point type, also known as "double precision". The 64 bits are distributed as 52 bits for mantissa, 11 bits for exponent and the last bit for sign. This is the same precision that <code>FloatLiteral</code> also has.</p>
 </div>
@@ -2407,7 +2447,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int8">5.11. Int8</h3>
+<h3 id="_int8">5.12. Int8</h3>
 <div class="paragraph">
 <p><code>Int8</code> is a signed integer represented with 8 bits. It has the range of values from -128 to 127. Integers represented with low number of bits save space in memory and also can be used to enforce supported range of values. Similar to floats, <code>Int8</code> reserves one bit to represent a positive or negative sign.</p>
 </div>
@@ -2418,7 +2458,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint8">5.12. UInt8</h3>
+<h3 id="_uint8">5.13. UInt8</h3>
 <div class="paragraph">
 <p>Similar to <code>Int8</code>, <code>UInt8</code> is represented by 8 bits, but it is an unsigned integer. Since it is unsigned the range of <code>UInt8</code> is from 0 to 255.</p>
 </div>
@@ -2429,7 +2469,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int16">5.13. Int16</h3>
+<h3 id="_int16">5.14. Int16</h3>
 <div class="paragraph">
 <p><code>Int16</code> is represented with 16 bits. It has a range of values from -32,768 to 32,767.</p>
 </div>
@@ -2440,7 +2480,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint16">5.14. UInt16</h3>
+<h3 id="_uint16">5.15. UInt16</h3>
 <div class="paragraph">
 <p><code>UInt16</code> is also represented with 16 bits. It has a range of values from 0 to 65,535.</p>
 </div>
@@ -2451,7 +2491,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int32">5.15. Int32</h3>
+<h3 id="_int32">5.16. Int32</h3>
 <div class="paragraph">
 <p><code>Int32</code> is represented with 32 bits. It has a range of values from -2,147,483,648 to 2,147,483,647.</p>
 </div>
@@ -2462,7 +2502,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint32">5.16. UInt32</h3>
+<h3 id="_uint32">5.17. UInt32</h3>
 <div class="paragraph">
 <p><code>UInt32</code> is represented with 32 bits. It has a range of values from 0 to 4,294,967,295.</p>
 </div>
@@ -2473,7 +2513,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_int64">5.17. Int64</h3>
+<h3 id="_int64">5.18. Int64</h3>
 <div class="paragraph">
 <p><code>Int64</code> is represented with 64 bits. It has a range of values from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.</p>
 </div>
@@ -2484,7 +2524,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uint64">5.18. UInt64</h3>
+<h3 id="_uint64">5.19. UInt64</h3>
 <div class="paragraph">
 <p><code>UInt64</code> is represented with 64 bits. It has a range of values from 0 to 18,446,744,073,709,551,615.</p>
 </div>
@@ -2495,7 +2535,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bfloat16">5.19. BFloat16</h3>
+<h3 id="_bfloat16">5.20. BFloat16</h3>
 <div class="paragraph">
 <p><code>BFloat16</code> is represented with 16 bits. It is known as brain floating point. Its main use is in machine learning to increase the performance of ML algorithms.</p>
 </div>
@@ -2506,9 +2546,9 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_simd">5.20. SIMD</h3>
+<h3 id="_simd">5.21. SIMD</h3>
 <div class="paragraph">
-<p>SIMD standards for Single Instruction, Multiple Data. Processors that support SIMD allow for parallel processing of multiple data points using exactly the same instruction. SIMD was initially implemented for super computers but over a period of time, came to be used in desktop computers as multi media consumption on the desktops increased. The main benefit of SIMD is to perform vector and matrix operations, as many times the same operations need to be applied to many elements of those data structures.</p>
+<p>SIMD stands for Single Instruction, Multiple Data. Processors that support SIMD allow for parallel processing of multiple data points using exactly the same instruction. SIMD was initially implemented for super computers but over a period of time, came to be used in desktop computers as multi media consumption on the desktops increased. The main benefit of SIMD is to perform vector and matrix operations, as many times the same operations need to be applied to many elements of those data structures.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2530,7 +2570,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dtype">5.21. DType</h3>
+<h3 id="_dtype">5.22. DType</h3>
 <div class="paragraph">
 <p>In the previous example you saw the initiation of a SIMD instance by passing a data type <code>DType.int8</code>. <code>DType</code> in Mojo provides a list of data types that are supported within Mojo. One of the uses of <code>DType</code> data types is to use data types as arguments to functions. <code>DType</code> also provides some operations that help in introspecting at runtime different attributes about the data type. <code>DType</code> is particularly useful in providing compile time optimization by creating specialized code for a particular type.</p>
 </div>
@@ -2547,7 +2587,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_safety">5.22. Type safety</h3>
+<h3 id="_type_safety">5.23. Type safety</h3>
 <div class="paragraph">
 <p>Let&#8217;s try something. Execute the following code in Mojo.</p>
 </div>
@@ -2584,7 +2624,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_tuple">5.23. Tuple</h3>
+<h3 id="_tuple">5.24. Tuple</h3>
 <div class="paragraph">
 <p><code>Tuple</code> in Mojo is an ordered sequence of values. A <code>Tuple</code> can have many elements of different types. Mojo uses <code>()</code> to represent <code>Tuple</code> literals in source code.</p>
 </div>
@@ -2635,18 +2675,18 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_list_literals">5.24. List literals</h3>
+<h3 id="_list_literals">5.25. List literals</h3>
 <div class="paragraph">
 <p>Similar to <code>Tuple</code>, Mojo also provides support for instantiating lists using a literal syntax. Mojo uses <code>[]</code> to represent list literals in source code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">l</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
     <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The code shown before defines a list with elements 1 and 3.5. If you do not provide the type of the list, then Mojo will infer the type based on the values provided. In this case, it infers the type as <code>List[Float64]</code> because an <code>Int</code> can be fitted or "merged" into a float type.</p>
+<p>The code shown before defines a list with elements 1 and 3.5. The type can be declared as <code>List[Float16]</code> as the first element of <code>Int</code> type can be converted into a float type. If you do not provide the type of the list, then Mojo will attempt to infer the type based on the values provided.</p>
 </div>
 <div class="paragraph">
 <p>An empty list can be defined using just <code>[]</code>.</p>
@@ -2665,7 +2705,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dict_literals">5.25. Dict literals</h3>
+<h3 id="_dict_literals">5.26. Dict literals</h3>
 <div class="paragraph">
 <p>Mojo provides support for instantiating dictionaries (list of key-value pairs) using a literal syntax. Mojo uses <code>{}</code> to represent dictionary literals in source code. If you do not provide the type of the dictionary, then Mojo will infer the type based on the values provided. In this case, it infers the type as <code>Dict[String, Int]</code>.</p>
 </div>
@@ -2692,7 +2732,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variant">5.26. Variant</h3>
+<h3 id="_variant">5.27. Variant</h3>
 <div class="paragraph">
 <p>Sometimes known as tagged union or sum type, <code>Variant</code> is a type that can hold values of different types. A <code>Variant</code> can be defined to hold values of specific types only. When you try to assign a value of a type that is not part of the defined types for that <code>Variant</code>, Mojo compiler raises an error.</p>
 </div>
@@ -2717,7 +2757,44 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_inference">5.27. Type inference</h3>
+<h3 id="_optional">5.28. Optional</h3>
+<div class="paragraph">
+<p><code>Optional</code> is a type that can either hold a value of a specified type or no value at all. It is useful in cases where you want to represent the absence of a value without using null references. <code>Optional</code> is defined as a generic type that takes another type as its parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">maybe</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">String</span><span class="p">](</span><span class="sh">"</span><span class="s">Hello Optional</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">maybe</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">maybe</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Prints Hello Optional
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This won't be printed
+</span>    
+    <span class="k">var</span> <span class="n">noValue</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span>
+    <span class="k">if</span> <span class="n">noValue</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># This won't be printed
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints No value
+</span>
+    <span class="c1"># print(noValue.value()) # Uncommenting this line will raise an error because noValue does not contain a value</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above code, the variable <code>maybe</code> is defined as an <code>Optional[String]</code>, which means it can either hold a <code>String</code> value or be empty (no value). <code>Optional</code> implements <code>Boolable</code> trait, which means you can use it in boolean contexts to check if it has a value or not. In the example, we check if <code>maybe</code> has a value using <code>if maybe:</code>. If it does, we print the value using <code>value()</code> method of <code>Optional</code>. If it does not have a value, we print "No value". If <code>Optional</code> does not have a value and you try to access it using <code>value()</code>, Mojo will raise an error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">or_else</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span> <span class="c1"># Prints 42, providing a default value</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see in the above code, <code>Optional</code> also provides an <code>or_else</code> method that allows you to provide a default value in case the <code>Optional</code> does not have a value. In this case, since the variable <code>noValue</code> does not have a value, it will print 42.</p>
+</div>
+<div class="paragraph">
+<p><code>Optional</code> allows Mojo programmers to write safer code by avoiding null reference errors and providing a clear way to represent the absence of a value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_type_inference">5.29. Type inference</h3>
 <div class="paragraph">
 <p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
 </div>
@@ -2739,7 +2816,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

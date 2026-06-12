@@ -2167,23 +2167,25 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html"><span class="toc-current">17. Python interoperability</span></a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
+</li>
+<li><a href="_python_interoperability.html"><span class="toc-current">18. Python interoperability</span></a>
 <ul class="sectlevel2">
-<li><a href="_python_interoperability.html#_importing_a_python_module">17.1. Importing a Python module</a>
+<li><a href="_python_interoperability.html#_importing_a_python_module">18.1. Importing a Python module</a>
 </li>
-<li><a href="_python_interoperability.html#_evaluating_python_expressions">17.2. Evaluating Python expressions</a>
+<li><a href="_python_interoperability.html#_evaluating_python_expressions">18.2. Evaluating Python expressions</a>
 </li>
-<li><a href="_python_interoperability.html#_other_useful_python_functions">17.3. Other useful Python functions</a>
+<li><a href="_python_interoperability.html#_other_useful_python_functions">18.3. Other useful Python functions</a>
 </li>
-<li><a href="_python_interoperability.html#_calling_a_mojo_function_from_python">17.4. Calling a Mojo function from Python</a>
+<li><a href="_python_interoperability.html#_calling_a_mojo_function_from_python">18.4. Calling a Mojo function from Python</a>
 </li>
 </ul>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2194,7 +2196,7 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_python_interoperability">17. Python interoperability</h2>
+<h2 id="_python_interoperability">18. Python interoperability</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>As mentioned in the beginning of this book, Mojo is very close to Python in terms of syntax. However, Mojo and Python are semantically two completely different languages, though they share very similar syntax. Python has a huge ecosystem behind it, built over many decades. Mojo allows the developer to leverage this huge ecosystem, with its Python integration capability.</p>
@@ -2203,7 +2205,7 @@ pre.rouge .gs {
 <p>The integration of Mojo with Python is built on a key insight that from a practical point of view, all Python objects can be represented with a single type. In Mojo it is represented by the <code>PythonObject</code> struct. Mojo uses the actual CPython interpreter for interoperability. The usage of CPython in Mojo enables high fidelity integration with Python, and ensures that the Python objects behave as expected.</p>
 </div>
 <div class="sect2">
-<h3 id="_importing_a_python_module">17.1. Importing a Python module</h3>
+<h3 id="_importing_a_python_module">18.1. Importing a Python module</h3>
 <div class="paragraph">
 <p>Mojo has module named <code>python</code> that encapsulates all of the Python integration. Within the <code>python</code> module, there is the facade object that provides the entry point for many of the Python integration capabilities.</p>
 </div>
@@ -2215,7 +2217,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">python</span> <span class="kn">import</span> <span class="n">Python</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">std.python</span> <span class="kn">import</span> <span class="n">Python</span>
     <span class="k">var</span> <span class="n">difflib</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">import_module</span><span class="p">(</span><span class="sh">"</span><span class="s">difflib</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">list1</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Four</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">var</span> <span class="n">list2</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">)</span>
@@ -2226,7 +2228,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_evaluating_python_expressions">17.2. Evaluating Python expressions</h3>
+<h3 id="_evaluating_python_expressions">18.2. Evaluating Python expressions</h3>
 <div class="paragraph">
 <p>You can evaluate Python expressions using <code>Python.evaluate</code> method.</p>
 </div>
@@ -2249,7 +2251,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_other_useful_python_functions">17.3. Other useful Python functions</h3>
+<h3 id="_other_useful_python_functions">18.3. Other useful Python functions</h3>
 <div class="paragraph">
 <p>You can use native Python objects like <code>list</code> and <code>dict</code> using corresponding static methods exposed by <code>Python</code>. <code>Python</code> also exposes <code>type</code> function from Python and can be used to determine the underlying type of the <code>PythonObject</code> struct.</p>
 </div>
@@ -2264,7 +2266,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_calling_a_mojo_function_from_python">17.4. Calling a Mojo function from Python</h3>
+<h3 id="_calling_a_mojo_function_from_python">18.4. Calling a Mojo function from Python</h3>
 <div class="paragraph">
 <p>You can also call a Mojo function from Python. In fact, Mojo allows you to call Mojo functions without having to even compile the Mojo code. This is possible through dynamic compilation and loading of Mojo code.</p>
 </div>
@@ -2312,12 +2314,12 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_advanced_usage_of_functions.html">Advanced usage of functions</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_c_interoperability.html">C interoperability</a> →</p>
+<p>← Previous: <a href="_organizing_code_with_modules_and_packages.html">Organizing code with modules and packages</a> | ↑ Up: <a href="index.html">Mojo By Example: A Comprehensive Introduction to the Mojo Programming Language</a> | Next: <a href="_c_interoperability.html">C interoperability</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

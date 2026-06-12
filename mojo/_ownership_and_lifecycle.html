@@ -2191,13 +2191,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2448,7 +2450,7 @@ pre.rouge .gs {
 <p>In the previous code listing, within the copy constructor, we are allocating new memory for holding the copy of the value from <code>copy</code>. The <code>copy</code> has type <code>Self</code>, which means the same type as the struct defining the copy constructor - in this case <code>MyNumber</code>.</p>
 </div>
 <div class="paragraph">
-<p>Mojo compiler generates a default implementation of the copy constructor if the struct implements the <code>ImplicitlyCopyable</code> trait. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is suffucient, unless your struct holds resources that need special handling during copy.</p>
+<p>Mojo compiler generates a default implementation of the copy constructor if the struct implements the <code>ImplicitlyCopyable</code> trait. The same goes for <code>Copyable</code> trait - it will generate <code>copy()</code> method for you. Most of the time this is sufficient, unless your struct holds resources that need special handling during copy.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2587,7 +2589,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, the origin is being tracked by the compiler, but we do not have to explicitely mark the origins.</p>
+<p>In the above example, the origin is being tracked by the compiler, but we do not have to explicitly mark the origins.</p>
 </div>
 <div class="paragraph">
 <p>However, take a look at the following example where we try to modify a value passed to a function.</p>
@@ -2750,7 +2752,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

@@ -2207,13 +2207,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html">20. GPU programming</a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html">21. GPU programming</a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2843,7 +2845,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># tag::parametric_alias[]
-</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
+</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span> <span class="o">&amp;</span> <span class="n">ImplicitlyDestructible</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
 </span>    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># We can use the alias similar to a normal type, but the value type needs to satisfy the constraints specified in the alias definition (in this case, it needs to implement the traits Intable and Copyable).
 </span>    <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -2854,7 +2856,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a parametric alias <code>StringKeyedDict</code> for a dictionary where the key type is always <code>String</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additonal constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>StringKeyedDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code> and <code>Copyable</code>. This means that we can only use the <code>StringKeyedDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
+<p>In the above example, we have defined a parametric alias <code>IntDict</code> for a dictionary where the key type is always <code>Int</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additional constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>IntDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code>, <code>Copyable</code>, and <code>ImplicitlyDestructible</code>. This means that we can only use the <code>IntDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2909,7 +2911,7 @@ dependent types are types that depend on values. Mojo allows us to define depend
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>

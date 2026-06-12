@@ -2167,13 +2167,15 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
 </li>
-<li><a href="_python_interoperability.html">17. Python interoperability</a>
+<li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
 </li>
-<li><a href="_c_interoperability.html">18. C interoperability</a>
+<li><a href="_python_interoperability.html">18. Python interoperability</a>
 </li>
-<li><a href="_mlir_interoperability.html">19. MLIR interoperability</a>
+<li><a href="_c_interoperability.html">19. C interoperability</a>
 </li>
-<li><a href="_gpu_programming.html"><span class="toc-current">20. GPU programming</span></a>
+<li><a href="_mlir_interoperability.html">20. MLIR interoperability</a>
+</li>
+<li><a href="_gpu_programming.html"><span class="toc-current">21. GPU programming</span></a>
 </li>
 <li><a href="_about_the_author.html">About the author</a>
 </li>
@@ -2184,7 +2186,7 @@ pre.rouge .gs {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_gpu_programming">20. GPU programming</h2>
+<h2 id="_gpu_programming">21. GPU programming</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Graphics processing unit (GPU in short form) is a specialized hardware designed to accelerate computation for graphics rendering and parallel processing tasks. Though initially developed for rendering images and videos, GPUs have evolved to become powerful tools for general-purpose computing, particularly in fields such as machine learning, scientific simulations, and data processing. GPUs are able to perform many calculations simultaneously, making them well-suited for tasks that can be parallelized.</p>
@@ -2198,7 +2200,7 @@ pre.rouge .gs {
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Kernels</strong>: Kernels are <em><strong>functions</strong></em> that are executed on the GPU and are designed to be executed in parallel across many threads. In case of CUDA, kernels are defined using an extension of C++. Mojo allows defining kernals using normal functions. Note that in general computing terminology, a kernel refers to the central part of an operating system that manages system resources and hardware interactions. However, in the context of GPU programming, a kernel specifically refers to a function that runs on the GPU.</p>
+<p><strong>Kernels</strong>: Kernels are <em><strong>functions</strong></em> that are executed on the GPU and are designed to be executed in parallel across many threads. In case of CUDA, kernels are defined using an extension of C++. Mojo allows defining kernels using normal functions. Note that in general computing terminology, a kernel refers to the central part of an operating system that manages system resources and hardware interactions. However, in the context of GPU programming, a kernel specifically refers to a function that runs on the GPU.</p>
 </li>
 <li>
 <p><strong>Threads</strong>: Threads are the basic units of execution on a GPU. A kernel is launched with a grid of threads, where each thread executes the kernel function independently. Threads can be organized into blocks and grids to facilitate parallel execution.</p>
@@ -2263,7 +2265,7 @@ pre.rouge .gs {
         <span class="k">with</span> <span class="n">result_buf</span><span class="p">.</span><span class="nf">map_to_host</span><span class="p">()</span> <span class="k">as</span> <span class="n">host_result_buf</span><span class="p">:</span> <span class="c1"># Map the device buffers to host buffers to print
 </span>            <span class="nf">print</span><span class="p">(</span><span class="n">host_result_buf</span><span class="p">)</span> <span class="c1"># Show the contents of the host result_buffer
 </span>        
-        <span class="k">var</span> <span class="n">compiled_fn</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">compile_function</span><span class="p">[</span><span class="n">add_two</span><span class="p">,</span> <span class="n">add_two</span><span class="p">]()</span> <span class="c1"># Compile the kernel function for the device
+        <span class="k">var</span> <span class="n">compiled_fn</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">compile_function</span><span class="p">[</span><span class="n">add_two</span><span class="p">]()</span> <span class="c1"># Compile the kernel function for the device
 </span>
         <span class="n">ctx</span><span class="p">.</span><span class="nf">enqueue_function</span><span class="p">(</span>
             <span class="n">compiled_fn</span><span class="p">,</span>
@@ -2307,7 +2309,7 @@ HostBuffer([30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 21:35:53 +0100
+Last updated 2026-05-30 17:58:40 +0200
 </div>
 </div>
 </body>
