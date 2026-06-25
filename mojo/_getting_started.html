@@ -2271,15 +2271,18 @@ pre.rouge .gs {
 <h3 id="_dissecting_the_program">2.3. Dissecting the program</h3>
 <div class="paragraph">
 <p>Unlike many other system languages, Mojo has very minimal ceremony to define a simple program like Hello World.
-The following line (known as a statement) calls a function named <code>print</code> which is provided by Mojo. The text <code>Hello, World!</code> is placed inside double quotes. Any text placed inside double quotes (or single quotes for that matter) is considered by Mojo as a String Literal. Literals are constant values that do not change during the execution of the program and are provided directly to the program source code. In this case, we pass the value "Hello, World!" to the function <code>print</code>.</p>
+The line <code>print("Hello, World!")</code> calls a function named <code>print</code> which is provided by Mojo out of the box. The text <code>Hello, World!</code> is placed inside double quotes. Any text placed inside double quotes (or single quotes for that matter) is considered by Mojo as a String Literal. Literals are constant values that do not change during the execution of the program and are provided directly to the program source code. In this case, we pass the value "Hello, World!" to the function <code>print</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>print</code> function knows how to take that passed value and to bring it into the screen.</p>
 </div>
-<hr>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">def main</div>
 <div class="paragraph">
-<p>In the file, there is <code>def main():</code>, which you can ignore for the moment. It will come up later on. In a future release of Mojo, the need for <code>def main():</code> will be gone.
-<strong>*</strong></p>
+<p>In the file, there is <code>def main():</code>, which you can ignore for the moment. It will come up later on. In a future release of Mojo, the need for <code>def main():</code> will be gone.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">

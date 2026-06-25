@@ -2207,7 +2207,7 @@ pre.rouge .gs {
 <h2 id="_functions">3. Functions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous chapter you saw how a function <code>print</code> is being called in a program. In order to call a function, the function must be defined somewhere. In Mojo, there are two ways to define a function. The first way is inspired by Rust and the second by Python. Both styles are equally first class in Mojo and both have their own use cases.</p>
+<p>In the previous chapter you saw how a function <code>print</code> is being called in a program. In order to call a function, the function must be defined somewhere. In Mojo, you define a function using the <code>def</code> keyword.</p>
 </div>
 <div class="sect2">
 <h3 id="_def">3.1. def</h3>
@@ -2222,7 +2222,7 @@ pre.rouge .gs {
 </div>
 <div class="paragraph">
 <p>In the above code, <code>def my_function(text: String) raises:</code> defined a function named <code>my_function</code> and declared that it takes an argument <code>text</code> of type <code>String</code>.
-The word that appears after <code>:</code> is called a type annotation. This declaration says that the function argument <code>text</code> will contain <strong>only</strong> Strings. More importantly, it will <strong>never</strong> contain any other content than Strings. When we tell Mojo compiler that the <code>text</code> will take only `String`s, it can generate a very specific and highly optimized code that handles only `String`s.</p>
+The word that appears after <code>:</code> is called a type annotation. This declaration says that the function argument <code>text</code> will contain <strong>only</strong> Strings. More importantly, it will <strong>never</strong> contain any other content than Strings. When we tell Mojo compiler that the <code>text</code> will take only <code>String`s, it can generate a very specific and highly optimized code that handles only `String</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following statement <code>my_function("Hello World!")</code> calls that function <code>my_function</code> and passes "Hello World!" as the argument where <code>text</code> was declared.</p>

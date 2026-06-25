@@ -2431,6 +2431,30 @@ outer y: 1</code></pre>
 <div class="paragraph">
 <p>If you look carefully, the <code>y</code> declared inside the <code>if</code> block had two different values when printed. The inner block had value <code>4</code> and the outer block preserved its original value of <code>1</code>. The <code>x</code> variable on the other hand got overwritten by newer value <code>4</code>. What happened is that the inner scope from the <code>if</code> block declared a <em>new</em> variable using <code>var</code> keyword. This <em>shadowed</em> the outer variable declaration, resulting in inner scoped variable being different from the outer one, even though the name of the variable was the same. In case of <code>x</code>, no such re-declaration happened, so the scope of <code>x</code> was for the whole function. The <code>var</code> declaration caused <code>y</code> to be lexically scoped within the <code>if</code> block.</p>
 </div>
+<div class="sect3">
+<h4 id="_shadowing_constants">4.6.1. Shadowing constants</h4>
+<div class="paragraph">
+<p>Previously, we saw error messages when we tried to reassign a value to a constant. Now let&#8217;s see what happens when we try to reassign a value to a constant that is already defined in an outer scope.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">comptime</span> <span class="n">counter</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span> <span class="c1"># Prints 1
+</span>    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">3</span> <span class="c1"># Outer constant is used here, but a new local variable with the same name is created
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span> <span class="c1"># Prints 4
+</span>    <span class="nf">inner</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span> <span class="c1"># Prints 1 from outer constant</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you run the above example, you will not encounter any error messages. You may wonder why there is no error message when we tried to reassign a value to the constant <code>counter</code> in the inner function. The reason is that the inner function created a new variable called <code>counter</code> which <em>shadowed</em> the outer constant. When it was being updated, it was the inner variable that was getting updated and not the outer constant. The outer constant remained unchanged as you can see in the last print statement.</p>
+</div>
+<div class="paragraph">
+<p>Shadowing is a source of confusion and is best avoided. It is better to use different names for constants in different scopes to avoid confusion.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_non_standard_identifiers">4.7. Non-standard identifiers</h3>
