@@ -2708,7 +2708,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">PositiveNumber</span><span class="p">[</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span> <span class="n">where</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">PositiveNumber</span><span class="p">[</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">]</span> <span class="n">where</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="bp">...</span>
     <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>

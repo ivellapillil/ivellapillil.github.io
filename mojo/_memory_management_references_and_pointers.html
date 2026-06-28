@@ -2466,7 +2466,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, Mojo compiler raises an error in function <code>m_func</code> when we try to modify the value pointed by <code>UnsafePointer</code>. This is because by default the <code>UnsafePointer</code> is immutable. If we want to have a mutable pointer, we need to explicitly declare it as mutable, for example by using <code>MutAnyOrigin</code> as its origin. We will cover origins in detail later.</p>
+<p>In the above example, Mojo compiler raises an error in function <code>m_func</code> when we try to modify the value pointed by <code>UnsafePointer</code>. This is because by default the <code>UnsafePointer</code> is immutable. If we want to have a mutable pointer, we need to explicitly declare it as mutable, for example by using <code>MutUntrackedOrigin</code> as its origin. We will cover origins in detail later.</p>
 </div>
 <div class="paragraph">
 <p>Even though Mojo performs some checks,  all bets are off when we use <code>UnsafePointer</code>. Mojo does not track completely what goes on with its usage. This is by design. <code>UnsafePointer</code> is useful for those cases where the application needs to work intimately with the hardware or the operating system. Therefore, use it with care.</p>

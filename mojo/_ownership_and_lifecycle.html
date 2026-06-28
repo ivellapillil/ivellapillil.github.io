@@ -2310,7 +2310,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
@@ -2346,7 +2346,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
@@ -2410,7 +2410,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 <span class="k">struct</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
@@ -2613,7 +2613,7 @@ pre.rouge .gs {
 <p>Uncommenting the above code will cause a compile-time error, because we are trying to modify a value in a function that takes an immutable origin argument by default.</p>
 </div>
 <div class="paragraph">
-<p>The following code listing will compile correctly, because we are explicitely marking the origin as mutable using the <code>MutOrigin</code> type and marking the argument as a reference with mutable origin using the <code>ref[o]</code> syntax.</p>
+<p>The following code listing will compile correctly, because we are explicitly marking the origin as mutable using the <code>MutOrigin</code> type and marking the argument as a reference with mutable origin using the <code>ref[o]</code> syntax.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2639,7 +2639,7 @@ pre.rouge .gs {
 <div class="sect3">
 <h4 id="_origin_of">13.10.1. <code>origin_of</code></h4>
 <div class="paragraph">
-<p>In some cases, we may want to explicitely get the origin of a value. This can be done using the <code>origin_of</code> function. For example, we may want to share a pointer to a value, and to ensure that the pointer always points to a valid value, we need to align the origin of the pointer with the origin of the value.</p>
+<p>In some cases, we may want to explicitly get the origin of a value. This can be done using the <code>origin_of</code> function. For example, we may want to share a pointer to a value, and to ensure that the pointer always points to a valid value, we need to align the origin of the pointer with the origin of the value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
