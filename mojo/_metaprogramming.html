@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="A book on Mojo programming language, covering from the basics of the Mojo programming language to advanced topics.">
 <meta name="keywords" content="Mojo programming, Mojo language, Modular Mojo, Mojo programming language book, Mojo beginners, Mojo advanced">
 <meta name="author" content="Indukumar Vellapillil-Hari">
@@ -2175,6 +2175,8 @@ pre.rouge .gs {
 </li>
 <li><a href="_metaprogramming.html#_reflection_functions">15.5. Reflection Functions</a>
 </li>
+<li><a href="_metaprogramming.html#_decorators">15.6. Decorators</a>
+</li>
 </ul>
 </li>
 <li><a href="_advanced_usage_of_functions.html">16. Advanced usage of functions</a>
@@ -2459,6 +2461,62 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
 </div>
 <div class="paragraph">
 <p>In the above example, we define a struct <code>Person</code> with two fields: <code>name</code> and <code>age</code>. The <code>print_struct</code> function uses the reflection functions to get the number of fields, their names, and their types at compile time. It then prints this information to the console. All these happen at compile time, unlike many other programming languages where such reflection is typically done at runtime. Compile time reflection leads to a more efficient code as it avoids the overhead of runtime reflection.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decorators">15.6. Decorators</h3>
+<div class="paragraph">
+<p>Sometimes the built-in keywords and metaprogramming features may not be enough to achieve a required functionality. Mojo supports a concept called decorators that allows for customizing the behavior of functions, methods, and classes. Decorators are a form of metaprogramming that allows you to modify or enhance the behavior of functions or classes without changing their source code. They can be used for various purposes, such as logging, access control, memoization, and more.</p>
+</div>
+<div class="sect3">
+<h4 id="_fieldwise_init">15.6.1. <code>@fieldwise_init</code></h4>
+<div class="paragraph">
+<p>Let&#8217;s take a look at the following example to understand how the <code>@fieldwise_init</code> decorator works.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::fieldwise_init[]
+</span>
+<span class="nd">@fieldwise_init</span>
+<span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
+
+<span class="c1"># end::fieldwise_init[]
+</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::fieldwise_init_usage[]
+</span>    <span class="k">var</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Benny</span><span class="sh">"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># Output: Benny
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># Output: 30
+</span>    <span class="c1"># end::fieldwise_init_usage[]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::fieldwise_init[]
+</span>
+<span class="nd">@fieldwise_init</span>
+<span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
+
+<span class="c1"># end::fieldwise_init[]
+</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># tag::fieldwise_init_usage[]
+</span>    <span class="k">var</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Benny</span><span class="sh">"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># Output: Benny
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># Output: 30
+</span>    <span class="c1"># end::fieldwise_init_usage[]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@fieldwise_init</code> decorator automatically generates an <code><em>init</em></code> method for the <code>Person</code> class that initializes its fields based on the provided arguments. This allows us to create instances of the <code>Person</code> class without having to manually define an <code><em>init</em></code> method, making the code more concise and easier to read.</p>
+</div>
 </div>
 </div>
 </div>
