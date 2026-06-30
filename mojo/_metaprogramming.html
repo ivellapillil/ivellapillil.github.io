@@ -2400,31 +2400,9 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::struct_decl[]
-</span><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
-    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
-<span class="c1"># end::struct_decl[]
-</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-
-    <span class="c1"># tag::struct_use[]
-</span>
-    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
-        <span class="k">comptime</span> <span class="n">reflected</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The name of the passed type is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">name</span><span class="p">())</span>
-
-        <span class="k">comptime</span> <span class="n">count</span> <span class="o">=</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">field_count</span><span class="p">()</span>
-        <span class="k">comptime</span> <span class="n">names</span> <span class="o">=</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">field_names</span><span class="p">()</span>
-        <span class="k">comptime</span> <span class="n">types</span> <span class="o">=</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">field_types</span><span class="p">()</span>
-        <span class="k">comptime</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-            <span class="k">comptime</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="k">comptime</span> <span class="n">field_type</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field at </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">, with name </span><span class="sh">"</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">name</span><span class="p">())</span>
-
-    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span>
-
-    <span class="c1"># end::struct_use[]</span></code></pre>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2432,17 +2410,7 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::struct_decl[]
-</span><span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
-    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
-    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
-<span class="c1"># end::struct_decl[]
-</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-
-    <span class="c1"># tag::struct_use[]
-</span>
-    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">print_struct</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]():</span>
         <span class="k">comptime</span> <span class="n">reflected</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
         <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The name of the passed type is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">name</span><span class="p">())</span>
 
@@ -2454,9 +2422,7 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
             <span class="k">comptime</span> <span class="n">field_type</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Field at </span><span class="sh">"</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="sh">"</span><span class="s">, with name </span><span class="sh">"</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="sh">"</span><span class="s"> of type </span><span class="sh">"</span><span class="p">,</span> <span class="n">reflected</span><span class="p">.</span><span class="nf">name</span><span class="p">())</span>
 
-    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span>
-
-    <span class="c1"># end::struct_use[]</span></code></pre>
+    <span class="n">print_struct</span><span class="p">[</span><span class="n">Person</span><span class="p">]()</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2475,21 +2441,10 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::fieldwise_init[]
-</span>
-<span class="nd">@fieldwise_init</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@fieldwise_init</span>
 <span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
-    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
-
-<span class="c1"># end::fieldwise_init[]
-</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># tag::fieldwise_init_usage[]
-</span>    <span class="k">var</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Benny</span><span class="sh">"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># Output: Benny
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># Output: 30
-</span>    <span class="c1"># end::fieldwise_init_usage[]</span></code></pre>
+    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2497,21 +2452,9 @@ These functions are provided through <code>Reflected[T]</code> which is a compil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::fieldwise_init[]
-</span>
-<span class="nd">@fieldwise_init</span>
-<span class="k">struct</span> <span class="n">Person</span><span class="p">:</span>
-    <span class="k">var</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span>
-    <span class="k">var</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span>
-
-<span class="c1"># end::fieldwise_init[]
-</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># tag::fieldwise_init_usage[]
-</span>    <span class="k">var</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Benny</span><span class="sh">"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Benny</span><span class="sh">"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
     <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># Output: Benny
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># Output: 30
-</span>    <span class="c1"># end::fieldwise_init_usage[]</span></code></pre>
+</span>    <span class="nf">print</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># Output: 30</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
