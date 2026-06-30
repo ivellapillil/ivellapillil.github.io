@@ -2290,7 +2290,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="nf">value_out</span><span class="p">())</span> <span class="c1"># Prints 10</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">value_out</span><span class="p">())</span> <span class="c1"># Prints 10</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2325,8 +2325,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2361,15 +2361,15 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2385,11 +2385,11 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_value</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
-    <span class="bp">...</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">World</span><span class="sh">"</span><span class="p">)</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">a_value</span> <span class="c1"># Keep the life of a_value until this point</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_value</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+<span class="bp">...</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">World</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">a_value</span> <span class="c1"># Keep the life of a_value until this point</span></code></pre>
 </div>
 </div>
 </div>
@@ -2425,25 +2425,25 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span> <span class="c1"># Calling copy constructor on other_num
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
-    <span class="n">other_num</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">other_num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span> <span class="c1"># Calling copy constructor on other_num
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+<span class="n">other_num</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num after copy:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2466,10 +2466,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a1</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a1</span>  <span class="c1"># This will invoke the auto-generated copy constructor
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a1.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a1</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a1.val: 10
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a2.val: 10</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a1</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">a2</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a1</span>  <span class="c1"># This will invoke the auto-generated copy constructor
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a1.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a1</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a1.val: 10
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: a2.val: 10</span></code></pre>
 </div>
 </div>
 </div>
@@ -2489,25 +2489,25 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">take</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">take</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="nc">MyNumber</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">num:</span><span class="sh">"</span><span class="p">,</span> <span class="n">num</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">other_num2</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span><span class="o">^</span> <span class="c1"># Moving
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after move:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
-    <span class="n">other_num2</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
-    <span class="c1"># Uncommenting below line results in compiler error as `num` is no longer initialized
-</span>    <span class="c1">#print("num after copy:", num.value())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">other_num2</span><span class="p">:</span> <span class="n">MyNumber</span> <span class="o">=</span> <span class="n">num</span><span class="o">^</span> <span class="c1"># Moving
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after move:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+<span class="n">other_num2</span><span class="p">.</span><span class="nf">change_value</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">other_num2 after change:</span><span class="sh">"</span><span class="p">,</span> <span class="n">other_num2</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+<span class="c1"># Uncommenting below line results in compiler error as `num` is no longer initialized
+#print("num after copy:", num.value())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2533,10 +2533,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">b1</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">b2</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">b1</span><span class="o">^</span>  <span class="c1"># This will invoke the auto-generated move constructor
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">b2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: b2.val: 20
-</span>    <span class="c1"># print("b1.val:", b1.val)  # This would be an error since b1 has been moved</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">b1</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">b2</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">b1</span><span class="o">^</span>  <span class="c1"># This will invoke the auto-generated move constructor
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">b2.val:</span><span class="sh">"</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Outputs: b2.val: 20
+# print("b1.val:", b1.val)  # This would be an error since b1 has been moved</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2584,8 +2584,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">ten</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="nf">my_function</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">ten</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nf">my_function</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2606,7 +2606,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="c1"># my_function_modify_wrong(ten) # Uncommenting this line will cause a compile-time error</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># my_function_modify_wrong(ten) # Uncommenting this line will cause a compile-time error</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2627,7 +2627,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">my_function_modify</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">my_function_modify</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2662,9 +2662,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">b</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">()</span>
-    <span class="n">a</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">get_pointer</span><span class="p">()</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">b</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="nc">B</span><span class="p">()</span>
+<span class="n">a</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">get_pointer</span><span class="p">()</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2687,9 +2687,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">val_ref</span><span class="p">:</span> <span class="n">ARef</span><span class="p">[</span><span class="n">o</span><span class="o">=</span><span class="nf">origin_of</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span> <span class="o">=</span> <span class="nc">ARef</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">val_ref</span><span class="p">.</span><span class="n">p</span><span class="p">[])</span> <span class="c1"># Prints "Hello"</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">val_ref</span><span class="p">:</span> <span class="n">ARef</span><span class="p">[</span><span class="n">o</span><span class="o">=</span><span class="nf">origin_of</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span> <span class="o">=</span> <span class="nc">ARef</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">val_ref</span><span class="p">.</span><span class="n">p</span><span class="p">[])</span> <span class="c1"># Prints "Hello"</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2729,9 +2729,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">l</span><span class="p">:</span> <span class="n">Linear</span> <span class="o">=</span> <span class="nc">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="nf">my_function</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-    <span class="n">l</span><span class="o">^</span><span class="p">.</span><span class="nf">destroy_me</span><span class="p">()</span>  <span class="c1"># Commenting this out will result in a compile-time error</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">l</span><span class="p">:</span> <span class="n">Linear</span> <span class="o">=</span> <span class="nc">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nf">my_function</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="n">l</span><span class="o">^</span><span class="p">.</span><span class="nf">destroy_me</span><span class="p">()</span>  <span class="c1"># Commenting this out will result in a compile-time error</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

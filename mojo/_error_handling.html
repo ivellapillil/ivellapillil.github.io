@@ -2226,10 +2226,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2252,10 +2252,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_str_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_str_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -2277,18 +2277,18 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2300,12 +2300,12 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No exception raised.</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No exception raised.</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2334,10 +2334,10 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">try</span><span class="p">:</span>
-        <span class="nf">raise_custom_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
+    <span class="nf">raise_custom_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

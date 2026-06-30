@@ -2217,13 +2217,13 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">std.python</span> <span class="kn">import</span> <span class="n">Python</span>
-    <span class="k">var</span> <span class="n">difflib</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">import_module</span><span class="p">(</span><span class="sh">"</span><span class="s">difflib</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">list1</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Four</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">list2</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">differ</span> <span class="o">=</span> <span class="n">difflib</span><span class="p">.</span><span class="nc">HtmlDiff</span><span class="p">()</span> <span class="c1"># Get instance of HtmlDiff class.
-</span>    <span class="k">var</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">differ</span><span class="p">.</span><span class="nf">make_file</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.python</span> <span class="kn">import</span> <span class="n">Python</span>
+<span class="k">var</span> <span class="n">difflib</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">import_module</span><span class="p">(</span><span class="sh">"</span><span class="s">difflib</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">list1</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Four</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">list2</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span><span class="sh">"</span><span class="s">One</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Two</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Three</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">differ</span> <span class="o">=</span> <span class="n">difflib</span><span class="p">.</span><span class="nc">HtmlDiff</span><span class="p">()</span> <span class="c1"># Get instance of HtmlDiff class.
+</span><span class="k">var</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">differ</span><span class="p">.</span><span class="nf">make_file</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2234,7 +2234,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">1+2</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">1+2</span><span class="sh">"</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2242,8 +2242,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">str_fn</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">str</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">ABC</span><span class="sh">"</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">XYZ</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">str_fn</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="sh">"</span><span class="s">str</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">ABC</span><span class="sh">"</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nf">str_fn</span><span class="p">(</span><span class="sh">"</span><span class="s">XYZ</span><span class="sh">"</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2257,11 +2257,11 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_list</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">()</span>
-    <span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">First element</span><span class="sh">"</span><span class="p">)</span>
-    <span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Second element</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">a_list</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_list</span> <span class="o">=</span> <span class="n">Python</span><span class="p">.</span><span class="nf">list</span><span class="p">()</span>
+<span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">First element</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">a_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Second element</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">Python</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">a_list</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>

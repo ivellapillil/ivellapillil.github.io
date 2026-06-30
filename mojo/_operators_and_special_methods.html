@@ -2280,17 +2280,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">add_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">add_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">add_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">add_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">radd_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">+</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Even though MyFloat does not implement __add__ method, we are able to do addition through MyInt's __radd__
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">radd_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">radd_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">+</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Even though MyFloat does not implement __add__ method, we are able to do addition through MyInt's __radd__
+</span><span class="nf">print</span><span class="p">(</span><span class="n">radd_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">iadd_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">iadd_res</span> <span class="o">+=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">iadd_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">iadd_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">iadd_res</span> <span class="o">+=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">iadd_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2354,17 +2354,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">sub_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">sub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">sub_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">sub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rsub_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">-</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Even though MyFloat does not implement __sub__ method, we are able to do addition through MyInt's __rsub__
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">rsub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rsub_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">-</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Even though MyFloat does not implement __sub__ method, we are able to do addition through MyInt's __rsub__
+</span><span class="nf">print</span><span class="p">(</span><span class="n">rsub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">isub_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">isub_res</span> <span class="o">-=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">isub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">isub_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">isub_res</span> <span class="o">-=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">isub_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2426,17 +2426,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">mul_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">mul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">mul_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">mul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rmul_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">*</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rmul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rmul_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">*</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rmul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">imul_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">imul_res</span> <span class="o">*=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">imul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">imul_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">imul_res</span> <span class="o">*=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">imul_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2556,29 +2556,29 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">m</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
-            <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-    <span class="k">var</span> <span class="n">n</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-    
-    <span class="k">var</span> <span class="n">flm</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">5.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]]</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">m</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+        <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="k">var</span> <span class="n">n</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 
-    <span class="k">var</span> <span class="n">matmul_res</span> <span class="o">=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">matmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">var</span> <span class="n">flm</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">5.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]]</span>
 
-    <span class="k">var</span> <span class="n">rmatmul_res</span> <span class="o">=</span> <span class="nc">MyFloatMatrix</span><span class="p">(</span><span class="n">flm</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">rmatmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">var</span> <span class="n">matmul_res</span> <span class="o">=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">matmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
 
-    <span class="k">var</span> <span class="n">imatmul_res</span> <span class="o">=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">imatmul_res</span> <span class="o">@=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">imatmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span></code></pre>
+<span class="k">var</span> <span class="n">rmatmul_res</span> <span class="o">=</span> <span class="nc">MyFloatMatrix</span><span class="p">(</span><span class="n">flm</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">@</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">rmatmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
+
+<span class="k">var</span> <span class="n">imatmul_res</span> <span class="o">=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">imatmul_res</span> <span class="o">@=</span> <span class="nc">MyIntMatrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">imatmul_res</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span></code></pre>
 </div>
 </div>
 </div>
@@ -2641,17 +2641,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">div_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">div_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">div_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">div_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rdiv_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">/</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rdiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rdiv_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">/</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rdiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">idiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">idiv_res</span> <span class="o">/=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">idiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">idiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">idiv_res</span> <span class="o">/=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">idiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2713,17 +2713,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">floordiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">//</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">floordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">floordiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">//</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">floordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rfloordiv_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">//</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rfloordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rfloordiv_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">//</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rfloordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ifloordiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">ifloordiv_res</span> <span class="o">//=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ifloordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">ifloordiv_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ifloordiv_res</span> <span class="o">//=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ifloordiv_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2788,17 +2788,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">mod_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">%</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">mod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">mod_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">%</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">mod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rmod_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">%</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rmod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rmod_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">%</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rmod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">imod_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
-    <span class="n">imod_res</span> <span class="o">%=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">imod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">imod_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="n">imod_res</span> <span class="o">%=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">imod_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2843,14 +2843,14 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">pow_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">**</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">pow_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">pow_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">**</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">pow_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ipow_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-    <span class="n">ipow_res</span> <span class="o">**=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ipow_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">ipow_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ipow_res</span> <span class="o">**=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ipow_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2884,10 +2884,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">neg_res</span> <span class="o">=</span> <span class="o">-</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">neg_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">neg_res</span> <span class="o">=</span> <span class="o">-</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">neg_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2915,10 +2915,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">pos_res</span> <span class="o">=</span> <span class="o">+</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">pos_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">pos_res</span> <span class="o">=</span> <span class="o">+</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">pos_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2946,10 +2946,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">invert_res</span> <span class="o">=</span> <span class="o">~</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">invert_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">invert_res</span> <span class="o">=</span> <span class="o">~</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">invert_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3013,17 +3013,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">lshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">lshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">lshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">lshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rlshift_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rlshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rlshift_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rlshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ilshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">ilshift_res</span> <span class="o">&lt;&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ilshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">ilshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ilshift_res</span> <span class="o">&lt;&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ilshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3078,17 +3078,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rrshift_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rrshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rrshift_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rrshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">irshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="n">irshift_res</span> <span class="o">&gt;&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">irshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">irshift_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">irshift_res</span> <span class="o">&gt;&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">irshift_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3143,17 +3143,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">and_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">and_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">and_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">and_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rand_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rand_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rand_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rand_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">iand_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">iand_res</span> <span class="o">&amp;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">iand_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">iand_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">iand_res</span> <span class="o">&amp;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">iand_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3208,17 +3208,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">or_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">or_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">or_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">or_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ror_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">|</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ror_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ror_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">|</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ror_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ior_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">ior_res</span> <span class="o">|=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ior_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">ior_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ior_res</span> <span class="o">|=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ior_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3273,17 +3273,17 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">xor_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">^</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">xor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">xor_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">^</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">xor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">rxor_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">^</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">rxor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">rxor_res</span> <span class="o">=</span> <span class="nc">MyFloat</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">^</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">rxor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="k">var</span> <span class="n">ixor_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">ixor_res</span> <span class="o">^=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ixor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
+<span class="k">var</span> <span class="n">ixor_res</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ixor_res</span> <span class="o">^=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ixor_res</span><span class="p">.</span><span class="n">val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3317,10 +3317,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3348,11 +3348,11 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">!=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">!=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="ow">not</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">!=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">!=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="ow">not</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3380,10 +3380,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3411,10 +3411,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3442,10 +3442,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3473,10 +3473,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">num</span><span class="p">:</span> <span class="n">MyInt</span> <span class="o">=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span></code></pre>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyInt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nc">MyInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -3521,10 +3521,10 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">MyCollection</span><span class="p">([</span><span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">A</span><span class="sh">"</span><span class="p">),</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">B</span><span class="sh">"</span><span class="p">)])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Before:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Gets
-</span>    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Sets
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">After:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">MyCollection</span><span class="p">([</span><span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">A</span><span class="sh">"</span><span class="p">),</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">B</span><span class="sh">"</span><span class="p">)])</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Before:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Gets
+</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Sets
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">After:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3562,10 +3562,10 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="nc">MyMatrix</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Before:</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span> <span class="c1"># Gets
-</span>    <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">D</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Sets
-</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">After:</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="nc">MyMatrix</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Before:</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span> <span class="c1"># Gets
+</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">D</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Sets
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">After:</span><span class="sh">"</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span></code></pre>
 </div>
 </div>
 </div>
@@ -3608,35 +3608,35 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="nc">MySliceableCollection</span><span class="p">(</span>
-        <span class="p">[</span><span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">H</span><span class="sh">"</span><span class="p">),</span> 
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">E</span><span class="sh">"</span><span class="p">),</span> 
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">),</span>
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">),</span>
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">W</span><span class="sh">"</span><span class="p">),</span>
-        <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">)])</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H E L
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints E L W
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints E L L O W O
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints O W O
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H E L L
-</span>    <span class="nf">print</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints O W O L L E H
-</span>    <span class="nf">print</span><span class="p">()</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="nc">MySliceableCollection</span><span class="p">(</span>
+    <span class="p">[</span><span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">H</span><span class="sh">"</span><span class="p">),</span> 
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">E</span><span class="sh">"</span><span class="p">),</span> 
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">W</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">String</span><span class="p">(</span><span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">)])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H E L
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints E L W
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints E L L O W O
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints O W O
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H E L L
+</span><span class="nf">print</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints O W O L L E H
+</span><span class="nf">print</span><span class="p">()</span></code></pre>
 </div>
 </div>
 </div>
@@ -3715,9 +3715,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">with</span> <span class="nc">MyResourceManager</span><span class="p">()</span> <span class="k">as</span> <span class="n">res</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Inside context, resource is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">res</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="nc">Error</span><span class="p">(</span><span class="sh">"</span><span class="s">An error while processing</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">with</span> <span class="nc">MyResourceManager</span><span class="p">()</span> <span class="k">as</span> <span class="n">res</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Inside context, resource is:</span><span class="sh">"</span><span class="p">,</span> <span class="n">res</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="nc">Error</span><span class="p">(</span><span class="sh">"</span><span class="s">An error while processing</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3787,13 +3787,13 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">st</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses __len__
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses __int__
-</span>    <span class="k">if</span> <span class="n">st</span><span class="p">:</span> <span class="c1"># Uses __bool__
-</span>        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct is true</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses MyStruct.write_to
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="c1"># Can directly print st because the write_to method is implemented</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">st</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses __len__
+</span><span class="nf">print</span><span class="p">(</span><span class="nc">Int</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses __int__
+</span><span class="k">if</span> <span class="n">st</span><span class="p">:</span> <span class="c1"># Uses __bool__
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct is true</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">String</span><span class="p">(</span><span class="n">st</span><span class="p">))</span> <span class="c1"># Uses MyStruct.write_to
+</span><span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="c1"># Can directly print st because the write_to method is implemented</span></code></pre>
 </div>
 </div>
 </div>
@@ -3836,11 +3836,11 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in False
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Results in True
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in True</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">var</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in False
+</span><span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Results in True
+</span><span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">y</span><span class="p">)))</span> <span class="c1"># Results in True</span></code></pre>
 </div>
 </div>
 </div>
@@ -3882,12 +3882,12 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]()</span>
-    <span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">IK</span><span class="sh">"</span>
-    <span class="k">var</span> <span class="n">st</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">name</span><span class="p">)</span> <span class="c1"># __getattr__ is called here
-</span>    <span class="n">st</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">PK</span><span class="sh">"</span> <span class="c1"># __setattr__ is called here
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">name</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]()</span>
+<span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">IK</span><span class="sh">"</span>
+<span class="k">var</span> <span class="n">st</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">name</span><span class="p">)</span> <span class="c1"># __getattr__ is called here
+</span><span class="n">st</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">PK</span><span class="sh">"</span> <span class="c1"># __setattr__ is called here
+</span><span class="nf">print</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">name</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -3923,9 +3923,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-    <span class="nf">print</span><span class="p">(</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">my_struct</span><span class="p">)</span> <span class="c1"># Returns True
-</span>    <span class="nf">print</span><span class="p">(</span><span class="mi">5</span> <span class="ow">in</span> <span class="n">my_struct</span><span class="p">)</span> <span class="c1"># Returns False</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">my_struct</span><span class="p">)</span> <span class="c1"># Returns True
+</span><span class="nf">print</span><span class="p">(</span><span class="mi">5</span> <span class="ow">in</span> <span class="n">my_struct</span><span class="p">)</span> <span class="c1"># Returns False</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3951,10 +3951,10 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">my_struct2</span> <span class="o">=</span> <span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns True
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Kri</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns True
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns False</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_struct2</span> <span class="o">=</span> <span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">T</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns True
+</span><span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">Kri</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns True
+</span><span class="nf">print</span><span class="p">(</span><span class="nc">MyStruct2</span><span class="p">(</span><span class="sh">"</span><span class="s">C</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Ram</span><span class="sh">"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">my_struct2</span><span class="p">)</span> <span class="c1"># Returns False</span></code></pre>
 </div>
 </div>
 </div>
@@ -3983,10 +3983,10 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="n">my_struct</span> <span class="c1"># Uses __merge_with__ to convert my_struct to Int
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Prints 2</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="nc">MyStruct</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="n">my_struct</span> <span class="c1"># Uses __merge_with__ to convert my_struct to Int
+</span><span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># Prints 2</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4020,8 +4020,8 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_list</span><span class="p">:</span> <span class="n">MyList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_list</span><span class="p">:</span> <span class="n">MyList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4049,9 +4049,9 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_dict</span><span class="p">:</span> <span class="n">MyDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">keys</span><span class="p">))</span>  <span class="c1"># Output: 3
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># Output: 3</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_dict</span><span class="p">:</span> <span class="n">MyDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">keys</span><span class="p">))</span>  <span class="c1"># Output: 3
+</span><span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># Output: 3</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4078,8 +4078,8 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="n">my_set</span><span class="p">:</span> <span class="n">MySet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_set</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_set</span><span class="p">:</span> <span class="n">MySet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">my_set</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

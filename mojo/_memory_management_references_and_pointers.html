@@ -2314,12 +2314,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
-</span>    <span class="nf">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
-</span>    <span class="n">x</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
-</span>    <span class="n">x</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Frees the memory pointed by `x`</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
+</span><span class="nf">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
+</span><span class="n">x</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
+</span><span class="n">x</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Frees the memory pointed by `x`</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2357,13 +2357,13 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-        <span class="nf">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">y</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
-</span>        <span class="n">y</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="nf">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
+</span>    <span class="n">y</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2392,9 +2392,9 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
-    <span class="nf">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
+<span class="nf">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2426,10 +2426,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="bp">...</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="bp">...</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2437,12 +2437,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">j</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
-</span>    <span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">j</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
+</span><span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
+</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2450,19 +2450,19 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">m</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">m</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span>
-    <span class="k">def</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
-</span>        <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
-</span>        <span class="k">pass</span>
+<span class="k">def</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
+</span>    <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
+</span>    <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
-</span>        <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
+<span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
+</span>    <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
 </span>
-    <span class="nf">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="nf">print_value</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="bp">...</span></code></pre>
+<span class="nf">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="nf">print_value</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="bp">...</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2481,11 +2481,11 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">nullable_ptr</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">ImmutAnyOrigin</span><span class="p">]]()</span> <span class="c1"># Nullable pointer
-</span>    <span class="k">if</span> <span class="n">nullable_ptr</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">nullable_ptr</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Nothing is printed as the pointer is null
-</span>    <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Pointer is null</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">nullable_ptr</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">ImmutAnyOrigin</span><span class="p">]]()</span> <span class="c1"># Nullable pointer
+</span><span class="k">if</span> <span class="n">nullable_ptr</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">nullable_ptr</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Nothing is printed as the pointer is null
+</span><span class="k">else</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Pointer is null</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2500,16 +2500,16 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">ArcPointer</span>
-    <span class="k">var</span> <span class="n">arcp</span> <span class="o">=</span> <span class="nc">ArcPointer</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-    <span class="c1"># Reference count is 1
-</span>    <span class="k">var</span> <span class="n">arcp2</span> <span class="o">=</span> <span class="n">arcp</span> <span class="c1"># Reference count increased with this copy
-</span>    <span class="c1"># Count is now 2 as `arcp` is copied to new `ArcPointer` called `arcp2`
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 200
-</span>    <span class="n">arcp</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
-    <span class="c1"># Count is now 1 as `arcp` is cleared as the above line was its last use
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">arcp2</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 210
-</span>    <span class="c1"># Value is cleared from memory</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.memory</span> <span class="kn">import</span> <span class="n">ArcPointer</span>
+<span class="k">var</span> <span class="n">arcp</span> <span class="o">=</span> <span class="nc">ArcPointer</span><span class="p">(</span><span class="nc">A</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
+<span class="c1"># Reference count is 1
+</span><span class="k">var</span> <span class="n">arcp2</span> <span class="o">=</span> <span class="n">arcp</span> <span class="c1"># Reference count increased with this copy
+# Count is now 2 as `arcp` is copied to new `ArcPointer` called `arcp2`
+</span><span class="nf">print</span><span class="p">(</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 200
+</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="c1"># Count is now 1 as `arcp` is cleared as the above line was its last use
+</span><span class="nf">print</span><span class="p">(</span><span class="n">arcp2</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 210
+# Value is cleared from memory</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2549,9 +2549,9 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2578,12 +2578,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
-</span>    <span class="k">var</span> <span class="n">ref_a2</span> <span class="o">=</span> <span class="n">ref_a</span> <span class="c1"># The same origin is copied onto the new pointer too
-</span>    <span class="n">ref_a2</span><span class="p">[].</span><span class="n">val</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># De-reference and assign value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a2</span><span class="p">)</span> <span class="c1"># Prints 13</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+</span><span class="k">var</span> <span class="n">ref_a2</span> <span class="o">=</span> <span class="n">ref_a</span> <span class="c1"># The same origin is copied onto the new pointer too
+</span><span class="n">ref_a2</span><span class="p">[].</span><span class="n">val</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># De-reference and assign value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a2</span><span class="p">)</span> <span class="c1"># Prints 13</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2610,13 +2610,13 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
-</span>    <span class="k">var</span> <span class="n">another_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_another_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">another_instance</span><span class="p">)</span>
-    <span class="c1"># ref_another_a = ref_a # Uncommenting this would result in compilation error.
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_another_a</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+</span><span class="k">var</span> <span class="n">another_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_another_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">another_instance</span><span class="p">)</span>
+<span class="c1"># ref_another_a = ref_a # Uncommenting this would result in compilation error.
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_another_a</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2643,16 +2643,16 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
-</span>    <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
-        <span class="c1">#p[] = 16 # Uncommenting this would result in compilation error.
-</span>        <span class="bp">...</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+</span><span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span>
+    <span class="c1">#p[] = 16 # Uncommenting this would result in compilation error.
+</span>    <span class="bp">...</span>
 
-    <span class="nf">change_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span>
-    <span class="n">ref_a</span><span class="p">[].</span><span class="n">val</span> <span class="o">=</span> <span class="mi">15</span> <span class="c1"># Works</span></code></pre>
+<span class="nf">change_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span>
+<span class="n">ref_a</span><span class="p">[].</span><span class="n">val</span> <span class="o">=</span> <span class="mi">15</span> <span class="c1"># Works</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2682,15 +2682,15 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
-</span>    <span class="k">def</span> <span class="nf">change_value2</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">]):</span>
-        <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="c1"># Now it works
-</span>        <span class="bp">...</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">Pointer</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span> <span class="c1"># Construct a Pointer out of an existing value
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+</span><span class="k">def</span> <span class="nf">change_value2</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">]):</span>
+    <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="c1"># Now it works
+</span>    <span class="bp">...</span>
 
-    <span class="nf">change_value2</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">ref_a</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 16</span></code></pre>
+<span class="nf">change_value2</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ref_a</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 16</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2726,10 +2726,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">a_instance</span><span class="o">^</span><span class="p">)</span> <span class="c1"># Move the value into an OwnedPointer
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
-</span>    <span class="c1"># print(a_instance.val) # Original instance is no longer usable. Uncommenting this would result in compilation error.</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">a_instance</span><span class="o">^</span><span class="p">)</span> <span class="c1"># Move the value into an OwnedPointer
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_a</span><span class="p">)</span> <span class="c1"># Prints 12
+# print(a_instance.val) # Original instance is no longer usable. Uncommenting this would result in compilation error.</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2740,10 +2740,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">b_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
-    <span class="k">var</span> <span class="n">ref_b</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">b_instance</span><span class="p">)</span> <span class="c1"># Copy the value into an OwnedPointer
-</span>    <span class="nf">print_value</span><span class="p">(</span><span class="n">ref_b</span><span class="p">)</span> <span class="c1"># Prints 13
-</span>    <span class="nf">print</span><span class="p">(</span><span class="n">b_instance</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Original instance is still usable</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">b_instance</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">ref_b</span> <span class="o">=</span> <span class="nc">OwnedPointer</span><span class="p">(</span><span class="n">b_instance</span><span class="p">)</span> <span class="c1"># Copy the value into an OwnedPointer
+</span><span class="nf">print_value</span><span class="p">(</span><span class="n">ref_b</span><span class="p">)</span> <span class="c1"># Prints 13
+</span><span class="nf">print</span><span class="p">(</span><span class="n">b_instance</span><span class="p">.</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Original instance is still usable</span></code></pre>
 </div>
 </div>
 </div>
@@ -2770,9 +2770,9 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="k">ref</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">a</span>  <span class="c1"># Create a reference to `a`
-</span>    <span class="n">ref_a</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span> <span class="c1"># De-reference and call print, prints 10</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">ref</span> <span class="n">ref_a</span> <span class="o">=</span> <span class="n">a</span>  <span class="c1"># Create a reference to `a`
+</span><span class="n">ref_a</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span> <span class="c1"># De-reference and call print, prints 10</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2780,12 +2780,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">take_b</span><span class="p">(</span><span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
-        <span class="bp">...</span>
-    <span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="k">ref</span> <span class="n">ref_b</span> <span class="o">=</span> <span class="n">b</span>  <span class="c1"># Create a reference to `b`
-</span>    <span class="nf">take_b</span><span class="p">(</span><span class="n">b</span><span class="o">^</span><span class="p">)</span>  <span class="c1"># Moves ownership to the function
-</span>    <span class="c1"># ref_b.print() # Uncommenting this line will cause a compile-time error: use of uninitialized value 'b'</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">take_b</span><span class="p">(</span><span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+    <span class="bp">...</span>
+<span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">ref</span> <span class="n">ref_b</span> <span class="o">=</span> <span class="n">b</span>  <span class="c1"># Create a reference to `b`
+</span><span class="nf">take_b</span><span class="p">(</span><span class="n">b</span><span class="o">^</span><span class="p">)</span>  <span class="c1"># Moves ownership to the function
+# ref_b.print() # Uncommenting this line will cause a compile-time error: use of uninitialized value 'b'</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2793,11 +2793,11 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">take_ref</span><span class="p">(</span><span class="k">ref</span> <span class="n">r</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
-        <span class="n">r</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
-    
-    <span class="k">var</span> <span class="n">c</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="nf">take_ref</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># Passes a reference to `c`. Prints 30</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">take_ref</span><span class="p">(</span><span class="k">ref</span> <span class="n">r</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+    <span class="n">r</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
+
+<span class="k">var</span> <span class="n">c</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="nf">take_ref</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># Passes a reference to `c`. Prints 30</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2808,12 +2808,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo">    <span class="k">def</span> <span class="nf">take_ref_mut</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="k">ref</span><span class="p">[</span><span class="n">origin</span><span class="p">]</span> <span class="n">r</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
-        <span class="n">r</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span>
-        <span class="n">r</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
-    
-    <span class="k">var</span> <span class="n">d</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="nf">take_ref_mut</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>  <span class="c1"># Passes a reference to `d`. Prints 40</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">take_ref_mut</span><span class="p">[</span><span class="n">origin</span><span class="p">:</span> <span class="n">MutOrigin</span><span class="p">](</span><span class="k">ref</span><span class="p">[</span><span class="n">origin</span><span class="p">]</span> <span class="n">r</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+    <span class="n">r</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span>
+    <span class="n">r</span><span class="p">.</span><span class="nf">print</span><span class="p">()</span>
+
+<span class="k">var</span> <span class="n">d</span> <span class="o">=</span> <span class="nc">A</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="nf">take_ref_mut</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>  <span class="c1"># Passes a reference to `d`. Prints 40</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
