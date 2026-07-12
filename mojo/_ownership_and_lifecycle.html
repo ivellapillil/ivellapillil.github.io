@@ -2708,18 +2708,18 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_linear_types">13.11. Linear types</h3>
 <div class="paragraph">
-<p>In Mojo, when we define a struct and we do not provide a <code>__del__</code> method, then the compiler creates the destructor automatically for us. Most of the time this is the desired behavior. However, there are cases where we want to have more control over the lifecycle of a struct. For example, we may want to ensure that a struct is used only once and then destroyed. This is where linear types come into play.</p>
+<p>In Mojo, when we define a struct and we do not provide a <code>__del__</code> method, then the compiler creates the destructor automatically for us. This is because in Mojo all structs implement the <code>ImplicitlyDeletable</code> trait by default. Most of the time this is the desired behavior. However, there are cases where we want to have more control over the lifecycle of a struct. For example, we may want to ensure that a struct is used only once and then destroyed. This is where linear types come into play.</p>
 </div>
 <div class="paragraph">
 <p>A linear type is a type that can be used only once. This means that once a value of a linear type is used, it cannot be used again. This is useful for ensuring that resources are not leaked and are properly released when they are no longer needed. This means a linear type cannot be copied or moved. The destruction of a linear type must be explicit and not just because it goes out-of-scope.</p>
 </div>
 <div class="paragraph">
-<p>In Mojo, copy and move are already explicitly opted-in. You can additionally place <code>@explicit_destroy</code> decorator to a struct to make it a linear type.</p>
+<p>In Mojo, copy and move are already explicitly opted-in. You can additionally make the struct to <strong>not</strong> implement <code>ImplicitlyDeletable</code> trait to make it a linear type. This is done by making the struct conform to <code>ImplicitlyDeletable where False</code>. This indicates that the struct opts out of the <code>ImplicitlyDeletable</code> trait and hence the destruction must be explicit. You can then use the <code>@explicit_destroy</code> decorator to provide a proper error message when the linear type is not destroyed explicitly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@explicit_destroy</span>
-<span class="k">struct</span> <span class="n">Linear</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@explicit_destroy</span><span class="p">(</span><span class="sh">"</span><span class="s">Linear type must be destroyed explicitly using the `destroy_me` method.</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">struct</span> <span class="n">Linear</span><span class="p">(</span><span class="n">ImplicitlyDeletable</span> <span class="n">where</span> <span class="bp">False</span><span class="p">):</span> 
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
@@ -2743,10 +2743,10 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a struct <code>Linear</code> that is marked with the <code>@explicit_destroy</code> decorator. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Movable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
+<p>In the above example, we have defined a struct <code>Linear</code> that is conforming to <code>ImplicitlyDeletable where False</code>. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Movable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
 </div>
 <div class="paragraph">
-<p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__del__</code>, the struct is assumed automatically to implement <code>ImplicitlyDeletable</code> trait. By marking the struct with <code>@explicit_destroy</code>, we are indicating that the struct does not implement <code>ImplicitlyDeletable</code> trait, and hence the destruction must be explicit.</p>
+<p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__del__</code>, the struct is assumed automatically to implement <code>ImplicitlyDeletable</code> trait. By conforming the struct with <code>ImplicitlyDeletable where False</code>, we are indicating that the struct does not implement <code>ImplicitlyDeletable</code> trait, and hence the destruction must be explicit.</p>
 </div>
 <div class="paragraph">
 <p>Linear types are useful for managing resources that need to be used in a controlled manner, such as file handles, network connections, or other system resources. By using linear types, we can ensure that these resources are properly released when they are no longer needed, preventing resource leaks and ensuring the stability of our applications. It allows for compiler enforced resource management, reducing the chances of runtime errors related to resource handling.</p>
@@ -2760,7 +2760,7 @@ pre.rouge .gs {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-30 17:58:40 +0200
+Last updated 2026-07-12 21:34:28 +0200
 </div>
 </div>
 </body>

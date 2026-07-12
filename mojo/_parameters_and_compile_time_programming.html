@@ -2737,6 +2737,39 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="paragraph">
 <p><code>where</code> clauses help developers and especially library authors to define stronger contracts on their APIs, ensuring that the users of those APIs have clear guidance on what the boundaries of the APIs are.</p>
 </div>
+<div class="sect3">
+<h4 id="_conditionally_conforming_to_a_trait">12.14.1. Conditionally conforming to a trait</h4>
+<div class="paragraph">
+<p>You can conditionally implement a trait using a <code>where</code> clause. This is useful when you want to implement a trait for a struct only if certain conditions are met. For example, you can implement a trait for a struct only if the struct&#8217;s parameter is of a certain type.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">CopyOnlyInt</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">](</span><span class="n">Copyable</span> <span class="n">where</span> <span class="n">T</span> <span class="o">==</span> <span class="n">Int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+        <span class="bp">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">copyInt</span> <span class="o">=</span> <span class="n">CopyOnlyInt</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">copyInt</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>  <span class="c1"># This works because T is Int
+</span><span class="k">var</span> <span class="n">copyStr</span> <span class="o">=</span> <span class="n">CopyOnlyInt</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span>
+<span class="c1"># _ = copyStr.copy()  # Uncommenting this results in compilation error because it does not match the constraint</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we have defined a struct <code>CopyOnlyInt</code> that has a <code>where</code> clause that requires it to conform to <code>Copyable</code> only if the parameter <code>T</code> is of type <code>Int</code>. If we try to copy an instance of <code>CopyOnlyInt</code> with a parameter that is not of type <code>Int</code>, we get a compile-time error.</p>
+</div>
+<div class="paragraph">
+<p>This capability of Mojo allows us to define more flexible and reusable traits, while still ensuring that the constraints on those traits are enforced at compile-time.</p>
+</div>
+<div class="paragraph">
+<p>The above example also shows that you can use comparison operators for comparing types. Both <code>==</code> and <code>!=</code> operators are supported for comparing types.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_custom_compile_time_checks">12.15. Custom compile-time checks</h3>
@@ -2916,7 +2949,7 @@ dependent types are types that depend on values. Mojo allows us to define depend
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-30 17:58:40 +0200
+Last updated 2026-07-12 21:34:28 +0200
 </div>
 </div>
 </body>
