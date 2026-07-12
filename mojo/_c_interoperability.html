@@ -2275,6 +2275,9 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>You may have noticed that towards the end of the code listing, we have a line <code>_ = lib_handle</code>. This is to ensure that the <code>lib_handle</code> variable is kept alive until the end of the function, preventing it from being deallocated while we are still using the function from the library. Remember that Mojo eagerly deallocates resources that are no longer in use, so it&#8217;s important to keep the library handle alive as long as you need to call functions from it.</p>
 </div>
+<div class="paragraph">
+<p>Note: <code>.dylib</code> is macOS-specific; use <code>.so</code> for Linux.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_statically_linking_a_c_library">19.3. Statically linking a C library</h3>

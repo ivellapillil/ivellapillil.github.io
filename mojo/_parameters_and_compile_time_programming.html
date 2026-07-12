@@ -2239,7 +2239,7 @@ pre.rouge .gs {
 <p>The programs we write are compiled by the compiler and then an executable file is created out of it. This executable file is later run on an operating system. So the code we write is executed when we run the program. So if we write a loop, then that loop gets executed when the program is run. Let&#8217;s imagine that we need to execute a function for which the inputs are well known already at the time of writing the code. Such a function can be executed at compile-time, and the results kept in the executable file. This means that when the program is run, it just takes the pre-calculated value, saving valuable CPU time during the execution.</p>
 </div>
 <div class="paragraph">
-<p>Unlike many mainstream languages, Mojo allows execution of code at compile-time. Mojo even has very few restrictions on what kind of code can be executed at compile-time.</p>
+<p>Mojo, like Rust and C++, allows code execution at compile time, enabling pre-computed results in the binary. Mojo has even very few restrictions on what kind of code can be executed at compile time.</p>
 </div>
 <div class="paragraph">
 <p>We already saw the use of <code>comptime</code> to store a constant. When we assign a function&#8217;s value to an <code>comptime</code> constant, Mojo executes that function at compile-time and assigns the result as a constant value to the <code>comptime</code>.</p>
@@ -2558,7 +2558,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="sect2">
 <h3 id="_parameters_in_structs">12.11. Parameters in structs</h3>
 <div class="paragraph">
-<p>Similar to functions, we can also pass compile-time parameters to structs.</p>
+<p>Similar to functions, we can also pass compile time parameters to structs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2828,7 +2828,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <p>In the above example, we have defined a dictionary <code>IntDict</code> that takes an <code>Int</code> as key and a value of an unknown type (represented by <code>_</code>). We have partially bound the type of the key to be <code>Int</code>, while leaving the type of the value to be specified by the caller. This allows us to create different dictionaries with different value types, while still having the key type fixed as <code>Int</code>. Here you would have noticed that we could reuse <code>Dict</code> type while keeping the type of the key fixed.</p>
 </div>
 <div class="paragraph">
-<p>You can treat partially bound types similar to other types. For example, you can create an instance of a partially bound type, and pass it to a function that expects that type.</p>
+<p>You can treat partially bound types just like other types. For example, you can create an instance of a partially bound type, and pass it to a function that expects that type.</p>
 </div>
 <div class="listingblock">
 <div class="content">

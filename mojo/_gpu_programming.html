@@ -2304,7 +2304,7 @@ HostBuffer([30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 
 <p>In the above code, we first define a kernel function <code>add_two</code> that takes two input buffers and an output buffer. Each thread calculates its unique index based on its block and thread IDs, and performs the addition operation on the corresponding elements from the input buffers, storing the result in the output buffer.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed that when we need to print the contents of the buffers, we first map the device buffers to host buffers using the <code>map_to_host()</code> method. This is necessary because the GPU memory is not directly accessible from the CPU, so we need to create a mapping to read the data.</p>
+<p>You may have noticed that when we need to print the contents of the buffers, we first map the device buffers to host buffers using the <code>map_to_host()</code> method. This is necessary because the GPU memory is separate from CPU memory and is not directly accessible from the CPU, so we need to create a mapping to read the data.</p>
 </div>
 </div>
 </div>
