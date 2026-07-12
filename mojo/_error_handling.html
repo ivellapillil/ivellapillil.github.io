@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2216,9 +2221,9 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">raise_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nc">Error</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
+        <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2227,9 +2232,9 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2244,7 +2249,7 @@ pre.rouge .gs {
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
         <span class="k">raise</span> <span class="sh">"</span><span class="s">String error is allowed</span><span class="sh">"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2253,9 +2258,9 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_str_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">raise_str_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -2266,29 +2271,29 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">raise_call</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="c1"># Need to either have 'raises' in the signature, or wrap with try-except
-</span>    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span></code></pre>
+</span>    <span class="n">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_finally">10.2. Finally</h3>
 <div class="paragraph">
-<p>The <code>finally</code> code blocks always gets executed regardless whether an error is getting propagated, or it was fully handled. The <code>finally</code> block is typically used for clean-up activities, for example, if a file is opened within a <code>try</code> block, then we must close the file within a <code>finally</code> block to ensure that even if an error is raised within the <code>try</code> block the file is always closed before the function returns. If a value is returned in <code>finally</code> and <code>try</code> or <code>except</code>, the returned value will be from <code>finally</code>. The <code>finally</code> block is optional.</p>
+<p>The <code>finally</code> code blocks always get executed regardless whether an error is getting propagated, or it was fully handled. The <code>finally</code> block is typically used for clean-up activities, for example, if a file is opened within a <code>try</code> block, then we must close the file within a <code>finally</code> block to ensure that even if an error is raised within the <code>try</code> block the file is always closed before the function returns. If a value is returned in <code>finally</code> and <code>try</code> or <code>except</code>, the returned value will be from <code>finally</code>. The <code>finally</code> block is optional.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">raise_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Always executed</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2301,11 +2306,11 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">raise_error</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No exception raised.</span><span class="sh">"</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No exception raised.</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2316,7 +2321,7 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">MyError</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyError</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span> 
     <span class="k">var</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
@@ -2324,9 +2329,9 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 
 <span class="k">def</span> <span class="nf">raise_custom_error</span><span class="p">(</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">MyError</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nc">MyError</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
+        <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2335,9 +2340,9 @@ block appears after <code>except</code>, but before <code>finally</code>. The <c
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
-    <span class="nf">raise_custom_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">raise_custom_error</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

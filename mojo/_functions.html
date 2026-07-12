@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2214,10 +2219,10 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span>
-    <span class="k">var</span> <span class="n">name</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter your name: </span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sh">"</span><span class="s">Enter your name: </span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="k">raises</span><span class="p">:</span> <span class="n">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, </span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2231,7 +2236,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 <p>You may have noticed that after <code>def my_function(text: String) raises:</code>, there is a new line and 4 spaces before the statements <code>var name = input("Enter your name: ")</code> and <code>print(text + name)</code>. This is because Mojo, like Python, uses whitespace indentation to demarcate the function&#8217;s body. Many mainstream programming languages use braces "{}" for function body. However, Mojo uses indented whitespace and is particular about the whitespace being aligned. You will find this syntax not only for function bodies, but also for other statements that expect a block. We will come to those cases in later chapters. Please notice that the statement <code>my_function("Hello World!")</code> appears differently aligned than <code>print(text + name)</code>. This is because <code>my_function("Hello World!")</code> is not part of the `my_function&#8217;s body itself.</p>
 </div>
 <div class="paragraph">
-<p>Another thing to notice is the <code>raises</code> keyword in the function definition. This is a special keyword that indicates that the function may raise an exception. We will cover exceptions in a later chapter.</p>
+<p>Another thing to notice is the <code>raises</code> keyword in the function definition. This is a special keyword that indicates that the function may raise an exception at runtime, requiring callers to handle it or declare their own <code>raises</code>. We will cover exceptions in a later chapter.</p>
 </div>
 <div class="paragraph">
 <p>The following illustration shows the structure of a Mojo function.</p>
@@ -2249,14 +2254,14 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you run the above program, you get the output as <code>3</code>.</p>
+<p>Running this program outputs: <code>3</code>.</p>
 </div>
 <div class="paragraph">
-<p>The function <code>add</code> took two <code>Int</code> arguments and performed an addition. Then it returned that result with keyword <code>return</code>, which was then shown on the terminal using the <code>print</code> function. The return value of the function is of type <code>Int</code>, which was explicitely delcared with <code>&#8594; Int</code> declaration. The <code>Int</code> type represents all integer values, including both positive and negative values. The actual value is passed during the function call statement (call site).</p>
+<p>The function <code>add</code> took two <code>Int</code> arguments and performed an addition. Then it returned that result with keyword <code>return</code>, which was then shown on the terminal using the <code>print</code> function. The return value of the function is of type <code>Int</code>, which was explicitly declared with <code>&#8594; Int</code> declaration. The <code>Int</code> type represents signed integers, including zero and negative values, within bounds determined by the system. The actual value is passed during the function call statement (call site).</p>
 </div>
 <div class="paragraph">
 <p>The statement <code>print(add(1, 2))</code> actually made two function calls. The inner function call <code>add</code> got executed first and then the outer function call <code>print</code>. This is called the nesting of function calls. The result from the inner function call was passed to the outer function call.</p>
@@ -2282,11 +2287,39 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>If you execute the above program, the main function will be called automatically and the text <code>Hello World!</code> will be printed.</p>
+</div>
+<div class="paragraph">
+<p>You can also pass command line arguments to the program. For example, if you run the program with an argument, it will be accessible within the <code>main</code> function using <code>argv()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.sys</span> <span class="kn">import</span> <span class="n">argv</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">pixi</span> <span class="n">run</span> <span class="n">mojo</span> <span class="n">main_function_cmdline</span><span class="p">.</span><span class="n">mojo</span> <span class="n">AniAdi</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Executing the above command prints: <code>Hello World! AniAdi</code>.</p>
+</div>
+<div class="paragraph">
+<p>The statement <code>from std.sys import argv</code> imports the <code>argv</code> function from the <code>std.sys</code> module, which is part of the standard library in Mojo. This allows us to use the <code>argv()</code> function in our program to access the passed command line arguments. We will cover modules and packages in a later chapter. For now, just know that <code>argv()</code> is a function that returns a list of command line arguments passed to the program.</p>
+</div>
+<div class="paragraph">
+<p>You may have noticed we used <code>argv()[1]</code> to access the first command line argument. The <code>argv()</code> function returns a list of all the command line arguments passed to the program, including the program name itself as the first argument. Therefore, <code>argv()[0]</code> would be the program name, and <code>argv()[1]</code> would be the first argument passed to the program.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2300,7 +2333,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
 
 <span class="k">def</span> <span class="nf">func2</span><span class="p">():</span> <span class="k">pass</span>
 
-<span class="k">def</span> <span class="nf">func3</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">);</span> <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Good bye!</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func3</span><span class="p">():</span> <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">);</span> <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Good bye!</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">func4</span><span class="p">():</span> 
     <span class="k">pass</span>
@@ -2344,7 +2377,7 @@ The word that appears after <code>:</code> is called a type annotation. This dec
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span> <span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2371,11 +2404,11 @@ mojo: error: failed to parse the provided Mojo</code></pre>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">nested</span><span class="p">():</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">I am nested</span><span class="sh">"</span><span class="p">)</span>
-    <span class="nf">nested</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">I am nested</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">nested</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">outer</span><span class="p">()</span></code></pre>
+    <span class="n">outer</span><span class="p">()</span></code></pre>
 </div>
 </div>
 </div>
@@ -2390,9 +2423,9 @@ mojo: error: failed to parse the provided Mojo</code></pre>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">first</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="n">first</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2407,7 +2440,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function2</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># compiler error</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function2</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># compiler error</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2427,8 +2460,8 @@ mojo: error: failed to parse the provided Mojo</code></pre>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2443,7 +2476,7 @@ mojo: error: failed to parse the provided Mojo</code></pre>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">third</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">third</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
     <span class="c1">#print(my_function(1, 2, 3)) # Uncommenting would result in compiler error.</span></code></pre>
 </div>
 </div>
@@ -2468,8 +2501,8 @@ mojo: error: failed to parse the provided Mojo</code></pre>
     <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># 'second' defaults to '10'
-</span>    <span class="nf">print</span><span class="p">(</span><span class="nf">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># 'second' defaults to '10'
+</span>    <span class="k">print</span><span class="p">(</span><span class="n">deft_function</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>

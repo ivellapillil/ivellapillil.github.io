@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2287,7 +2292,7 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_intliteral">5.4. IntLiteral</h3>
 <div class="paragraph">
-<p><code>IntLiteral</code> is the type when you provide an integer value directly in source code. It has infinite precision, but cannot currently be represented at runtime when the value is higher than the one supported by <code>Int</code>. Mojo allows underscore character "_" to as a separator for int literals to make it easy to read large numbers.</p>
+<p><code>IntLiteral</code> is the type when you provide an integer value directly in source code. It has infinite precision, but cannot currently be represented at runtime when the value is higher or lower than the one supported by <code>Int</code>. Mojo allows underscore character "_" to as a separator for int literals to make it easy to read large numbers.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2299,7 +2304,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="mi">9999999999999999999999999999999999999999999</span><span class="o">//</span><span class="mi">999999999999999999999999999999999999999</span><span class="p">)</span> </code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="mi">9999999999999999999999999999999999999999999</span><span class="o">//</span><span class="mi">999999999999999999999999999999999999999</span><span class="p">)</span> </code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2309,16 +2314,13 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_string">5.5. String</h3>
 <div class="paragraph">
-<p><code>String</code> is also one of the most used data types in programming. It is a sequence of Unicode characters representing a given text. Unicode is a text encoding standard maintained by the Unicode Consortium and consists of more than hundred thousand codes representing characters in almost all of the world&#8217;s writing systems. Since <code>String</code> abstracts over a sequence of Unicode characters, when you determine the length of a <code>String</code>, it will return the count of characters (grapheme clusters to be precise).</p>
+<p><code>String</code> is also one of the most used data types in programming. It is a sequence of Unicode characters representing a given text. Unicode is a text encoding standard maintained by the Unicode Consortium and consists of more than hundred thousand codes representing characters in almost all of the world&#8217;s writing systems.</p>
 </div>
 <div class="paragraph">
 <p>However, to store or transport such a String we need to represent that String as a sequence of bytes. A popular character representation format is UTF-8, which uses one or more bytes <em>per character</em> depending on the Unicode code point (an integer value designated to represent the character).</p>
 </div>
 <div class="paragraph">
 <p>When receiving or sending strings over files or network, always ensure that you know what encoding is being used. Quite often subtle defects occur because the programmer expected a different encoding than the one they received.</p>
-</div>
-<div class="paragraph">
-<p>Strings in Mojo are immutable. Any modification of the String actually returns a new String.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2372,12 +2374,12 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.format.tstring</span> <span class="kn">import</span> <span class="n">TString</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.format.tstring</span> <span class="kn">import</span> <span class="n">TString</span>
 <span class="k">var</span> <span class="n">a_var</span> <span class="o">=</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
-<span class="k">var</span> <span class="n">tstr</span> <span class="o">=</span> <span class="n">t</span><span class="sh">"</span><span class="s">Hello TString {a_var}!</span><span class="sh">"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">(1 + 2) is {1 + 2}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Evaluates the expression inside the curly braces and includes the result in the string
-</span><span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">Length of {a_var} is {a_var.byte_length()}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Can call functions inside the curly braces as well</span></code></pre>
+<span class="k">var</span> <span class="n">tstr</span> <span class="o">=</span> <span class="sa">t</span><span class="sh">"</span><span class="s">Hello TString {a_var}!</span><span class="sh">"</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {1 + 2}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Evaluates the expression inside the curly braces and includes the result in the string
+</span><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">Length of {a_var} is {a_var.byte_length()}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Can call functions inside the curly braces as well</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2385,8 +2387,8 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">(1 + 2) is {{1 + 2}}</span><span class="sh">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">t</span><span class="sh">"</span><span class="s">New </span><span class="se">\n</span><span class="s">line</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Supports escape sequences like \n for new line, \t for tab, etc.</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {{1 + 2}}</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">New </span><span class="se">\n</span><span class="s">line</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Supports escape sequences like \n for new line, \t for tab, etc.</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2394,15 +2396,15 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">rt</span><span class="sh">"</span><span class="se">\n</span><span class="s"> is not escaped.</span><span class="sh">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">rt</span><span class="sh">"</span><span class="se">\n</span><span class="s"> is not escaped but can still interpolate </span><span class="sh">'</span><span class="s">{a_var}</span><span class="sh">'"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="sa">rt</span><span class="sh">"</span><span class="s">\n is not escaped.</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">rt</span><span class="sh">"</span><span class="s">\n is not escaped but can still interpolate </span><span class="sh">'</span><span class="s">{a_var}</span><span class="sh">'"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_floatliteral">5.8. FloatLiteral</h3>
 <div class="paragraph">
-<p><code>FloatLiteral</code> is the type that Mojo compiler assigns to a value when you provide a decimal separated numeric value in the source code. The <code>FloatLiteral</code> is "double precision", which is represented with 64 bits. The mantissa part of the value is represented by 52 bits and the exponent part of the value is represented by 11 bits. The last remaining bit is used for sign.</p>
+<p><code>FloatLiteral</code> is the type that Mojo compiler assigns to a value when you provide a decimal separated numeric value in the source code. Like the <code>IntLiteral</code>, the <code>FloatLiteral</code> is infinite precision. However as soon as you assign it to a variable, it has to be converted to a specific floating point type that can be represented in memory.</p>
 </div>
 <div class="paragraph">
 <p>When you don&#8217;t specify a type for a floating point number assignment, Mojo automatically assigns it the type <code>Float64</code>.</p>
@@ -2411,6 +2413,9 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">float_lit</span> <span class="o">=</span> <span class="mf">2.005</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In the above example, the value <code>2.005</code> is of type <code>FloatLiteral</code>. When it is assigned to the variable <code>float_lit</code>, Mojo automatically converts it to <code>Float64</code> type. You can also explicitly specify the type of the variable to which you are assigning the <code>FloatLiteral</code>. In that case, Mojo will convert the <code>FloatLiteral</code> to the specified type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2541,7 +2546,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="n">Uncomment</span> <span class="n">before</span> <span class="n">release</span><span class="p">:</span> <span class="n">include</span><span class="p">::{</span><span class="n">sourcedir</span><span class="p">}</span><span class="o">/</span><span class="n">c04</span><span class="o">/</span><span class="n">base_types</span><span class="p">.</span><span class="n">mojo</span><span class="p">[</span><span class="n">tag</span><span class="o">=</span><span class="n">bfloat16</span><span class="p">]</span> <span class="c1">#</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">bfloat_16</span><span class="p">:</span> <span class="n">BFloat16</span> <span class="o">=</span> <span class="mf">3.4</span></code></pre>
 </div>
 </div>
 </div>
@@ -2562,7 +2567,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">simd1</span><span class="p">:</span> <span class="n">SIMD</span><span class="p">[</span><span class="n">DType</span><span class="p">.</span><span class="n">int8</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">SIMD</span><span class="p">[</span><span class="n">DType</span><span class="p">.</span><span class="n">int8</span><span class="p">,</span> <span class="mi">4</span><span class="p">](</span><span class="mi">10</span><span class="p">)</span>
 <span class="k">var</span> <span class="n">sc</span><span class="p">:</span> <span class="n">Int8</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">simd1</span> <span class="o">*</span> <span class="n">sc</span><span class="p">)</span> </code></pre>
+<span class="k">print</span><span class="p">(</span><span class="n">simd1</span> <span class="o">*</span> <span class="n">sc</span><span class="p">)</span> </code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2577,9 +2582,9 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">introspect</span><span class="p">(</span><span class="nb">type</span><span class="p">:</span> <span class="n">DType</span><span class="p">):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Is signed:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">is_signed</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Is signed:</span><span class="sh">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">.</span><span class="nf">is_signed</span><span class="p">())</span>
 
-<span class="nf">introspect</span><span class="p">(</span><span class="n">DType</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> </code></pre>
+<span class="n">introspect</span><span class="p">(</span><span class="n">DType</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> </code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2598,11 +2603,11 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 </div>
 <div class="paragraph">
-<p>Executing the code listed above results in:</p>
+<p>Executing the code listed above results in something like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">error</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">implicitly</span> <span class="n">convert</span> <span class="sh">'</span><span class="s">StringLiteral</span><span class="sh">'</span> <span class="n">value</span> <span class="n">to</span> <span class="sh">'</span><span class="s">Int</span><span class="sh">'</span> <span class="ow">in</span> <span class="sh">'</span><span class="s">var</span><span class="sh">'</span> <span class="n">initializer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">error</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">implicitly</span> <span class="n">convert</span> <span class="sh">'</span><span class="s">StringLiteral</span><span class="sh">'</span> <span class="n">value</span> <span class="n">to</span> <span class="sh">'</span><span class="s">Int</span><span class="sh">'</span>
     <span class="k">var</span> <span class="n">int_value</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="sh">"</span><span class="s">42</span><span class="sh">"</span></code></pre>
 </div>
 </div>
@@ -2615,8 +2620,8 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">var</span> <span class="n">string_val</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="nc">String</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">string_val</span><span class="p">)</span></code></pre>
+    <span class="k">var</span> <span class="n">string_val</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">string_val</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2641,7 +2646,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2650,7 +2655,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">e</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[]</span> <span class="o">=</span> <span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2659,7 +2664,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">access</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Float64</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">First value</span><span class="sh">"</span><span class="p">,</span> <span class="n">access</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">First value</span><span class="sh">"</span><span class="p">,</span> <span class="n">access</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2669,8 +2674,8 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">multi_vars</span><span class="p">():</span>
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Variables a &amp; b:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="nf">multi_vars</span><span class="p">()</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Variables a &amp; b:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">multi_vars</span><span class="p">()</span></code></pre>
 </div>
 </div>
 </div>
@@ -2682,7 +2687,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">l</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Float16</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2715,7 +2720,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">b</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">a</span><span class="sh">"</span><span class="p">])</span>
 <span class="k">var</span> <span class="n">empty</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></code></pre>
 </div>
 </div>
@@ -2738,16 +2743,16 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="n">std.utils</span> <span class="kn">import</span> <span class="n">Variant</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.utils</span> <span class="kn">import</span> <span class="n">Variant</span>
 
-<span class="k">comptime</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
+<span class="n">comptime</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="p">]</span>
 <span class="k">var</span> <span class="n">v1</span><span class="p">:</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="k">var</span> <span class="n">v2</span><span class="p">:</span> <span class="n">IntOrString</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello Variant</span><span class="sh">"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="c1"># Prints 100
-</span><span class="nf">print</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="n">String</span><span class="p">])</span> <span class="c1"># Prints Hello Variant
+<span class="k">print</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="c1"># Prints 100
+</span><span class="k">print</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="n">String</span><span class="p">])</span> <span class="c1"># Prints Hello Variant
 </span>
-<span class="nf">print</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">Int</span><span class="p">]())</span>      <span class="c1"># Prints True
-</span><span class="nf">print</span><span class="p">(</span><span class="n">v2</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">String</span><span class="p">]())</span>   <span class="c1"># Prints True
+<span class="k">print</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">Int</span><span class="p">]())</span>      <span class="c1"># Prints True
+</span><span class="k">print</span><span class="p">(</span><span class="n">v2</span><span class="p">.</span><span class="n">isa</span><span class="p">[</span><span class="n">String</span><span class="p">]())</span>   <span class="c1"># Prints True
 </span>
 <span class="c1">#print(v1[Float64])  # Uncommenting this line will raise an error</span></code></pre>
 </div>
@@ -2765,15 +2770,15 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">maybe</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">String</span><span class="p">](</span><span class="sh">"</span><span class="s">Hello Optional</span><span class="sh">"</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">maybe</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">maybe</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Prints Hello Optional
+    <span class="k">print</span><span class="p">(</span><span class="n">maybe</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Prints Hello Optional
 </span><span class="k">else</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This won't be printed
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This won't be printed
 </span>
 <span class="k">var</span> <span class="n">noValue</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span>
 <span class="k">if</span> <span class="n">noValue</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># This won't be printed
+    <span class="k">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># This won't be printed
 </span><span class="k">else</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints No value
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No value</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints No value
 </span>
 <span class="c1"># print(noValue.value()) # Uncommenting this line will raise an error because noValue does not contain a value</span></code></pre>
 </div>
@@ -2783,7 +2788,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">or_else</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span> <span class="c1"># Prints 42, providing a default value</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">noValue</span><span class="p">.</span><span class="nf">or_else</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span> <span class="c1"># Prints 42, providing a default value</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

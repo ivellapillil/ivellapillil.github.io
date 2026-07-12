@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2250,7 +2255,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">added</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="n">added</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2258,7 +2263,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">added</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">added</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2277,8 +2282,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span><span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
-<span class="k">comptime</span> <span class="n">added_conditionally</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
+</span><span class="kn">from</span> <span class="nn">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+<span class="n">comptime</span> <span class="n">added_conditionally</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2286,7 +2291,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">added_conditionally</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">added_conditionally</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2298,12 +2303,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span><span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
-<span class="k">comptime</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]():</span> 
-    <span class="n">x</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class="kn">from</span> <span class="nn">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+<span class="n">comptime</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]():</span> 
+    <span class="n">x</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2314,8 +2319,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2323,11 +2328,11 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2338,8 +2343,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">comptime</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span> <span class="c1"># Prints 3</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">comptime</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span> <span class="c1"># Prints 3</span></code></pre>
 </div>
 </div>
 </div>
@@ -2360,8 +2365,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
-</span><span class="kn">from</span> <span class="n">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
+</span><span class="kn">from</span> <span class="nn">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+<span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]()](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2376,7 +2381,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">add_ints</span><span class="p">[</span><span class="n">IntType</span><span class="p">:</span> <span class="n">Intable</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">IntType</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">IntType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nc">Int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">Int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2384,7 +2389,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">add_ints</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">add_ints</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -2396,7 +2401,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">div_compile_time</span><span class="p">[</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">]()</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span></code></pre>
+    <span class="k">return</span> <span class="n">Float64</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2404,7 +2409,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">div_compile_time</span><span class="p">[</span><span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">4</span><span class="p">]())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">div_compile_time</span><span class="p">[</span><span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">4</span><span class="p">]())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2418,10 +2423,10 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="nc">Scheme</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Scheme</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">comptime</span> <span class="n">HTTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">http</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">comptime</span> <span class="n">FTP</span> <span class="o">=</span> <span class="nc">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">ftp</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">comptime</span> <span class="n">HTTP</span> <span class="o">=</span> <span class="n">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">http</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">comptime</span> <span class="n">FTP</span> <span class="o">=</span> <span class="n">Scheme</span><span class="p">(</span><span class="sh">"</span><span class="s">ftp</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">var</span> <span class="n">scheme</span><span class="p">:</span> <span class="n">String</span>
 
@@ -2448,7 +2453,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2465,7 +2470,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location2</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]]():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2485,7 +2490,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_location3</span><span class="p">[</span><span class="n">scheme</span><span class="p">:</span> <span class="n">Scheme</span><span class="p">,</span> <span class="o">//</span><span class="p">](</span><span class="n">location</span><span class="p">:</span> <span class="n">Location</span><span class="p">[</span><span class="n">scheme</span><span class="p">]):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">location</span><span class="p">.</span><span class="nf">as_string</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2493,7 +2498,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print_location3</span><span class="p">(</span><span class="n">Location</span><span class="p">[</span><span class="n">Scheme</span><span class="p">.</span><span class="n">HTTP</span><span class="p">](</span><span class="sh">"</span><span class="s">r.net</span><span class="sh">"</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">print_location3</span><span class="p">(</span><span class="n">Location</span><span class="p">[</span><span class="n">Scheme</span><span class="p">.</span><span class="n">HTTP</span><span class="p">](</span><span class="sh">"</span><span class="s">r.net</span><span class="sh">"</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -2519,7 +2524,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">add_all</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">add_all</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2542,8 +2547,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">sub</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># Default value is taken
-</span><span class="nf">print</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="bp">True</span><span class="p">](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># Override the default value</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">sub</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># Default value is taken
+</span><span class="k">print</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="bp">True</span><span class="p">](</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="c1"># Override the default value</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2561,7 +2566,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nc">Int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">Self</span><span class="p">.</span><span class="n">cond</span> <span class="k">else</span> <span class="mi">0</span></code></pre>
@@ -2572,8 +2577,8 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="bp">True</span><span class="p">](</span><span class="mi">10</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">Float16</span><span class="p">,</span> <span class="bp">False</span><span class="p">](</span><span class="mf">11.5</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="bp">True</span><span class="p">](</span><span class="mi">10</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">Float16</span><span class="p">,</span> <span class="bp">False</span><span class="p">](</span><span class="mf">11.5</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2581,7 +2586,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">cond</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">Float32</span><span class="p">](</span><span class="mf">2.5</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">MyStruct</span><span class="p">[</span><span class="n">cond</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">Float32</span><span class="p">](</span><span class="mf">2.5</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2592,15 +2597,15 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">MyStructAlias</span> <span class="o">=</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
-<span class="nf">print</span><span class="p">(</span><span class="nc">MyStructAlias</span><span class="p">(</span><span class="mi">20</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="n">MyStructAlias</span> <span class="o">=</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">MyStructAlias</span><span class="p">(</span><span class="mi">20</span><span class="p">).</span><span class="nf">get_value</span><span class="p">())</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_trait_composition">12.12. Trait composition</h3>
 <div class="paragraph">
-<p>We saw how a struct can implement multiple traits. We also saw how a trait can inherit from multiple traits. In order to achieve good code reuse, it is adviced to define traits that are focused on a single responsibility. This is called the <strong>Interface Segregation Principle</strong> in software design. When we strictly follow this principle, we end up with many small traits that define a single behavior. Now suppose that we want to define a reusable method that uses multiple traits. One way to achieve this is to define a new trait that inherits from the individual traits, and then define the reusable method to use that trait. However, this approach results in a proliferation of traits that are just used to compose other traits.</p>
+<p>We saw how a struct can implement multiple traits. We also saw how a trait can inherit from multiple traits. In order to achieve good code reuse, it is advised to define traits that are focused on a single responsibility. This is called the <strong>Interface Segregation Principle</strong> in software design. When we strictly follow this principle, we end up with many small traits that define a single behavior. Now suppose that we want to define a reusable method that uses multiple traits. One way to achieve this is to define a new trait that inherits from the individual traits, and then define the reusable method to use that trait. However, this approach results in a proliferation of traits that are just used to compose other traits.</p>
 </div>
 <div class="paragraph">
 <p>Mojo provides with an alternative approach to achieve the same goal without the need to define a new trait. This is called <strong>trait composition</strong>. We can define parameters to a function that are a composition of multiple traits. This is done by using the <code>&amp;</code> operator between the traits.</p>
@@ -2613,7 +2618,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <span class="k">trait</span> <span class="n">Walkable</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">:</span> <span class="bp">...</span>
 
-<span class="k">struct</span> <span class="nc">Crow </span><span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
+<span class="k">struct</span> <span class="n">Crow</span> <span class="p">(</span><span class="n">Flyable</span><span class="p">,</span> <span class="n">Walkable</span><span class="p">):</span>
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
@@ -2624,12 +2629,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
         <span class="k">return</span> <span class="sh">"</span><span class="s">Crow is walking</span><span class="sh">"</span>
 
 <span class="k">def</span> <span class="nf">bird</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span><span class="p">](</span><span class="n">animal</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">fly</span><span class="p">())</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">walk</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">fly</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">animal</span><span class="p">.</span><span class="nf">walk</span><span class="p">())</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">var</span> <span class="n">crow</span> <span class="o">=</span> <span class="nc">Crow</span><span class="p">()</span>
-    <span class="nf">bird</span><span class="p">(</span><span class="n">crow</span><span class="p">)</span></code></pre>
+    <span class="k">var</span> <span class="n">crow</span> <span class="o">=</span> <span class="n">Crow</span><span class="p">()</span>
+    <span class="n">bird</span><span class="p">(</span><span class="n">crow</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2637,7 +2642,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">Bird</span> <span class="o">=</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="n">Bird</span> <span class="o">=</span> <span class="n">Flyable</span> <span class="o">&amp;</span> <span class="n">Walkable</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2656,10 +2661,10 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2681,10 +2686,10 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
 
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2712,7 +2717,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
         <span class="bp">...</span>
     <span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The positive number is: </span><span class="sh">"</span> <span class="o">+</span> <span class="nc">String</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">))</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The positive number is: </span><span class="sh">"</span> <span class="o">+</span> <span class="n">String</span><span class="p">(</span><span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2744,9 +2749,9 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">print_times</span><span class="p">[</span><span class="n">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">]():</span>
-    <span class="k">comptime</span> <span class="k">assert</span> <span class="n">times</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">"</span><span class="s">times must be greater than zero</span><span class="sh">"</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">comptime</span> <span class="k">assert</span> <span class="n">times</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="sh">"</span><span class="s">times must be greater than zero</span><span class="sh">"</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">print_times</span><span class="p">[</span><span class="mi">2</span><span class="p">]()</span>
@@ -2770,10 +2775,10 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="nc">ErrorTrait</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">ErrorTrait</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="bp">...</span>
 
-<span class="k">struct</span> <span class="nc">MyError</span><span class="p">(</span><span class="n">ErrorTrait</span><span class="p">):</span> 
+<span class="k">struct</span> <span class="n">MyError</span><span class="p">(</span><span class="n">ErrorTrait</span><span class="p">):</span> 
     <span class="k">var</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span>
@@ -2781,9 +2786,9 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 
 <span class="k">def</span> <span class="nf">raise_error</span><span class="p">[</span><span class="n">ErrorType</span><span class="p">:</span> <span class="n">ErrorTrait</span><span class="p">](</span><span class="n">cond</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="k">raises</span> <span class="n">ErrorType</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cond</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nc">ErrorType</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">ErrorType</span><span class="p">(</span><span class="sh">"</span><span class="s">Provided condition is True</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No error</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2794,7 +2799,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">try</span><span class="p">:</span>
     <span class="n">raise_error</span><span class="p">[</span><span class="n">MyError</span><span class="p">](</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error raised:</span><span class="sh">"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2811,12 +2816,12 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">IntDict</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="c1"># The key type is bound but not the value type.
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">comptime</span> <span class="n">IntDict</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="c1"># The key type is bound but not the value type.
 # var a = IntDict() # Uncommenting this line will result in a compile time error because the type of the values is not specified.
 </span><span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span> <span class="c1"># Now the type of the values is fully specified as String.
 </span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span>
 <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># Prints: {1: Hello, 2: World}</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1"># Prints: {1: Hello, 2: World}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2829,7 +2834,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">use_int_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">_</span><span class="p">]):</span> <span class="c1"># You can use partially bound types similar to other types.
 </span>    <span class="bp">...</span>
-<span class="nf">use_int_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
+<span class="n">use_int_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2845,18 +2850,18 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># tag::parametric_alias[]
-</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span> <span class="o">&amp;</span> <span class="n">ImplicitlyDestructible</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
+</span>    <span class="n">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span> <span class="o">&amp;</span> <span class="n">ImplicitlyDeletable</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
 </span>    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># We can use the alias similar to a normal type, but the value type needs to satisfy the constraints specified in the alias definition (in this case, it needs to implement the traits Intable and Copyable).
 </span>    <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># Prints: {1: 1, 2: 2}
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># Prints: {1: 1, 2: 2}
 </span>    <span class="c1"># var b = IntDict[String]() # Uncommenting this line will result in a compile time error because the value type String does not satisfy the constraints specified in the alias definition (it does not implement the traits Intable and Copyable).
 </span>    <span class="c1"># end::parametric_alias[]
 </span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a parametric alias <code>IntDict</code> for a dictionary where the key type is always <code>Int</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additional constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>IntDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code>, <code>Copyable</code>, and <code>ImplicitlyDestructible</code>. This means that we can only use the <code>IntDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
+<p>In the above example, we have defined a parametric alias <code>IntDict</code> for a dictionary where the key type is always <code>Int</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additional constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>IntDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code>, <code>Copyable</code>, and <code>ImplicitlyDeletable</code>. This means that we can only use the <code>IntDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2870,9 +2875,9 @@ dependent types are types that depend on values. Mojo allows us to define depend
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::dependent_types[]
 </span><span class="k">def</span> <span class="nf">append</span><span class="p">[</span><span class="n">N</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">:</span> <span class="n">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">]:</span> <span class="c1"># The return type has a dependent type that depends on the parameters N and M
 </span>    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">](</span><span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">result</span>
 <span class="c1"># end::dependent_types[]
@@ -2881,8 +2886,8 @@ dependent types are types that depend on values. Mojo allows us to define depend
     <span class="c1"># tag::dependent_types_use[]
 </span>    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
     <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="nf">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
 </span>    <span class="c1"># var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error 
 </span>    <span class="c1"># end::dependent_types_use[]</span></code></pre>
 </div>
@@ -2894,8 +2899,8 @@ dependent types are types that depend on values. Mojo allows us to define depend
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="nf">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
+<span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
 # var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error </span></code></pre>
 </div>
 </div>

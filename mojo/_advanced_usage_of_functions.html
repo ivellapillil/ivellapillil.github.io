@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2215,8 +2220,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">my_fn_var</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_fn_var</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="n">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">adder</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_fn_var</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2241,10 +2246,10 @@ pre.rouge .gs {
 <span class="k">def</span> <span class="nf">suber</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
 
-<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="n">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
 </div>
@@ -2253,8 +2258,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">exec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">adder</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">exec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">suber</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="k">exec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">adder</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="k">exec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">suber</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2266,12 +2271,12 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">diver</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float64</span><span class="p">:</span> 
-    <span class="k">return</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="nc">Float64</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Float64</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">Float64</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">exec_param</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="n">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
 </div>
@@ -2280,8 +2285,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">exec_param</span><span class="p">[</span><span class="n">adder</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">exec_param</span><span class="p">[</span><span class="n">suber</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">exec_param</span><span class="p">[</span><span class="n">adder</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">exec_param</span><span class="p">[</span><span class="n">suber</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -2295,10 +2300,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_rt_closure</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="n">bin_op</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_rt_closure</span><span class="p">[</span><span class="n">bin_op</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op_cl</span><span class="p">:</span> <span class="n">bin_op</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
 </div>
@@ -2310,7 +2315,7 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">rt_y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span><span class="k">read</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">rt_y</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">exec_rt_closure</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">ander</span><span class="p">))</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="n">exec_rt_closure</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">ander</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2321,10 +2326,10 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="nf">def</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="k">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec_ct_closure</span><span class="p">[</span><span class="n">bin_op_cl</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">)</span> <span class="n">capturing</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="nf">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">bin_op_cl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
 </div>
@@ -2337,7 +2342,7 @@ pre.rouge .gs {
 <span class="nd">@parameter</span>
 <span class="k">def</span> <span class="nf">multer</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">ct_y</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">exec_ct_closure</span><span class="p">[</span><span class="n">multer</span><span class="p">](</span><span class="mi">10</span><span class="p">))</span></code></pre>
+<span class="k">print</span><span class="p">(</span><span class="n">exec_ct_closure</span><span class="p">[</span><span class="n">multer</span><span class="p">](</span><span class="mi">10</span><span class="p">))</span></code></pre>
 </div>
 </div>
 </div>
@@ -2363,7 +2368,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">add_all</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">add_all</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2373,7 +2378,7 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">names_dob</span><span class="p">(</span><span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
     <span class="k">for</span> <span class="k">var</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namedobs</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span></code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2381,7 +2386,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">names_dob</span><span class="p">(</span><span class="n">ik</span><span class="o">=</span><span class="sh">"</span><span class="s">14/4/72</span><span class="sh">"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="sh">"</span><span class="s">15/5/81</span><span class="sh">"</span><span class="p">,</span> <span class="n">ani</span><span class="o">=</span><span class="sh">"</span><span class="s">16/3/23</span><span class="sh">"</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="sh">"</span><span class="s">22/6/17</span><span class="sh">"</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">names_dob</span><span class="p">(</span><span class="n">ik</span><span class="o">=</span><span class="sh">"</span><span class="s">14/4/72</span><span class="sh">"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="sh">"</span><span class="s">15/5/81</span><span class="sh">"</span><span class="p">,</span> <span class="n">ani</span><span class="o">=</span><span class="sh">"</span><span class="s">16/3/23</span><span class="sh">"</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="sh">"</span><span class="s">22/6/17</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2416,8 +2421,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2439,8 +2444,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="nc">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="nc">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)]())</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]())</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Int</span><span class="p">(</span><span class="mi">2</span><span class="p">)]())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]())</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2460,8 +2465,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">subkw</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">subkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">subkw</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">subkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2476,7 +2481,7 @@ pre.rouge .gs {
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
 <span class="k">def</span> <span class="nf">addposkw</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nc">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span></code></pre>
+    <span class="k">return</span> <span class="n">Int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2484,8 +2489,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">addposkw</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">addposkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">addposkw</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">addposkw</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2508,9 +2513,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">arr</span> <span class="o">=</span> <span class="nc">MyArray</span><span class="p">()</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Prints 1
-</span><span class="nf">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">anotheridx</span><span class="o">=</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># Prints 2</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">arr</span> <span class="o">=</span> <span class="n">MyArray</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Prints 1
+</span><span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">anotheridx</span><span class="o">=</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># Prints 2</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2533,8 +2538,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nf">print</span><span class="p">(</span><span class="nf">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3
-</span><span class="nf">print</span><span class="p">(</span><span class="nf">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3
+</span><span class="k">print</span><span class="p">(</span><span class="n">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3</span></code></pre>
 </div>
 </div>
 </div>

@@ -1999,6 +1999,11 @@ p {
         display: inherit!important
     }
 }
+
+/* Left justify pre, code, listingblock */
+pre, code, .listingblock {
+    text-align: left !important;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -2208,7 +2213,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># This is a comment
-</span><span class="nf">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This is an inline comment</span></code></pre>
+</span><span class="n">my_function</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World!</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># This is an inline comment</span></code></pre>
 </div>
 </div>
 </div>
@@ -2230,7 +2235,7 @@ pre.rouge .gs {
     This is a doc string summary.
     And the second line represents more details.
     </span><span class="sh">"""</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2249,10 +2254,10 @@ pre.rouge .gs {
 <pre class="rouge highlight"><code data-lang="mojo"><span class="sh">"""</span><span class="s">
 File level docstring.
 </span><span class="sh">"""</span>
-<span class="k">comptime</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">comptime</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
