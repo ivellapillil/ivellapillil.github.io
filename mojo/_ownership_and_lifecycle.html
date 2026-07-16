@@ -2319,13 +2319,13 @@ pre.rouge .gs {
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2338,7 +2338,7 @@ pre.rouge .gs {
 <p>In this example, we defined a <code>struct</code> and the <code><em>init</em></code> method within it. The first argument of the <code><em>init</em></code> method is always <code>self</code> with a modifier <code>out</code>. The <code>self</code> is a reference to the struct&#8217;s own instance that is going to be created. The <code>out</code> tells the compiler that the <code>self</code> is to be initiated and returned by the method (i.e., we can change the field values held within <code>self</code> and <code>self</code> is returned). In Mojo, the function arguments are <em>by default read-only</em>, and we cannot change the values of the function argument. The <code>out</code> is needed for <code>self</code> so that we are able to initialize the fields within the struct. Since one of the main responsibility of <code><em>init</em></code> is to initialize the fields of the struct and return it, we naturally need to mark it as <code>out</code>. This implies that the <code><em>init</em></code> method is like a static method on <code>Self</code>, that returns an instance of <code>Self</code>.</p>
 </div>
 <div class="paragraph">
-<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the method <code>init_pointee_move</code> on the <code>UnsafePointer</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
+<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the method <code>unsafe_write</code> on the <code>UnsafePointer</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2355,19 +2355,19 @@ pre.rouge .gs {
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="n">deinit</span> <span class="k">self</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
 </div>
 </div>
@@ -2419,20 +2419,20 @@ pre.rouge .gs {
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">change_value</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
 </div>

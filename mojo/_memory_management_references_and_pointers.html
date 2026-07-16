@@ -2321,17 +2321,17 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
 </span><span class="n">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
-</span><span class="n">x</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="n">x</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
 </span><span class="n">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
+<span class="n">x</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
 </span><span class="n">x</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Frees the memory pointed by `x`</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length specified by the <code>count</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>alloc</code> method calculates the size of the type <code>A</code> and then allocate the total number of bytes for it. The space is initialized with value using <code>init_pointee_move</code>. The <code>init_pointee_move</code> expects its argument to implement the trait <code>Movable</code>, which indicates that the value can be safely moved to another location.</p>
+<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length specified by the <code>count</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>alloc</code> method calculates the size of the type <code>A</code> and then allocate the total number of bytes for it. The space is initialized with value using <code>unsafe_write</code>. The <code>unsafe_write</code> expects its argument to implement the trait <code>Movable</code>, which indicates that the value can be safely moved to another location.</p>
 </div>
 <div class="paragraph">
-<p>Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>destroy_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>free</code> method of <code>UnsafePointer</code>.</p>
+<p>Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>unsafe_deinit_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>free</code> method of <code>UnsafePointer</code>.</p>
 </div>
 <div class="paragraph">
 <p>On a quick look the above code seems to be simple and easy to reason, where the memory is allocated and freed. However, there is a potential memory leak. This would happen if the <code>print_pointer</code> or <code>print_value</code> throws an exception and the function exits early because of that. When that happens, the <code>free</code> will not get executed and the allocated memory in the heap would not be returned to the heap. This would lead to a memory leak, or worse, a security issue because now the data is available to potentially malicious code.</p>
@@ -2364,10 +2364,10 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">y</span><span class="p">.</span><span class="nf">init_pointee_move</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
     <span class="n">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
-    <span class="n">y</span><span class="p">.</span><span class="nf">destroy_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
+    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
 </span>    <span class="n">y</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
 </div>
 </div>
@@ -2406,7 +2406,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>As mentioned earlier, care should be taken to understand the lifecycle of the value before passing its address. For example, <em>returning</em> the address of a value allocated on a stack frame to the callee stack frame would most likely result in a dangling pointer. Since Mojo destructs value on last use, it is also necessary to keep the value alive until the pointer&#8217;s purpose is completed, otherwise we have a pointer that points to an uninitialized memory since the value was already destructed.</p>
 </div>
 <div class="paragraph">
-<p>Mojo also provides another option to initialize an allocated memory, using <code>init_pointee_copy</code>. The difference is that the <code>init_pointee_move</code> moves the value to the allocated space, while the <code>init_pointee_copy</code> just copies the value, leaving the original value intact.</p>
+<p>Mojo also provides another option to initialize an allocated memory, using <code>unsafe_write</code> with <code>copy=</code> argument. The difference is that the normal <code>unsafe_write</code> moves the value to the allocated space, while the <code>unsafe_write</code> with <code>copy=</code> just copies the value, leaving the original value intact.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2432,7 +2432,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">a</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+<span class="n">a</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">)))</span> <span class="c1"># Initialize the location
 </span><span class="n">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="bp">...</span></code></pre>
 </div>
@@ -2456,13 +2456,13 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">m</span><span class="p">.</span><span class="nf">init_pointee_copy</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+<span class="n">m</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">)))</span> <span class="c1"># Initialize the location
 </span>
 <span class="k">def</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
 </span>    <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
 </span>    <span class="k">pass</span>
 
-<span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
+<span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
 </span>    <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
 </span>
 <span class="n">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>

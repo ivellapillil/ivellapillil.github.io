@@ -2337,7 +2337,7 @@ def main():
 <div class="title">add.mojo</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="Mojo">@export
-def add(a: Int32, b: Int32) -&gt; Int32:
+def add(a: Int32, b: Int32) abi("c") -&gt; Int32:
     return a + b</code></pre>
 </div>
 </div>
@@ -2383,7 +2383,7 @@ def add(a: Int32, b: Int32) -&gt; Int32:
 <p>In the above code listing, we have a Mojo function <code>add</code> that takes two integers and returns their sum. We compile this Mojo code into an object file using the <code>--emit object</code> option. Then, we can link this object file with our C code to call the <code>add</code> function from C.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed that the <code>add</code> function in the Mojo code is decorated with <code>@export</code>. This is necessary to make the function available for calling from C. The <code>@export</code> annotation tells the Mojo compiler to export the function so that it can be linked and called from C code.</p>
+<p>You may have noticed that the <code>add</code> function in the Mojo code is decorated with <code>@export</code>. This is necessary to make the function available for calling from C. The <code>@export</code> annotation tells the Mojo compiler to export the function so that it can be linked and called from C code. You may also have noticed that the <code>add</code> function has an <code>abi("c")</code> effect. The keyword <code>abi</code> stands for Application Binary Interface. Different programming languages may have different calling conventions, which specify how functions receive parameters and return values. By specifying <code>abi("c")</code>, we ensure that the <code>add</code> function follows the C calling convention, making it compatible with C code. The C calling convention is well supported and widely used by many programming languages, making it a good choice for interoperability.</p>
 </div>
 </div>
 </div>
