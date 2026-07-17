@@ -2366,7 +2366,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="n">deinit</span> <span class="k">self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
 </div>
@@ -2494,7 +2494,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">take</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
 </div>
@@ -2719,13 +2719,13 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@explicit_destroy</span><span class="p">(</span><span class="sh">"</span><span class="s">Linear type must be destroyed explicitly using the `destroy_me` method.</span><span class="sh">"</span><span class="p">)</span>
-<span class="k">struct</span> <span class="n">Linear</span><span class="p">(</span><span class="n">ImplicitlyDeletable</span> <span class="n">where</span> <span class="bp">False</span><span class="p">):</span> 
+<span class="k">struct</span> <span class="n">Linear</span><span class="p">(</span><span class="n">ImplicitlyDeletable</span> <span class="k">where</span> <span class="bp">False</span><span class="p">):</span> 
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
   
-  <span class="k">def</span> <span class="nf">destroy_me</span><span class="p">(</span><span class="n">deinit</span> <span class="k">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">destroy_me</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Destroying Linear with value: </span><span class="sh">"</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Linear</span><span class="p">):</span>
