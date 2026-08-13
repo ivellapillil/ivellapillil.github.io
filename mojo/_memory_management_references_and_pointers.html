@@ -2172,9 +2172,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_memory_management_references_and_pointers.html#_pointers_in_mojo">14.2. Pointers in Mojo</a>
 </li>
-<li><a href="_memory_management_references_and_pointers.html#_pointer">14.3. Pointer</a>
-</li>
-<li><a href="_memory_management_references_and_pointers.html#_references">14.4. References</a>
+<li><a href="_memory_management_references_and_pointers.html#_references">14.3. References</a>
 </li>
 </ul>
 </li>
@@ -2289,249 +2287,12 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <p>Mojo provides many types of pointers to work with heap allocated data. Each pointer type has its own use cases and trade-offs.</p>
 </div>
 <div class="sect3">
-<h4 id="_unsafe_pointer">14.2.1. Unsafe Pointer</h4>
+<h4 id="_pointer">14.2.1. Pointer</h4>
 <div class="paragraph">
-<p>In order to allocate memory from the heap, we use pointer operations like <code>alloc</code> and <code>free</code>. Mojo provides <code>UnsafePointer</code> type for manually managed pointers. The type is explicitly named as <strong>unsafe</strong>, to indicate that Mojo would not be managing the lifetime of the value pointed by the <code>UnsafePointer</code>. Programmers must take care to ensure that <code>UnsafePointer</code> is carefully managed. However, contrary to pointers in languages like C/C++, Mojo provides some safety mechanisms using <code>Origin</code> to avoid common pitfalls.</p>
-</div>
-<div class="paragraph">
-<p>An example is shown in the following code listing.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
-
-<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
-
-<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span></code></pre>
-</div>
+<p>Mojo provides a versatile pointer type called <code>Pointer</code>. The <code>Pointer</code> type is a generic type that takes two parameters: the type of the value it points to and an <code>Origin</code> parameter that indicates the origin of the pointer. The <code>Origin</code> parameter is used to track the lifetime of the value being pointed to, ensuring that the value lives at least as long as the pointer being used. This prevents dangling pointers and ensures that the value is not de-allocated while it is still being used. You can use the <code>Pointer</code> type to refer to values stored in the heap, and unlike many system programming languages, it can be used relatively safely.</p>
 </div>
 <div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Allocate space to store one instance of `A`
-</span><span class="n">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
-</span><span class="n">x</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
-</span><span class="n">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
-</span><span class="n">x</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Frees the memory pointed by `x`</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length specified by the <code>count</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>alloc</code> method calculates the size of the type <code>A</code> and then allocate the total number of bytes for it. The space is initialized with value using <code>unsafe_write</code>. The <code>unsafe_write</code> expects its argument to implement the trait <code>Movable</code>, which indicates that the value can be safely moved to another location.</p>
-</div>
-<div class="paragraph">
-<p>Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>unsafe_deinit_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>free</code> method of <code>UnsafePointer</code>.</p>
-</div>
-<div class="paragraph">
-<p>On a quick look the above code seems to be simple and easy to reason, where the memory is allocated and freed. However, there is a potential memory leak. This would happen if the <code>print_pointer</code> or <code>print_value</code> throws an exception and the function exits early because of that. When that happens, the <code>free</code> will not get executed and the allocated memory in the heap would not be returned to the heap. This would lead to a memory leak, or worse, a security issue because now the data is available to potentially malicious code.</p>
-</div>
-<div class="paragraph">
-<p>In the following code listing we see that the memory is freed in all cases, including errors.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
-
-<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
-
-<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-    <span class="n">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="k">finally</span><span class="p">:</span>
-    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
-</span>    <span class="n">y</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>What if we already have an instantiated value and wanted to find its address? The <code>UnsafePointer</code> provides <code>__int__</code> method which can be used with <code>Int()</code> constructor to convert the pointer to an integer representation of the address.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
-
-<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
-
-<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-<span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
-<span class="n">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As mentioned earlier, care should be taken to understand the lifecycle of the value before passing its address. For example, <em>returning</em> the address of a value allocated on a stack frame to the callee stack frame would most likely result in a dangling pointer. Since Mojo destructs value on last use, it is also necessary to keep the value alive until the pointer&#8217;s purpose is completed, otherwise we have a pointer that points to an uninitialized memory since the value was already destructed.</p>
-</div>
-<div class="paragraph">
-<p>Mojo also provides another option to initialize an allocated memory, using <code>unsafe_write</code> with <code>copy=</code> argument. The difference is that the normal <code>unsafe_write</code> moves the value to the allocated space, while the <code>unsafe_write</code> with <code>copy=</code> just copies the value, leaving the original value intact.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
-
-<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
-    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
-        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
-
-<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
-</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">a</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">)))</span> <span class="c1"># Initialize the location
-</span><span class="n">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="bp">...</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It is also possible that we end up in a situation where two pointers are pointing to the same value. In this case, when a pointer is used to modify the value, the other pointer automatically refers to the modified value. In some case it may be intentional from the programmer&#8217;s side. However, in most cases, it results in defects that are hard to track and fix.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
-<span class="k">var</span> <span class="n">j</span> <span class="o">=</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
-</span><span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
-</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
-<span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the above example, two pointers were pointing to the same value. When one pointer was used to update the value, the other pointer picked up the updated value. This code is a simple one and it is easy to detect what is happening. However in large code bases especially in multi-threaded scenarios, such cases result in hard to find defects.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">m</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">)))</span> <span class="c1"># Initialize the location
-</span>
-<span class="k">def</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
-</span>    <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
-</span>    <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
-</span>    <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
-</span>
-<span class="n">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="n">print_value</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="bp">...</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the above example, Mojo compiler raises an error in function <code>m_func</code> when we try to modify the value pointed by <code>UnsafePointer</code>. This is because by default the <code>UnsafePointer</code> is immutable. If we want to have a mutable pointer, we need to explicitly declare it as mutable, for example by using <code>MutUntrackedOrigin</code> as its origin. We will cover origins in detail later.</p>
-</div>
-<div class="paragraph">
-<p>Even though Mojo performs some checks,  all bets are off when we use <code>UnsafePointer</code>. Mojo does not track completely what goes on with its usage. This is by design. <code>UnsafePointer</code> is useful for those cases where the application needs to work intimately with the hardware or the operating system. Therefore, use it with care.</p>
-</div>
-<div class="paragraph">
-<p>If pointers are such a pain, then why do we use it? If you want to work with hardware devices, pointers are a must. If we want to call into operating system APIs, pointers are needed. So while pointers are unsafe, they are necessary for low-level programming.</p>
-</div>
-<div class="sect4">
-<h5 id="_null_pointers">Null pointers</h5>
-<div class="paragraph">
-<p>Sometimes we may want to have a pointer that does not point to any value, especially when we need to interface with external libraries or operating system APIs. A pointer that does not point to any value is known as a null pointer. In Mojo, we can use <code>Optional</code> wrapping a pointer to represent a nullable pointer. The <code>Optional</code> type indicates that the pointer can either have a value (i.e., it points to a value) or it can be null (i.e., it does not point to any value). Usage of <code>Optional</code> makes it explicit in the code that the pointer can be null, and therefore programmers need to handle the null case explicitly, avoiding potential null pointer dereference issues. Optional with pointers is a zero cost abstraction, meaning that it does not introduce any overhead compared to using null pointers, as the compiler optimizes it away whenever possible.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">nullable_ptr</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">ImmutAnyOrigin</span><span class="p">]]()</span> <span class="c1"># Nullable pointer
-</span><span class="k">if</span> <span class="n">nullable_ptr</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">nullable_ptr</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Nothing is printed as the pointer is null
-</span><span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Pointer is null</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_arc_pointer">14.2.2. ARC Pointer</h4>
-<div class="paragraph">
-<p>As you have already seen, managing values on the heap requires a lot of care. Some programming languages make it easy to manage values allocated on the heap through the use of a garbage collector. A garbage collector keeps track of values on the heap and as soon as it determines that nothing is using it, it will automatically clear the value and its associated memory (the unused value is the "garbage"). There are different approaches to garbage collection. One of them is reference counting.</p>
-</div>
-<div class="paragraph">
-<p>Mojo has a reference counted pointer named as <code>ArcPointer</code>. The <code>ArcPointer</code> keeps the count of its copies in use. If an <code>ArcPointer</code> pointer is created, and it is then passed to another function as a copy while sharing the same underlying value, the <code>ArcPointer</code> will increment its count. When all the <code>ArcPointer</code> pointers to that value is destructed, the count becomes zero and the underlying value will also be destructed and its memory cleared.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">ArcPointer</span>
-<span class="k">var</span> <span class="n">arcp</span> <span class="o">=</span> <span class="n">ArcPointer</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-<span class="c1"># Reference count is 1
-</span><span class="k">var</span> <span class="n">arcp2</span> <span class="o">=</span> <span class="n">arcp</span> <span class="c1"># Reference count increased with this copy
-# Count is now 2 as `arcp` is copied to new `ArcPointer` called `arcp2`
-</span><span class="k">print</span><span class="p">(</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 200
-</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
-<span class="c1"># Count is now 1 as `arcp` is cleared as the above line was its last use
-</span><span class="k">print</span><span class="p">(</span><span class="n">arcp2</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 210
-# Value is cleared from memory</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>ArcPointer</code> solves de-allocation issues we saw earlier by piggy backing on Mojo compiler&#8217;s eager destruction of values on the stack frame. However, it does not solve other issues like concurrent mutation.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_pointer">14.3. Pointer</h3>
-<div class="paragraph">
-<p>If <code>ArcPointer</code> keeps a <em>runtime</em> record of its copies so as to ensure that the value is destructed when it is no longer needed, <code>Pointer</code> helps Mojo compiler to track it at compile-time.</p>
-</div>
-<div class="paragraph">
-<p>The <code>Pointer</code> type takes in an <code>Origin</code> parameter, which is then tracked across assignments and moves. This tracking by the compiler ensures that the value pointed by <code>Pointer</code> lives at least as long as the pointer being used, preventing dangling pointers.</p>
-</div>
-<div class="paragraph">
-<p>The <code>Pointer</code> type in Mojo is always derived from a preexisting value, unlike <code>UnsafePointer</code> that can exist independent of the value (e.g. null pointers are impossible in <code>Pointer</code>). The Mojo compiler also does not allow replacing values referred by the <code>Pointer</code> with another value.</p>
+<p>The <code>Pointer</code> type in Mojo can be derived from a preexisting value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2701,11 +2462,279 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <div class="paragraph">
 <p>Here we are taking a <code>MutOrigin</code> as parameter, which is then passed on to the pointer. The compiler would then preserve the original mutability of the pointer.</p>
 </div>
+<div class="sect4">
+<h5 id="_unsafe_usages">Unsafe usages</h5>
 <div class="paragraph">
-<p>Most of the pointer use cases can be solved using <code>Pointer</code>. However, in some low-level programming scenarios, we may need to use <code>UnsafePointer</code> for fine-grained control.</p>
+<p>In order to manually allocate memory from the heap, we use function <code>alloc</code> and to free the allocated memory, we use <code>dealloc</code>. The <code>Pointer</code> provides some methods explicitly prefixed with <strong>unsafe</strong>, to indicate that those methods are to be used carefully.</p>
+</div>
+<div class="paragraph">
+<p>An example is shown in the following code listing where the pointers are manually managed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span> <span class="c1"># Allocate space to store one instance of `A` and get the pointer
+</span><span class="n">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
+</span><span class="n">x</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="n">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value before trying to free the memory
+</span><span class="n">x</span><span class="p">.</span><span class="nf">unsafe_free</span><span class="p">()</span> <span class="c1"># Frees the memory pointed by `x`</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we see that a memory storage for type <code>A</code> is allocated on the heap using <code>alloc</code>. You can think of <code>alloc</code> allocating an array with length and layout specified by the <code>layout</code> argument. The <code>count</code> is the number of items of type <code>A</code> planned to be stored in that memory storage. The <code>Layout</code> takes a parameter that specifies the type of the value - in this case, <code>A</code>. The <code>alloc</code> method uses the information from layout to allocate the total number of bytes for it. The <code>alloc</code> method returns <code>Allocation</code> object. We are then using the <code>unsafe_leak</code> method to get a pointer to the allocated space. It is called <code>unsafe_leak</code> because it is possible that we may forget to free the memory, resulting in a memory leak. The <code>unsafe_leak</code> method returns a <code>Pointer</code> to the allocated space.</p>
+</div>
+<div class="paragraph">
+<p>The space is initialized with value using <code>unsafe_write</code>. Note that the <code>unsafe_write</code> expects its argument to implement the trait <code>Movable</code>, which indicates that the value can be safely moved to another location.</p>
+</div>
+<div class="paragraph">
+<p>Mojo stores the value in the allocated memory storage contiguously. In order to get to the initialized value, we use the de-reference operator <code>[]</code>. You can think of the de-reference operator as array subscript getting the first element of an array (actually <code>p[0]</code> would also work, but is discouraged). Before freeing the memory used by a value, we must call <code>unsafe_deinit_pointee</code>, to ensure that all the related resources are also freed. Otherwise we would face a memory leak. Later we de-allocate the space using the <code>unsafe_free</code> method of <code>Pointer</code>.</p>
+</div>
+<div class="paragraph">
+<p>On a quick look the above code seems to be simple and easy to reason, where the memory is allocated and freed. However, there is a potential memory leak. This would happen if somewhere between the allocation and deallocation, the function exits early because of an exception. When that happens, the <code>unsafe_free</code> (or <code>unsafe_deinit_pointee</code>) will not get executed and the allocated memory in the heap would not be returned to the heap. This would lead to a memory leak, or worse, a security issue because now the data is available to potentially malicious code.</p>
+</div>
+<div class="paragraph">
+<p>In the following code listing we see that the memory is freed in all cases, including errors.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">y</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span> <span class="c1"># Allocate space to store one instance of `A`
+</span><span class="k">try</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">print_pointer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span> <span class="c1"># Destroy the value even in case of exception
+</span>    <span class="n">y</span><span class="p">.</span><span class="nf">unsafe_free</span><span class="p">()</span> <span class="c1"># Free the memory even in case of exception</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can use <code>Allocation</code> object returned by <code>alloc</code> to free the memory more reliably. The <code>Allocation</code> object has a method <code>unsafe_ptr()</code> which returns a pointer to the allocated space. The <code>dealloc</code> function takes an allocation and reliably deallocates.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">xalloc</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># Allocate space to store one instance of `A`
+</span><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">xalloc</span><span class="p">.</span><span class="nf">unsafe_ptr</span><span class="p">()</span> <span class="c1"># Get the pointer to the allocated space
+</span><span class="n">print_pointer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Prints hexa decimal representation of the address within `x`
+</span><span class="n">x</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="n">print_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">dealloc</span><span class="p">(</span><span class="n">xalloc</span><span class="o">^</span><span class="p">)</span> <span class="c1"># Deallocate the space allocated for `x`</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What if we already have an instantiated value and wanted to find its address? The <code>Pointer</code> provides <code>__int__</code> method which can be used with <code>Int()</code> constructor to convert the pointer to an integer representation of the address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a_instance</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">z</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">a_instance</span><span class="p">)</span>
+<span class="n">print_pointer</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As mentioned earlier, care should be taken to understand the lifecycle of the value before passing its address. For example, <em>returning</em> the address of a value allocated on a stack frame to the callee stack frame would most likely result in a dangling pointer. Since Mojo destructs value on last use, it is also necessary to keep the value alive until the pointer&#8217;s purpose is completed, otherwise we have a pointer that points to an uninitialized memory since the value was already destructed.</p>
+</div>
+<div class="paragraph">
+<p>Mojo also provides another option to initialize an allocated memory, using <code>unsafe_write</code> with <code>copy=</code> argument. The difference is that the normal <code>unsafe_write</code> moves the value to the allocated space, while the <code>unsafe_write</code> with <code>copy=</code> just copies the value, leaving the original value intact.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
+
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+    <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">def</span> <span class="nf">print_pointer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">print_value</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># De-reference the pointer and then get the `val` field
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span> <span class="c1"># Allocate space to store one instance of `A`
+</span><span class="n">a</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span><span class="n">print_value</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="bp">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is also possible that we end up in a situation where two pointers are pointing to the same value. In this case, when a pointer is used to modify the value, the other pointer automatically refers to the modified value. In some case it may be intentional from the programmer&#8217;s side. However, in most cases, it results in defects that are hard to track and fix.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">another_a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">j</span> <span class="o">=</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">to</span><span class="o">=</span><span class="n">another_a</span><span class="p">)</span> <span class="c1"># Pointer aliased
+</span><span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 100
+</span><span class="n">i</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 110</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, two pointers were pointing to the same value. When one pointer was used to update the value, the other pointer picked up the updated value. This code is a simple one and it is easy to detect what is happening. However in large code bases especially in multi-threaded scenarios, such cases result in hard to find defects.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">m</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">A</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span> <span class="c1"># Allocate space to store one instance of `A`
+</span><span class="n">m</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="n">A</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1"># Initialize the location
+</span>
+<span class="k">def</span> <span class="nf">m_func</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">_</span><span class="p">]):</span> <span class="c1"># The pointer is immutable
+</span>    <span class="c1"># p[] = A(5) # Uncommenting this line will cause a compile time error
+</span>    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">m_func2</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]):</span> <span class="c1"># The pointer is now taken as mutable
+</span>    <span class="n">p</span><span class="p">[]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># This works fine
+</span>
+<span class="n">m_func2</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">print_value</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="bp">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, Mojo compiler raises an error in function <code>m_func</code> when we try to modify the value pointed by <code>Pointer</code>. This is because by default the <code>Pointer</code> is immutable. If we want to have a mutable pointer, we need to explicitly declare it as mutable, for example by using <code>MutUntrackedOrigin</code> as its origin.</p>
+</div>
+<div class="paragraph">
+<p>Even though Mojo performs some checks,  all bets are off when we use <code>Pointer</code>. Mojo does not track completely what goes on with its usage. This is by design. <code>Pointer</code> is useful for those cases where the application needs to work intimately with the hardware or the operating system. Therefore, use it with care.</p>
+</div>
+<div class="paragraph">
+<p>If pointers are such a pain, then why do we use it? If you want to work with hardware devices, pointers are a must. If we want to call into operating system APIs, pointers are needed. So while pointers are unsafe, they are necessary for low-level programming.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_null_pointers">Null pointers</h5>
+<div class="paragraph">
+<p>Sometimes we may want to have a pointer that does not point to any value, especially when we need to interface with external libraries or operating system APIs. A pointer that does not point to any value is known as a null pointer. In Mojo, we can use <code>Optional</code> wrapping a pointer to represent a nullable pointer. The <code>Optional</code> type indicates that the pointer can either have a value (i.e., it points to a value) or it can be null (i.e., it does not point to any value). Usage of <code>Optional</code> makes it explicit in the code that the pointer can be null, and therefore programmers need to handle the null case explicitly, avoiding potential null pointer dereference issues. Optional with pointers is a zero cost abstraction, meaning that it does not introduce any overhead compared to using null pointers, as the compiler optimizes it away whenever possible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">nullable_ptr</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutAnyOrigin</span><span class="p">]]()</span> <span class="c1"># Nullable pointer
+</span><span class="k">if</span> <span class="n">nullable_ptr</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">nullable_ptr</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span> <span class="c1"># Nothing is printed as the pointer is null
+</span><span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Pointer is null</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_ownedpointer">14.3.1. OwnedPointer</h4>
+<h4 id="_arc_pointer">14.2.2. ARC Pointer</h4>
+<div class="paragraph">
+<p>As you have already seen, managing values on the heap requires a lot of care. Some programming languages make it easy to manage values allocated on the heap through the use of a garbage collector. A garbage collector keeps track of values on the heap and as soon as it determines that nothing is using it, it will automatically clear the value and its associated memory (the unused value is the "garbage"). There are different approaches to garbage collection. One of them is reference counting.</p>
+</div>
+<div class="paragraph">
+<p>Mojo has a reference counted pointer named as <code>ArcPointer</code>. The <code>ArcPointer</code> keeps the count of its copies in use. If an <code>ArcPointer</code> pointer is created, and it is then passed to another function as a copy while sharing the same underlying value, the <code>ArcPointer</code> will increment its count. When all the <code>ArcPointer</code> pointers to that value is destructed, the count becomes zero and the underlying value will also be destructed and its memory cleared.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">ArcPointer</span>
+<span class="k">var</span> <span class="n">arcp</span> <span class="o">=</span> <span class="n">ArcPointer</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
+<span class="c1"># Reference count is 1
+</span><span class="k">var</span> <span class="n">arcp2</span> <span class="o">=</span> <span class="n">arcp</span> <span class="c1"># Reference count increased with this copy
+# Count is now 2 as `arcp` is copied to new `ArcPointer` called `arcp2`
+</span><span class="k">print</span><span class="p">(</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 200
+</span><span class="n">arcp</span><span class="p">[].</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="c1"># Count is now 1 as `arcp` is cleared as the above line was its last use
+</span><span class="k">print</span><span class="p">(</span><span class="n">arcp2</span><span class="p">[].</span><span class="n">val</span><span class="p">)</span> <span class="c1"># Prints 210
+# Value is cleared from memory</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>ArcPointer</code> solves de-allocation issues we saw earlier by piggy backing on Mojo compiler&#8217;s eager destruction of values on the stack frame. However, it does not solve other issues like concurrent mutation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ownedpointer">14.2.3. OwnedPointer</h4>
 <div class="paragraph">
 <p>In order to ensure a proper management of memory, it is necessary to have clarity on who owns the responsibility of de-allocating a value. In Mojo, the <code>OwnedPointer</code> type is used to indicate that the pointer owns the value it points to. When an <code>OwnedPointer</code> is destructed, it will also destruct the underlying value and free its memory. Such type of pointers are also known as <em>smart pointers</em>.</p>
 </div>
@@ -2714,7 +2743,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory.owned_pointer</span> <span class="kn">import</span> <span class="n">OwnedPointer</span>
 <span class="kn">from</span> <span class="nn">std.memory.unsafe_pointer</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
 
-<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">Movable</span><span class="p">,</span> <span class="n">ImplicitlyCopyable</span><span class="p">):</span>
+<span class="k">struct</span> <span class="n">A</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
@@ -2754,7 +2783,7 @@ Similarly, when a thread is instantiated for execution, it is assigned a "workin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_references">14.4. References</h3>
+<h3 id="_references">14.3. References</h3>
 <div class="paragraph">
 <p>In Mojo, references are used to refer to values stored in memory. References in Mojo are always safe to use, as the compiler tracks their usage and ensures that they do not outlive the value they refer to. References are defined using the <code>ref</code> keyword on a variable definition. This keyword indicates to the compiler that the variable is a reference to another value, and not a value itself. References are not the same as pointers, although they may seem similar. References in Mojo are always valid and cannot be null or dangling. We saw earlier the keyword <code>mut</code> in function arguments. This keyword is used to define references with mutability. The <code>ref</code> is a more generic form of this keyword.</p>
 </div>

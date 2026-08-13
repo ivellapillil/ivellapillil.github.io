@@ -2188,19 +2188,17 @@ pre.rouge .gs {
 </li>
 <li><a href="_parameters_and_compile_time_programming.html#_trait_composition">12.12. Trait composition</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_conditional_conformance">12.13. Conditional conformance</a>
+<li><a href="_parameters_and_compile_time_programming.html#_where_clauses">12.13. <code>where</code> clauses</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_where_clauses">12.14. <code>where</code> clauses</a>
+<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">12.14. Custom compile-time checks</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_custom_compile_time_checks">12.15. Custom compile-time checks</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.15. Parameterized errors</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parameterized_errors">12.16. Parameterized errors</a>
+<li><a href="_parameters_and_compile_time_programming.html#_partially_bound_parameters">12.16. Partially bound parameters</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_partially_bound_parameters">12.17. Partially bound parameters</a>
+<li><a href="_parameters_and_compile_time_programming.html#_parametric_aliases">12.17. Parametric aliases</a>
 </li>
-<li><a href="_parameters_and_compile_time_programming.html#_parametric_aliases">12.18. Parametric aliases</a>
-</li>
-<li><a href="_parameters_and_compile_time_programming.html#_dependent_types">12.19. Dependent types</a>
+<li><a href="_parameters_and_compile_time_programming.html#_dependent_types">12.18. Dependent types</a>
 </li>
 </ul>
 </li>
@@ -2304,6 +2302,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># Execute with "mojo -D add_it=True &lt;filename&gt;" for a non-zero value
 </span><span class="kn">from</span> <span class="nn">std.sys</span> <span class="kn">import</span> <span class="n">is_defined</span>
+<span class="k">var</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span>
 <span class="k">comptime</span> <span class="k">if</span> <span class="n">is_defined</span><span class="p">[</span><span class="sh">"</span><span class="s">add_it</span><span class="sh">"</span><span class="p">]():</span> 
     <span class="n">x</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -2650,64 +2649,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditional_conformance">12.13. Conditional conformance</h3>
-<div class="paragraph">
-<p>We can also overload methods based on concrete types of <code>self</code> itself. In the following code listing, the version of the <code>hello</code> method chosen depends on the concrete type of the passed parameter <code>T</code>. Note that here the <code>self</code> type is explicitly defined, unlike how we usually specify <code>self</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]:</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
-
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]):</span> 
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10</span><span class="sh">"</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]):</span> 
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello 10.5</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10'
-</span><span class="n">HelloMessage</span><span class="p">[</span><span class="n">Float16</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello 10.5'</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also use numeric parameters.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloCount</span><span class="p">[</span><span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
-
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span> 
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span> 
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 2'
-</span><span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 3'
-# HelloCount[4]().hello() # Uncommenting this would result in error as there is no such overload</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Conditional conformance also works with <code><em>init</em></code> method.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_where_clauses">12.14. <code>where</code> clauses</h3>
+<h3 id="_where_clauses">12.13. <code>where</code> clauses</h3>
 <div class="paragraph">
 <p>Mojo provides <code>where</code> clauses to provide additional constraints on parameters, which are not possible to express using just the type system. The <code>where</code> clause expressions are evaluated at compile-time. If the expression evaluates to <code>False</code>, then a compile-time error is produced.</p>
 </div>
@@ -2738,7 +2680,61 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <p><code>where</code> clauses help developers and especially library authors to define stronger contracts on their APIs, ensuring that the users of those APIs have clear guidance on what the boundaries of the APIs are.</p>
 </div>
 <div class="sect3">
-<h4 id="_conditionally_conforming_to_a_trait">12.14.1. Conditionally conforming to a trait</h4>
+<h4 id="_conditional_conformance_on_methods">12.13.1. Conditional conformance on methods</h4>
+<div class="paragraph">
+<p>We can also overload methods based on <code>where</code> clause. In the following code listing, the version of the <code>hello</code> method chosen depends on the concrete type of the passed parameter <code>T</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloMessage</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">]:</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="k">where</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span> <span class="o">==</span> <span class="n">Int</span><span class="p">:</span> 
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello Int</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="k">where</span> <span class="n">Self</span><span class="p">.</span><span class="n">T</span> <span class="o">==</span> <span class="n">String</span><span class="p">:</span> 
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello String</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">HelloMessage</span><span class="p">[</span><span class="n">Int</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello Int'
+</span><span class="n">HelloMessage</span><span class="p">[</span><span class="n">String</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Hello String'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also use numeric parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">HelloCount</span><span class="p">[</span><span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
+
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="k">where</span> <span class="n">Self</span><span class="p">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 2</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="k">where</span> <span class="n">Self</span><span class="p">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> 
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Count was 3</span><span class="sh">"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="n">HelloCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 2'
+</span><span class="n">HelloCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]().</span><span class="nf">hello</span><span class="p">()</span> <span class="c1"># Prints 'Count was 3'
+# HelloCount[4]().hello() # Uncommenting this would result in error as there is no such overload</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conditionally_conforming_to_a_trait">12.13.2. Conditionally conforming to a trait</h4>
 <div class="paragraph">
 <p>You can conditionally implement a trait using a <code>where</code> clause. This is useful when you want to implement a trait for a struct only if certain conditions are met. For example, you can implement a trait for a struct only if the struct&#8217;s parameter is of a certain type.</p>
 </div>
@@ -2769,10 +2765,29 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="paragraph">
 <p>The above example also shows that you can use comparison operators for comparing types. Both <code>==</code> and <code>!=</code> operators are supported for comparing types.</p>
 </div>
+<div class="paragraph">
+<p>You can provide a custom error message to the <code>where</code> clause, which will be displayed when the <code>where</code> clause fails. This is useful when you want to provide more context to the user about why the <code>where</code> clause failed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">CopyOnlyInt</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">AnyType</span><span class="p">](</span><span class="n">Copyable</span> <span class="k">where</span> <span class="p">(</span><span class="n">T</span> <span class="o">==</span> <span class="n">Int</span><span class="p">,</span> <span class="sh">"</span><span class="s">CopyOnlyInt can only be instantiated with Int type</span><span class="sh">"</span><span class="p">)):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span>
+        <span class="bp">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">copyStr</span> <span class="o">=</span> <span class="n">CopyOnlyInt</span><span class="p">[</span><span class="n">String</span><span class="p">]()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">copyStr</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>  </code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_compile_time_checks">12.15. Custom compile-time checks</h3>
+<h3 id="_custom_compile_time_checks">12.14. Custom compile-time checks</h3>
 <div class="paragraph">
 <p>When we develop a program, we often make assumptions about the arguments we receive or the context in which we execute a function and so on. We can use <code>if</code> statements to validate those assumptions, but it is possible that there is a performance cost to such validations. Many programming languages provide a facility known as assertion, to validate those assumptions with minimal impact to the runtime performance of the code.</p>
 </div>
@@ -2802,7 +2817,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parameterized_errors">12.16. Parameterized errors</h3>
+<h3 id="_parameterized_errors">12.15. Parameterized errors</h3>
 <div class="paragraph">
 <p>Mojo allows us to define parameterized errors. This is useful when we want to abstract away the type of error that could be raised, and let the caller decide on what error type to use.</p>
 </div>
@@ -2843,7 +2858,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partially_bound_parameters">12.17. Partially bound parameters</h3>
+<h3 id="_partially_bound_parameters">12.16. Partially bound parameters</h3>
 <div class="paragraph">
 <p>In some cases, we may want to partially bind parameters to a function, and leave the rest of the parameters to be specified by the caller.</p>
 </div>
@@ -2875,7 +2890,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parametric_aliases">12.18. Parametric aliases</h3>
+<h3 id="_parametric_aliases">12.17. Parametric aliases</h3>
 <div class="paragraph">
 <p>Earlier we saw that we can use <code>comptime</code> to define an alias for a struct with specific parameters. We can also define aliases with parameters.</p>
 </div>
@@ -2883,7 +2898,7 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># tag::parametric_alias[]
-</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span> <span class="o">&amp;</span> <span class="n">ImplicitlyDeletable</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
+</span>    <span class="k">comptime</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Intable</span> <span class="o">&amp;</span> <span class="n">Copyable</span> <span class="o">&amp;</span> <span class="n">Deinitable</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="c1"># This defines a parametric alias for a dictionary where the key type is always Int and the value type is a parameter T that is to be provided.
 </span>    <span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">IntDict</span><span class="p">[</span><span class="n">Int</span><span class="p">]()</span> <span class="c1"># We can use the alias similar to a normal type, but the value type needs to satisfy the constraints specified in the alias definition (in this case, it needs to implement the traits Intable and Copyable).
 </span>    <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -2894,11 +2909,11 @@ For example, <code>mojo -D add_it=True filename.mojo</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a parametric alias <code>IntDict</code> for a dictionary where the key type is always <code>Int</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additional constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>IntDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code>, <code>Copyable</code>, and <code>ImplicitlyDeletable</code>. This means that we can only use the <code>IntDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
+<p>In the above example, we have defined a parametric alias <code>IntDict</code> for a dictionary where the key type is always <code>Int</code> and the value type is a parameter <code>T</code> that is to be provided. We can use the alias similar to a normal type, as shown in the usage example. Parametric aliases are quite useful to create reusable abstractions with some fixed parameters and some flexible parameters, similar to partially bound types. The difference between them is that with parametric aliases we can add additional constraints on the parameters, while with partially bound types we cannot add additional constraints on the parameters. For example, in the <code>IntDict</code> alias we have added a constraint that the value type <code>T</code> must implement the traits <code>Intable</code>, <code>Copyable</code>, and <code>Deinitable</code>. This means that we can only use the <code>IntDict</code> alias with value types that implement those traits, which is not possible to express with a partially bound type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependent_types">12.19. Dependent types</h3>
+<h3 id="_dependent_types">12.18. Dependent types</h3>
 <div class="paragraph">
 <p>Many programming languages have a clear distinction between types and values. Types are used to define how data is structured, while values are the actual data that we manipulate in our programs. Mojo blurs the line between types and values by allowing types to depend on values. This is a powerful feature that allows us to express complex relationships between types and values, and to define invariants in the type system. In short,
 dependent types are types that depend on values. Mojo allows us to define dependent types using parameters.</p>
@@ -2906,22 +2921,22 @@ dependent types are types that depend on values. Mojo allows us to define depend
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="c1"># tag::dependent_types[]
-</span><span class="k">def</span> <span class="nf">append</span><span class="p">[</span><span class="n">N</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">:</span> <span class="n">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">]:</span> <span class="c1"># The return type has a dependent type that depends on the parameters N and M
-</span>    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">](</span><span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span class="k">def</span> <span class="nf">append</span><span class="p">[</span><span class="n">N</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">:</span> <span class="n">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">]:</span> <span class="c1"># The return type has a dependent type that depends on the parameters N and M
+</span>    <span class="k">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">M</span> <span class="o">+</span> <span class="n">N</span><span class="p">](</span><span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">N</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">result</span>
-<span class="c1"># end::dependent_types[]
+    <span class="k">return</span> <span class="n">result</span><span class="o">^</span> <span class="c1"># The ^ operator transfers the ownership of the result. This operator will be explained in detail later on.
+# end::dependent_types[]
 </span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># tag::dependent_types_use[]
-</span>    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span>    <span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
-</span>    <span class="c1"># var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error 
+</span>    <span class="c1"># var d: Array[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error 
 </span>    <span class="c1"># end::dependent_types_use[]</span></code></pre>
 </div>
 </div>
@@ -2930,11 +2945,11 @@ dependent types are types that depend on values. Mojo allows us to define depend
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">InlineArray</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="k">var</span> <span class="n">c</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># [1, 2, 3, 4, 5]
-# var d: InlineArray[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error </span></code></pre>
+# var d: Array[Int, 4] = append(a, b) # Uncommenting this line will cause a compile-time error </span></code></pre>
 </div>
 </div>
 <div class="paragraph">

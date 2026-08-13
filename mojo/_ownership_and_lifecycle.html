@@ -2168,7 +2168,7 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="_ownership_and_lifecycle.html#_pass_by_value_and_pass_by_reference">13.1. Pass by value and pass by reference</a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_read">13.2. read</a>
+<li><a href="_ownership_and_lifecycle.html#_imm">13.2. imm</a>
 </li>
 <li><a href="_ownership_and_lifecycle.html#_var">13.3. var</a>
 </li>
@@ -2178,7 +2178,7 @@ pre.rouge .gs {
 </li>
 <li><a href="_ownership_and_lifecycle.html#_init">13.6. <code>__init__</code></a>
 </li>
-<li><a href="_ownership_and_lifecycle.html#_del">13.7. <code>__del__</code></a>
+<li><a href="_ownership_and_lifecycle.html#_deinit">13.7. <code>__deinit__</code></a>
 </li>
 <li><a href="_ownership_and_lifecycle.html#_copy_constructor">13.8. Copy constructor</a>
 </li>
@@ -2236,18 +2236,18 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read">13.2. read</h3>
+<h3 id="_imm">13.2. imm</h3>
 <div class="paragraph">
-<p>The <code>read</code> keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>read</code> keyword is not necessary to be given.</p>
+<p>The <code>imm</code> keyword indicates that the argument is used only to read the value and the argument&#8217;s value will not be changed. This is the default behavior of all Mojo function&#8217;s arguments, so the <code>imm</code> keyword is not necessary to be given in function arguments. The keyword <code>imm</code> stands for immutable.</p>
 </div>
 <div class="paragraph">
-<p>When an argument is marked as <code>read</code>, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
+<p>When an argument is marked as <code>imm</code>, the Mojo compiler prevents any mutation of the argument&#8217;s value. It also does not allow the binding of the argument to be changed as it would have led to discarding (and destruction) of the original value contained in the argument. Since we are borrowing the value, the caller would not expect the value to be destroyed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_read</span><span class="p">(</span><span class="k">read</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">value_read</span><span class="p">(</span><span class="n">imm</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
     <span class="bp">...</span>
-<span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also read
+<span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="c1"># This is also imm
 </span>    <span class="bp">...</span></code></pre>
 </div>
 </div>
@@ -2312,13 +2312,14 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span>
+<span class="kn">from</span> <span class="nn">std.memory.alloc</span> <span class="kn">import</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
 <span class="k">struct</span> <span class="n">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2338,23 +2339,24 @@ pre.rouge .gs {
 <p>In this example, we defined a <code>struct</code> and the <code>__init__</code> method within it. The first argument of the <code>__init__</code> method is always <code>self</code> with a modifier <code>out</code>. The <code>self</code> is a reference to the struct&#8217;s own instance that is going to be created. The <code>out</code> tells the compiler that the <code>self</code> is to be initiated and returned by the method (i.e., we can change the field values held within <code>self</code> and <code>self</code> is returned). In Mojo, the function arguments are <em>by default read-only</em>, and we cannot change the values of the function argument. The <code>out</code> is needed for <code>self</code> so that we are able to initialize the fields within the struct. Since one of the main responsibility of <code>__init__</code> is to initialize the fields of the struct and return it, we naturally need to mark it as <code>out</code>. This implies that the <code>__init__</code> method is like a static method on <code>Self</code>, that returns an instance of <code>Self</code>.</p>
 </div>
 <div class="paragraph">
-<p>In the example, we are allocating memory from the heap to store an integer value using the static method call <code>UnsafePointer[Int].alloc</code>. We store a value into the pointer location using the method <code>unsafe_write</code> on the <code>UnsafePointer</code>. We retrieve the stored value from the pointer using the deference operator <code>[]</code>.</p>
+<p>In the example, we are allocating memory from the heap to store an integer value using the function call <code>alloc</code>. We store a value into the pointer location using the method <code>unsafe_write</code> on the <code>Pointer</code>. We retrieve the stored value from the pointer using the de-reference operator <code>[]</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_del">13.7. <code>__del__</code></h3>
+<h3 id="_deinit">13.7. <code>__deinit__</code></h3>
 <div class="paragraph">
-<p>The delete method <code>__del__</code> is also part of the lifecycle of a struct. If the init method is used to initialize variables or to allocate resources for that struct, the delete method is used to release the resources held for that struct. For example, if init method allocates memory from the heap, the delete method is used to free that memory. The <code>__del__</code> method is called just before the value is going to be destroyed by the compiler. If we allocate resources in the init method and do not release or free those resources in the delete method, we end up with resource leaks such as memory leaks. So great care must be taken to symmetrically allocate and free resources using the init and delete methods. You may have noticed that the <code>self</code> argument of the <code>__del__</code> method is marked with the <code>deinit</code> keyword. This indicates that the value is about to be destroyed.</p>
+<p>The de-initialization method <code>__deinit__</code> is also part of the lifecycle of a struct. If the init method is used to initialize variables or to allocate resources for that struct, the de-initialization method is used to release the resources held for that struct. For example, if init method allocates memory from the heap, the deinit method is used to free that memory. The <code>__deinit__</code> method is called just before the value is going to be destroyed by the compiler. If we allocate resources in the init method and do not release or free those resources in the de-initialization method, we end up with resource leaks such as memory leaks. So great care must be taken to symmetrically allocate and free resources using the init and deinit methods. You may have noticed that the <code>self</code> argument of the <code>__deinit__</code> method is marked with the <code>deinit</code> keyword. This indicates that the value is about to be destroyed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span>
+<span class="kn">from</span> <span class="nn">std.memory.alloc</span> <span class="kn">import</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
 <span class="k">struct</span> <span class="n">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2366,9 +2368,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__deinit__</span><span class="p">(</span><span class="k">deinit</span> <span class="k">self</span><span class="p">):</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_deinit_pointee</span><span class="p">()</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">free</span><span class="p">()</span></code></pre>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_free</span><span class="p">()</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2412,13 +2414,14 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">UnsafePointer</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span>
+<span class="kn">from</span> <span class="nn">std.memory.alloc</span> <span class="kn">import</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">alloc</span><span class="p">,</span> <span class="n">dealloc</span>
 <span class="k">struct</span> <span class="n">MyNumber</span><span class="p">(</span><span class="n">ImplicitlyCopyable</span><span class="p">):</span>
 
-    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">UnsafePointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
+    <span class="k">var</span> <span class="n">value_ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">MutUntrackedOrigin</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span>
         <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
@@ -2431,7 +2434,7 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">Layout</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)).</span><span class="nf">unsafe_leak</span><span class="p">()</span>
     <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span><span class="p">.</span><span class="nf">unsafe_write</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">.</span><span class="nf">value</span><span class="p">())</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Copying MyNumber</span><span class="sh">"</span><span class="p">)</span></code></pre>
 </div>
@@ -2481,7 +2484,7 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_move_constructor">13.9. Move constructor</h3>
 <div class="paragraph">
-<p>Mojo invokes the <code>__init__(out self, *, deinit take: Self)</code> for cases where a value needs to be physically moved. This method is quite similar to the <code>__init__</code> method in the sense that it initializes the struct. In contrast to the copy constructor, the move constructor has the second argument annotated with <code>deinit</code>. The <code>deinit</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In the move constructor, we reassign the values from the <code>take</code> struct to the struct which defines the move constructor. Similar to the copy constructor, the move constructor must be named exactly <code>__init__(out self, *, deinit take: Self)</code> for the compiler to recognize it as a move constructor and call it when a move operation is needed. The <code>take</code> keyword is used to indicate that this is a move constructor.</p>
+<p>Mojo invokes the <code>__init__(out self, *, deinit move: Self)</code> for cases where a value needs to be physically moved. This method is quite similar to the <code>__init__</code> method in the sense that it initializes the struct. In contrast to the copy constructor, the move constructor has the second argument annotated with <code>deinit</code>. The <code>deinit</code> is required because the second argument&#8217;s value will be destroyed once the move operation completes. In the move constructor, we reassign the values from the <code>move</code> struct to the struct which defines the move constructor. Similar to the copy constructor, the move constructor must be named exactly <code>__init__(out self, *, deinit move: Self)</code> for the compiler to recognize it as a move constructor and call it when a move operation is needed. The <code>move</code> keyword is used to indicate that this is a move constructor.</p>
 </div>
 <div class="paragraph">
 <p>One thing to note is that the move constructor may not be always called when a value is "moved" (even when using the transfer <code>^</code> operator). You can think of move as a transfer of ownership, but sometimes the compiler is not able to optimize it to a simple transfer of ownership (logical move), instead needs to copy the value to a new location and clear the old location (physical move). Physical move happens for example when a value is moving from a short-lived stack frame to a longer lived one.</p>
@@ -2494,9 +2497,9 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">take</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="k">deinit</span> <span class="n">move</span><span class="p">:</span> <span class="n">Self</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Moving MyNumber</span><span class="sh">"</span><span class="p">)</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">take</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
+    <span class="k">self</span><span class="p">.</span><span class="n">value_ptr</span> <span class="o">=</span> <span class="n">move</span><span class="p">.</span><span class="n">value_ptr</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2519,14 +2522,11 @@ pre.rouge .gs {
 <p>Due to the fact that Mojo compiler decides when to physically copy or move, we cannot make assumptions on when the move constructor and copy constructor are actually called.</p>
 </div>
 <div class="paragraph">
-<p>Mojo requires explicit declaration of the trait <code>Movable</code> to enable move semantics. Mojo compiler generates a default implementation of the move constructor if the struct implements the <code>Movable</code> trait. Most of the time this is sufficient, unless your struct holds resources that need special handling during move.</p>
-</div>
-<div class="paragraph">
-<p>If your struct implements <code>ImplicitlyCopyable</code>, then <code>Movable</code> is implemented automatically (<code>ImplicitlyCopyable</code> implements the <code>Movable</code> trait); this is useful because Mojo compiler can sometimes optimize copy to move.</p>
+<p>All structs in Mojo implement the <code>Movable</code> trait by default. Mojo compiler generates a default implementation of the move constructor if the struct implements the <code>Movable</code> trait. Most of the time this is sufficient, unless your struct holds resources that need special handling during move.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">B</span><span class="p">(</span><span class="n">Movable</span><span class="p">):</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">B</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">val</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
@@ -2570,7 +2570,7 @@ pre.rouge .gs {
 <p>When a value is no longer used, the origin tracking indicates that the value can be destroyed. This is how Mojo ensures that values are destroyed eagerly and resources are freed as soon as they are no longer needed. In a way, the origin association increases the lifetime of a value, instead of the traditional block scope based lifetime management.</p>
 </div>
 <div class="paragraph">
-<p>Origin in Mojo is represented using the <code>Origin</code> struct. The <code>Origin</code> struct is a special struct that is used to track the origin of a value. There are two types of origin (those are actually concrete <code>comptime</code> values of the struct <code>Origin</code>): immutable origin represented by <code>ImmutOrigin</code> and mutable origin represented by <code>MutOrigin</code>. The immutable origin is used for values that are <strong>not</strong> expected to change, while the mutable origin is used for values that can change.</p>
+<p>Origin in Mojo is represented using the <code>Origin</code> struct. The <code>Origin</code> struct is a special struct that is used to track the origin of a value. There are two types of origin (those are actually concrete <code>comptime</code> values of the struct <code>Origin</code>): immutable origin represented by <code>ImmOrigin</code> and mutable origin represented by <code>MutOrigin</code>. The immutable origin is used for values that are <strong>not</strong> expected to change, while the mutable origin is used for values that can change.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2592,7 +2592,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">ten</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">ten</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">my_function</span><span class="p">(</span><span class="n">ten</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2670,8 +2670,8 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">b</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
-<span class="n">a</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">b</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">get_pointer</span><span class="p">()</span></code></pre>
 </div>
 </div>
@@ -2708,18 +2708,18 @@ pre.rouge .gs {
 <div class="sect2">
 <h3 id="_linear_types">13.11. Linear types</h3>
 <div class="paragraph">
-<p>In Mojo, when we define a struct and we do not provide a <code>__del__</code> method, then the compiler creates the destructor automatically for us. This is because in Mojo all structs implement the <code>ImplicitlyDeletable</code> trait by default. Most of the time this is the desired behavior. However, there are cases where we want to have more control over the lifecycle of a struct. For example, we may want to ensure that a struct is used only once and then destroyed. This is where linear types come into play.</p>
+<p>In Mojo, when we define a struct and we do not provide a <code>__deinit__</code> method, then the compiler creates the destructor automatically for us. This is because in Mojo all structs implement the <code>Deinitable</code> trait by default. Most of the time this is the desired behavior. However, there are cases where we want to have more control over the lifecycle of a struct. For example, we may want to ensure that a struct is used only once and then destroyed. This is where linear types come into play.</p>
 </div>
 <div class="paragraph">
 <p>A linear type is a type that can be used only once. This means that once a value of a linear type is used, it cannot be used again. This is useful for ensuring that resources are not leaked and are properly released when they are no longer needed. This means a linear type cannot be copied or moved. The destruction of a linear type must be explicit and not just because it goes out-of-scope.</p>
 </div>
 <div class="paragraph">
-<p>In Mojo, copy and move are already explicitly opted-in. You can additionally make the struct to <strong>not</strong> implement <code>ImplicitlyDeletable</code> trait to make it a linear type. This is done by making the struct conform to <code>ImplicitlyDeletable where False</code>. This indicates that the struct opts out of the <code>ImplicitlyDeletable</code> trait and hence the destruction must be explicit. You can then use the <code>@explicit_destroy</code> decorator to provide a proper error message when the linear type is not destroyed explicitly.</p>
+<p>In Mojo, copy is already explicitly opted-in, so you don&#8217;t have to do anything here. You can additionally make the struct to <strong>not</strong> implement <code>Deinitable</code> and <code>Movable</code> traits to make it a linear type. This is done by making the struct conform to <code>Deinitable where False</code> and <code>Movable where False</code>. This indicates that the struct opts out of the <code>Deinitable</code> and <code>Movable</code> traits and hence the destruction and move must be explicit. You can then use the <code>where</code> clause&#8217;s message to provide a proper error message when the linear type is not destroyed explicitly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="nd">@explicit_destroy</span><span class="p">(</span><span class="sh">"</span><span class="s">Linear type must be destroyed explicitly using the `destroy_me` method.</span><span class="sh">"</span><span class="p">)</span>
-<span class="k">struct</span> <span class="n">Linear</span><span class="p">(</span><span class="n">ImplicitlyDeletable</span> <span class="k">where</span> <span class="bp">False</span><span class="p">):</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">Linear</span><span class="p">(</span><span class="n">Deinitable</span> <span class="k">where</span> <span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="sh">"</span><span class="s">Linear type must be destroyed explicitly using the `destroy_me` method.</span><span class="sh">"</span><span class="p">),</span> 
+              <span class="n">Movable</span> <span class="k">where</span> <span class="bp">False</span><span class="p">):</span> 
   <span class="k">var</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span>
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
@@ -2737,16 +2737,16 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">l</span><span class="p">:</span> <span class="n">Linear</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">l</span><span class="p">:</span> <span class="n">Linear</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">my_function</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 <span class="n">l</span><span class="o">^</span><span class="p">.</span><span class="nf">destroy_me</span><span class="p">()</span>  <span class="c1"># Commenting this out will result in a compile-time error</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, we have defined a struct <code>Linear</code> that is conforming to <code>ImplicitlyDeletable where False</code>. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Movable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
+<p>In the above example, we have defined a struct <code>Linear</code> that is conforming to <code>Deinitable where False</code> and <code>Movable where False</code>. This indicates that the struct is a linear type. In the <code>main</code> function, we create an instance of the <code>Linear</code> struct and pass it to the <code>my_function</code>. After using the linear type, we explicitly call the <code>destroy_me</code> method to destroy the linear type. If we do not call the <code>destroy_me</code> method, the compiler will raise a compile-time error indicating that the linear type has not been destroyed. Since we do not implement <code>Movable</code> or <code>ImplicitlyCopyable</code> traits for the <code>Linear</code> struct, the compiler will not allow any copy or move operations on it. This ensures that the linear type is used only once and is properly destroyed when no longer needed.</p>
 </div>
 <div class="paragraph">
-<p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__del__</code>, the struct is assumed automatically to implement <code>ImplicitlyDeletable</code> trait. By conforming the struct with <code>ImplicitlyDeletable where False</code>, we are indicating that the struct does not implement <code>ImplicitlyDeletable</code> trait, and hence the destruction must be explicit.</p>
+<p>Note that when we either let Mojo create the destructor automatically or we provide our own destructor using <code>__deinit__</code>, the struct is assumed automatically to implement <code>Deinitable</code> trait. By conforming the struct with <code>Deinitable where False</code>, we are indicating that the struct does not implement <code>Deinitable</code> trait, and hence the destruction must be explicit.</p>
 </div>
 <div class="paragraph">
 <p>Linear types are useful for managing resources that need to be used in a controlled manner, such as file handles, network connections, or other system resources. By using linear types, we can ensure that these resources are properly released when they are no longer needed, preventing resource leaks and ensuring the stability of our applications. It allows for compiler enforced resource management, reducing the chances of runtime errors related to resource handling.</p>

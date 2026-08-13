@@ -2174,11 +2174,9 @@ pre.rouge .gs {
 </li>
 <li><a href="_metaprogramming.html#_conforms_to">15.2. <code>conforms_to</code></a>
 </li>
-<li><a href="_metaprogramming.html#_trait_downcast">15.3. <code>trait_downcast</code></a>
+<li><a href="_metaprogramming.html#_size_of">15.3. <code>size_of</code></a>
 </li>
-<li><a href="_metaprogramming.html#_size_of">15.4. <code>size_of</code></a>
-</li>
-<li><a href="_metaprogramming.html#_reflection_functions">15.5. Reflection Functions</a>
+<li><a href="_metaprogramming.html#_reflection_functions">15.4. Reflection Functions</a>
 </li>
 </ul>
 </li>
@@ -2320,45 +2318,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_trait_downcast">15.3. <code>trait_downcast</code></h3>
-<div class="paragraph">
-<p>The <code>trait_downcast</code> function in Mojo is a built-in function that allows you to downcast a value of a trait type to a concrete type that implements that trait. This can be useful when you have a value of a trait type and you need to access methods or properties specific to the concrete type. It can be used in combination with <code>conforms_to</code> to safely downcast only when the type conforms to the desired trait.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Animal</span><span class="p">:</span> <span class="bp">...</span>
-<span class="k">trait</span> <span class="n">CanFly</span><span class="p">:</span> 
-    <span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Flying high!</span><span class="sh">"</span><span class="p">)</span>
-
-<span class="k">struct</span> <span class="n">Eagle</span><span class="p">(</span><span class="n">Animal</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span> 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
-
-<span class="k">struct</span> <span class="n">Monkey</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="bp">...</span>
-
-<span class="k">def</span> <span class="nf">ability</span><span class="p">[</span><span class="n">T</span><span class="p">:</span> <span class="n">Animal</span><span class="p">](</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="k">comptime</span> <span class="k">if</span> <span class="n">conforms_to</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">CanFly</span><span class="p">):</span>
-        <span class="n">trait_downcast</span><span class="p">[</span><span class="n">CanFly</span><span class="p">](</span><span class="n">x</span><span class="p">).</span><span class="nf">fly</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">It cannot fly!</span><span class="sh">"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Usage:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">ability</span><span class="p">(</span><span class="n">Eagle</span><span class="p">())</span> <span class="c1"># Prints: Flying high!
-</span><span class="n">ability</span><span class="p">(</span><span class="n">Monkey</span><span class="p">())</span> <span class="c1"># Prints: It cannot fly!</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the above code listing, we define a trait <code>CanFly</code> and implement it for the <code>Eagle</code> struct. The <code>ability</code> function checks if the type <code>T</code> conforms to the <code>CanFly</code> trait using the <code>conforms_to</code> function. If it does, it uses <code>trait_downcast</code> to downcast the value to the <code>CanFly</code> trait type and calls the <code>fly</code> method. This allows us to access the specific behavior of the <code>Eagle</code> struct when we know it conforms to the <code>CanFly</code> trait.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_size_of">15.4. <code>size_of</code></h3>
+<h3 id="_size_of">15.3. <code>size_of</code></h3>
 <div class="paragraph">
 <p>The <code>size_of</code> function in Mojo is a built-in function that returns the size, in bytes, of a given type at compile-time. This is useful for tasks such as memory management, serialization, interfacing with hardware, among others.</p>
 </div>
@@ -2377,7 +2337,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_reflection_functions">15.5. Reflection Functions</h3>
+<h3 id="_reflection_functions">15.4. Reflection Functions</h3>
 <div class="paragraph">
 <p>Mojo provides several reflection functions that allow you to inspect a type at compile time.
 These functions are provided through <code>Reflected[T]</code> which is a compile time representation of the struct type <code>T</code>. Typically, you would use the <code>reflect</code> function to get a <code>Reflected[T]</code> instance for a type <code>T</code>, and then use the reflection functions to inspect it.</p>

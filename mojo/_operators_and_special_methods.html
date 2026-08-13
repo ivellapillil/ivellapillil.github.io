@@ -3047,7 +3047,7 @@ pre.rouge .gs {
 <div class="sect4">
 <h5 id="_irshift"><code>__irshift__</code></h5>
 <div class="paragraph">
-<p>The <code>__irshift__</code> stands for in-place right shift operation represented by the symbol "&gt;&gt;=" between the struct defining the method and self type or another type. Typical implementation shifts the bits of the first operand to the left. The second operand indicates how many bits are to be shifted to the left. Instead of returning a new instance like in <code>__rshift__</code>, the <code>__irshift__</code> updates its own instance with the result. The concept is similar to <code>__iadd__</code> mentioned earlier.</p>
+<p>The <code>__irshift__</code> stands for in-place right shift operation represented by the symbol "&gt;&gt;=" between the struct defining the method and self type or another type. Typical implementation shifts the bits of the first operand to the right. The second operand indicates how many bits are to be shifted to the right. Instead of returning a new instance like in <code>__rshift__</code>, the <code>__irshift__</code> updates its own instance with the result. The concept is similar to <code>__iadd__</code> mentioned earlier.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3638,9 +3638,6 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </span><span class="k">print</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]:</span> 
     <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints H E L L
-</span><span class="k">print</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> 
-    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints O W O L L E H
 </span><span class="k">print</span><span class="p">()</span></code></pre>
 </div>
 </div>
@@ -3820,7 +3817,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.memory</span> <span class="kn">import</span> <span class="n">Pointer</span>
 
-<span class="k">struct</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">o</span><span class="p">:</span><span class="n">ImmutOrigin</span><span class="p">]:</span>
+<span class="k">struct</span> <span class="n">MyStruct</span><span class="p">[</span><span class="n">o</span><span class="p">:</span><span class="n">ImmOrigin</span><span class="p">]:</span>
 
     <span class="k">var</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Pointer</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Self</span><span class="p">.</span><span class="n">o</span><span class="p">]</span>
 
@@ -4014,7 +4011,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyList</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">__list_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">__list_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">capacity</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
             <span class="k">self</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></code></pre>
@@ -4025,7 +4022,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_list</span><span class="p">:</span> <span class="n">MyList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_list</span><span class="p">:</span> <span class="n">MyList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
 </div>
 </div>
@@ -4044,7 +4041,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
     <span class="k">var</span> <span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
     <span class="k">var</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">var</span> <span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="k">var</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="n">__dict_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="k">var</span> <span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="k">var</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="k">__dict_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="o">^</span>
         <span class="k">self</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">^</span>    </code></pre>
 </div>
@@ -4054,7 +4051,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_dict</span><span class="p">:</span> <span class="n">MyDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_dict</span><span class="p">:</span> <span class="n">MyDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">keys</span><span class="p">))</span>  <span class="c1"># Output: 3
 </span><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_dict</span><span class="p">.</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># Output: 3</span></code></pre>
 </div>
@@ -4072,7 +4069,7 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MySet</span><span class="p">:</span>
     <span class="k">var</span> <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">__set_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">__set_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
         <span class="k">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">](</span><span class="n">capacity</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
             <span class="k">self</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></code></pre>
@@ -4083,12 +4080,95 @@ In line with Mojo&#8217;s philosophy of moving as much functionality as possible
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">my_set</span><span class="p">:</span> <span class="n">MySet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_set</span><span class="p">:</span> <span class="n">MySet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_set</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 5</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>In the above example, we defined a custom set type <code>MySet</code> that can be instantiated using the set literal syntax. The constructor of <code>MySet</code> takes a <code><em>set_literal</em></code> argument as the last argument. The argument is of type <code>NoneType</code>. The actual values of the set literal is assigned to the <code>items</code> argument (as you may have noticed, it is similar to the List Literal). Same as the <code><em>list_literal</em></code> argument, the <code><em>set_literal</em></code> argument can be thought of as a special marker argument that is only used when the set literal syntax is used to instantiate the type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_literal_size">11.7.4. Literal size</h4>
+<div class="paragraph">
+<p>In one of the previous chapters, it was mentioned that Mojo is able to infer the length of an array from the literal form. This is not a special feature of arrays, but rather a general feature of Mojo made available through <code><em>literal_size</em></code> parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyArray</span><span class="p">[</span><span class="k">__literal_size__</span><span class="p">:</span> <span class="n">Int</span><span class="p">]:</span>
+    <span class="k">var</span> <span class="n">items</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Self</span><span class="p">.</span><span class="n">__literal_size__</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">__list_literal__</span><span class="p">:</span> <span class="n">NoneType</span><span class="p">):</span>
+        <span class="k">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="n">Self</span><span class="p">.</span><span class="n">__literal_size__</span><span class="p">](</span><span class="n">uninitialized</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="k">var</span> <span class="n">i</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="k">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_array</span><span class="p">:</span> <span class="n">MyArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_array</span><span class="p">.</span><span class="n">items</span><span class="p">))</span>  <span class="c1"># Output: 4</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, we defined a custom array type <code>MyArray</code> that can be instantiated using the array literal syntax. The <code><em>literal_size</em></code> parameter is recognized by the Mojo compiler and the inferred length is passed as its value. The rest of the literal construct works the same as the List literal.</p>
+</div>
+<div class="sect4">
+<h5 id="_call"><code>__call__</code></h5>
+<div class="paragraph">
+<p>The <code>__call__</code> method is used to make an instance of a struct callable like a function. When you call an instance of a struct, the <code>__call__</code> method is invoked with the arguments passed to the call. This allows you to define custom behavior for when an instance is called like a function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">struct</span> <span class="n">MyStruct</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">MyStruct called with argument:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_struct</span> <span class="o">=</span> <span class="n">MyStruct</span><span class="p">()</span>
+<span class="n">my_struct</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># Calls the __call__ method of MyStruct with an argument</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the variable <code>my_struct</code> is an instance of <code>MyStruct</code>. When we call <code>my_struct()</code>, it invokes the <code>__call__</code> method of <code>MyStruct</code>, which prints "MyStruct called with argument: 42".</p>
+</div>
+<div class="paragraph">
+<p>This dunder is useful for creating callable objects, which can be used in various contexts such as callbacks, function objects, or any scenario where you want an object to behave like a function. Main advantage over using a function is that you can maintain state within the struct, and implement traits which is not possible with plain functions. For example, you can implement <code>__call__</code> in a struct that maintains a counter of how many times it has been called.</p>
+</div>
+<div class="paragraph">
+<p>The <code>__call__</code> method can also be inherited and overridden in derived structs, allowing for polymorphic behavior when instances of derived structs are called. This makes it a powerful feature for designing flexible and reusable components in Mojo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">MyCallableTrait</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> 
+        <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Trait called with argument:</span><span class="sh">"</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="k">struct</span> <span class="n">MyStructInherited</span><span class="p">(</span><span class="n">MyCallableTrait</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="k">out</span> <span class="k">self</span><span class="p">):</span> <span class="k">pass</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">my_struct_inherited</span> <span class="o">=</span> <span class="n">MyStructInherited</span><span class="p">()</span>
+<span class="n">my_struct_inherited</span><span class="p">(</span><span class="mi">67</span><span class="p">)</span> <span class="c1"># Calls the __call__ method from MyCallableTrait</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

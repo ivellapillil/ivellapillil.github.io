@@ -2180,6 +2180,8 @@ pre.rouge .gs {
 </li>
 <li><a href="_advanced_usage_of_functions.html#_overloading">16.4. Overloading</a>
 </li>
+<li><a href="_advanced_usage_of_functions.html#_lambda_functions">16.5. Lambda functions</a>
+</li>
 </ul>
 </li>
 <li><a href="_organizing_code_with_modules_and_packages.html">17. Organizing code with modules and packages</a>
@@ -2228,7 +2230,7 @@ pre.rouge .gs {
 <p>In the example, we see that we defined a function <code>adder</code> and then assigned that function to a variable. We later execute that variable as if it is a function.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed the use of <code>thin</code> effect when declaring the function type. Function pointers in Mojo must be declared with the <code>thin</code> effect.</p>
+<p>You may have noticed the use of <code>thin</code> effect when declaring the function type. Function pointers in Mojo must be declared with the <code>thin</code> effect. The main reason for this is that Mojo supports closures, which are functions that can capture variables from their surrounding context. Closures can have a different memory layout than regular functions, and the <code>thin</code> effect indicates that the function pointer does not capture any variables from its surrounding context, nor does it have parameters with unbounded values.</p>
 </div>
 <div class="sect2">
 <h3 id="_higher_order_functions">16.1. Higher-order functions</h3>
@@ -2313,13 +2315,13 @@ pre.rouge .gs {
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">rt_y</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span><span class="k">read</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
+<span class="k">def</span> <span class="nf">ander</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span><span class="n">imm</span> <span class="n">rt_y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> 
     <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">rt_y</span>
 <span class="k">print</span><span class="p">(</span><span class="n">exec_rt_closure</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">ander</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The closure shown above is known as a runtime closure. The type of the closure is <code>def(Int) &#8594; Int</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions. At the point of creating the closure, values are captured and copied over to the closure. However, Mojo needs to be told explicitly about the captured values by using <code>{read/mut var_name}</code> syntax. This is because Mojo needs to know what is the access pattern of the captured variable, i.e., whether it is read-only or read-write. In the example above, the captured variable <code>rt_y</code> is only read within the closure and therefore we use <code>{read rt_y}</code> to indicate that. If we were to write to <code>rt_y</code> within the closure, then we would have used <code>{mut rt_y}</code> instead. You can pass more than one captured variable to the closure by separating them with comma, for example <code>{read var1, mut var2}</code>.</p>
+<p>The closure shown above is known as a runtime closure. The type of the closure is <code>def(Int) &#8594; Int</code>. Note that the captured values are owned by the closure. Runtime closure can be passed as argument to other functions. At the point of creating the closure, values are captured and copied over to the closure. However, Mojo needs to be told explicitly about the captured values by using <code>{imm/mut var_name}</code> syntax. This is because Mojo needs to know what is the access pattern of the captured variable, i.e., whether it is read-only or read-write. In the example above, the captured variable <code>rt_y</code> is only read within the closure and therefore we use <code>{imm rt_y}</code> to indicate that. If we were to write to <code>rt_y</code> within the closure, then we would have used <code>{mut rt_y}</code> instead. You can pass more than one captured variable to the closure by separating them with comma, for example <code>{imm var1, mut var2}</code>.</p>
 </div>
 <div class="paragraph">
 <p>However, the runtime closure <strong>cannot</strong> be passed as a <strong>parameter</strong> to other functions. In order to pass a closure as a parameter to other functions, we need to use a compile-time closure. Such closures are decorated by <code>@parameter</code>. The type of the closure is <code>def() capturing &#8594; T</code>. The following example demonstrates such a compile-time closure.</p>
@@ -2376,7 +2378,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">names_dob</span><span class="p">(</span><span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">names_dob</span><span class="p">(</span><span class="k">var</span> <span class="o">**</span><span class="n">namedobs</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="k">raises</span><span class="p">:</span> 
     <span class="k">for</span> <span class="k">var</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namedobs</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
         <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">namedobs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span></code></pre>
 </div>
@@ -2513,7 +2515,7 @@ pre.rouge .gs {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="n">arr</span> <span class="o">=</span> <span class="n">MyArray</span><span class="p">()</span>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">MyArray</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Prints 1
 </span><span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">anotheridx</span><span class="o">=</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># Prints 2</span></code></pre>
 </div>
@@ -2521,25 +2523,39 @@ pre.rouge .gs {
 <div class="paragraph">
 <p>The same technique also works on <code>__setitem__</code>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_lambda_functions">16.5. Lambda functions</h3>
 <div class="paragraph">
-<p>We can even overload functions by the argument conventions.</p>
+<p>Lambda functions are anonymous functions that can be defined typically in a single line. They are useful when we need to define a short function without naming it. They are usually used as arguments to higher-order functions. Lambda functions can be defined using the <code>lambda</code> keyword followed by the argument list, a colon, and the expression that is evaluated and returned.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">ref</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">ref</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">addrefvar</span><span class="p">(</span><span class="k">var</span> <span class="n">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="n">b</span><span class="p">:</span><span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">bin_op</span><span class="p">:</span> <span class="k">def</span><span class="err">(</span><span class="nf">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="k">thin</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span>
+    <span class="k">var</span> <span class="n">result</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">bin_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Usage of the overloaded functions:</p>
+<p>Usage:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="n">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3
-</span><span class="k">print</span><span class="p">(</span><span class="n">addrefvar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="c1"># Prints 3</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="k">exec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="k">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span> <span class="c1"># prints 50</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above, we see that <code>exec</code> function takes a binary operation as an argument and executes it in a loop. We pass a lambda function that adds two numbers to the <code>exec</code> function, which then executes the lambda function 10 times and returns the result. You can pass a normal function pointer to the <code>exec</code> function as well, and it will work the same way.</p>
+</div>
+<div class="paragraph">
+<p>Lambda functions can be assigned to variables, passed as arguments to other functions, or returned from other functions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">comptime</span> <span class="n">my_lambda</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">my_lambda</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># prints 6</span></code></pre>
 </div>
 </div>
 </div>

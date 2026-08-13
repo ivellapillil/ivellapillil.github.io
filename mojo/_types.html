@@ -2202,11 +2202,13 @@ pre.rouge .gs {
 </li>
 <li><a href="_types.html#_dict_literals">5.26. Dict literals</a>
 </li>
-<li><a href="_types.html#_variant">5.27. Variant</a>
+<li><a href="_types.html#_array">5.27. Array</a>
 </li>
-<li><a href="_types.html#_optional">5.28. Optional</a>
+<li><a href="_types.html#_variant">5.28. Variant</a>
 </li>
-<li><a href="_types.html#_type_inference">5.29. Type inference</a>
+<li><a href="_types.html#_optional">5.29. Optional</a>
+</li>
+<li><a href="_types.html#_type_inference">5.30. Type inference</a>
 </li>
 </ul>
 </li>
@@ -2377,8 +2379,8 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <pre class="rouge highlight"><code data-lang="mojo"><span class="kn">from</span> <span class="nn">std.format.tstring</span> <span class="kn">import</span> <span class="n">TString</span>
 <span class="k">var</span> <span class="n">a_var</span> <span class="o">=</span> <span class="sh">"</span><span class="s">World</span><span class="sh">"</span>
 <span class="k">var</span> <span class="n">tstr</span> <span class="o">=</span> <span class="sa">t</span><span class="sh">"</span><span class="s">Hello TString {a_var}!</span><span class="sh">"</span>
-<span class="k">print</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {1 + 2}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Evaluates the expression inside the curly braces and includes the result in the string
+<span class="k">print</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span> <span class="c1"># prints "Hello TString World!"
+</span><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {1 + 2}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Evaluates the expression inside the curly braces and includes the result in the string
 </span><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">Length of {a_var} is {a_var.byte_length()}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Can call functions inside the curly braces as well</span></code></pre>
 </div>
 </div>
@@ -2387,8 +2389,8 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {{1 + 2}}</span><span class="sh">"</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">New </span><span class="se">\n</span><span class="s">line</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Supports escape sequences like \n for new line, \t for tab, etc.</span></code></pre>
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">(1 + 2) is {{1 + 2}}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Prints "(1 + 2) is {1 + 2}" 
+</span><span class="k">print</span><span class="p">(</span><span class="sa">t</span><span class="sh">"</span><span class="s">New </span><span class="se">\n</span><span class="s">line</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># Supports escape sequences like \n for new line, \t for tab, etc.</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2673,7 +2675,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">def</span> <span class="nf">multi_vars</span><span class="p">():</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="k">var</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Variables a &amp; b:</span><span class="sh">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="n">multi_vars</span><span class="p">()</span></code></pre>
 </div>
@@ -2737,7 +2739,40 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variant">5.27. Variant</h3>
+<h3 id="_array">5.27. Array</h3>
+<div class="paragraph">
+<p><code>Array</code> is a fixed size collection of elements of the same type. Due to its fixed size, <code>Array</code> is more efficient than <code>List</code> in terms of memory and performance. The size of an <code>Array</code> is determined at the time of its creation and cannot be changed later.</p>
+</div>
+<div class="paragraph">
+<p>Mojo provides support for instantiating arrays using a literal syntax. Mojo uses <code>[]</code> to represent array literals in source code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">array1</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="n">Int</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">44</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">array1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># prints 42</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you do not provide the type of the array or the size of the array, then Mojo will infer the type and/or size based on the values provided. In the following example, Mojo infers the type as <code>Array[Int, 3]</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">array2</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">67</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">69</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">array2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># prints 67</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you do not indicate to Mojo that the variable is an array and just provide an array literal, Mojo will infer the type of the variable as an array. In the following example, Mojo infers the type as <code>Array[Int, 3]</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mojo"><span class="k">var</span> <span class="n">array3</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">273</span><span class="p">,</span> <span class="o">-</span><span class="mi">274</span><span class="p">,</span> <span class="o">-</span><span class="mi">275</span><span class="p">]</span> <span class="c1"># Inferred as Array[Int, 3]
+</span><span class="k">print</span><span class="p">(</span><span class="n">array3</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># prints -273</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_variant">5.28. Variant</h3>
 <div class="paragraph">
 <p>Sometimes known as tagged union or sum type, <code>Variant</code> is a type that can hold values of different types. A <code>Variant</code> can be defined to hold values of specific types only. When you try to assign a value of a type that is not part of the defined types for that <code>Variant</code>, Mojo compiler raises an error.</p>
 </div>
@@ -2762,7 +2797,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 </div>
 <div class="sect2">
-<h3 id="_optional">5.28. Optional</h3>
+<h3 id="_optional">5.29. Optional</h3>
 <div class="paragraph">
 <p><code>Optional</code> is a type that can either hold a value of a specified type or no value at all. It is useful in cases where you want to represent the absence of a value without using null references. <code>Optional</code> is defined as a generic type that takes another type as its parameter.</p>
 </div>
@@ -2799,7 +2834,7 @@ Hello </span><span class="sh">'''</span><span class="s">World</span><span class=
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type_inference">5.29. Type inference</h3>
+<h3 id="_type_inference">5.30. Type inference</h3>
 <div class="paragraph">
 <p>In cases where Mojo can infer types for variables, we can omit the type declaration of variables. For example, if a variable is initialized at the time of its declaration, then the Mojo compiler is able to infer the type of the variable.</p>
 </div>

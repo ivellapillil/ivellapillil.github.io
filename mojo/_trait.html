@@ -2207,10 +2207,7 @@ pre.rouge .gs {
 <p>A struct is a concrete and instantiable type whereas a trait is an abstract type that cannot be instantiated. When we define a trait, we define a set of requirements that do not have a <strong>concrete</strong> implementation, but is intended to be <strong>implemented</strong> by a concrete type.</p>
 </div>
 <div class="paragraph">
-<p>Traits are useful abstractions especially in large a codebase. Users of traits do not need to know what concrete struct implements a particular method, as long as the implementation conforms to the requirements given in the trait. In the following code listing, <code>Flyable</code> trait requires that whatever struct implements <code>Flyable</code> must implement <code>fly</code> method. The function <code>fly_it</code> does not know the concrete implementations <code>Bird</code> or <code>Plane</code>. It takes in its arguments a type that confirms to <code>Flyable</code>, and calls method in the <code>Flyable</code>. The actual concrete types are passed to it at the call site.</p>
-</div>
-<div class="paragraph">
-<p>A struct implicitly conforms to a trait if it implements all the requirements for the trait. This means that we do not need to explicitly specify a confirming trait in the struct declaration; but it is a recommended practice to do so.</p>
+<p>Traits are useful abstractions especially in large codebases. Users of traits do not need to know what concrete struct implements a particular method, as long as the implementation conforms to the requirements given in the trait. In the following code listing, <code>Flyable</code> trait requires that whatever struct conforms to <code>Flyable</code> must implement <code>fly</code> method. The function <code>fly_it</code> does not know the concrete implementations <code>Bird</code> or <code>Plane</code>. It takes in its arguments a type that conforms to <code>Flyable</code>, and calls the method required by <code>Flyable</code>. The actual concrete types are passed to it at the call site.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2237,7 +2234,7 @@ pre.rouge .gs {
 <p>You may have noticed in the <code>fly_it</code> definition a square bracket with a parameter being passed within it, i.e. <code>[T: Flyable]</code>. Mojo allows values to be passed during <em>compile</em> time to a function or method. Only requirement is that the values must be passed within square brackets. Those are called <strong>parameters</strong>. In other languages, parameters and arguments to functions are interchangeable terms. However, in Mojo those are distinct terms. <em>Parameters</em> are passed during compile time to a function, while <em>arguments</em> are passed at runtime. In the above example, we have passed a compile time parameter <code>T</code> of the type <code>Flyable</code> to <code>fly_it</code>. We then used that type <code>T</code> as the type of the argument <code>f</code>, indirectly assigning <code>Flyable</code> as the type of <code>f</code>.</p>
 </div>
 <div class="paragraph">
-<p>Note that trait method without any implementation is declared using <code>&#8230;&#8203;</code> within the body of the trait. This indicates that the method is abstract and must be implemented by the struct that implements the trait.</p>
+<p>Note that trait method without any implementation is declared using <code>&#8230;&#8203;</code> within the body of the trait. This indicates that the method is abstract and must be implemented by the struct that conforms to the trait.</p>
 </div>
 <div class="paragraph">
 <p>The anatomy of a trait and its usage in a struct is shown in the following diagram.</p>
@@ -2337,7 +2334,7 @@ pre.rouge .gs {
 <div class="content">
 <pre class="rouge highlight"><code data-lang="mojo"><span class="k">trait</span> <span class="n">Message</span><span class="p">:</span>
     
-    <span class="k">comptime</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">ImplicitlyDeletable</span> <span class="c1"># Ignore ImplicitlyDeletable for the moment. It will be explained in later chapters.
+    <span class="k">comptime</span> <span class="n">MessageType</span><span class="p">:</span> <span class="n">Deinitable</span> <span class="c1"># Ignore Deinitable for the moment. It will be explained in later chapters.
 </span>    <span class="k">comptime</span> <span class="n">count</span><span class="p">:</span> <span class="n">Int</span>
 
     <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">.</span><span class="n">MessageType</span><span class="p">:</span> <span class="bp">...</span>
@@ -2414,7 +2411,7 @@ pre.rouge .gs {
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, the <code>Hello</code> trait provides a default <code>hello</code> method. This method will be available to any struct that implements the <code>Hello</code> trait. The struct <code>HelloWorld</code> implements the <code>Hello</code> trait and hence gets the default <code>hello</code> method. Within the <code>hello</code> method, we call another method <code>get_name</code> that is an abstract method in the <code>Hello</code> trait. It is expected that the struct implementing the <code>Hello</code> trait will provide a concrete implementation of the <code>get_name</code> method. This is a powerful way to define abstract behavior in a trait, while providing a default implementation of some methods that can be shared across all implementors of the trait. Framework authors can leverage this feature to provide sensible defaults for common behaviors, while still allowing users to customize specific aspects by implementing the required methods.</p>
+<p>In the above example, the <code>Hello</code> trait provides a default <code>hello</code> method. This method will be available to any struct that conforms to the <code>Hello</code> trait. The struct <code>HelloWorld</code> conforms to the <code>Hello</code> trait and hence gets the default <code>hello</code> method. Within the <code>hello</code> method, we call another method <code>get_name</code> that is an abstract method in the <code>Hello</code> trait. It is expected that the struct implementing the <code>Hello</code> trait will provide a concrete implementation of the <code>get_name</code> method. This is a powerful way to define abstract behavior in a trait, while providing a default implementation of some methods that can be shared across all implementors of the trait. Framework authors can leverage this feature to provide sensible defaults for common behaviors, while still allowing users to customize specific aspects by implementing the required methods.</p>
 </div>
 <div class="paragraph">
 <p>When we run the program, we see that the default method <code>hello</code> is called on the struct <code>HelloWorld</code>, which in turn calls the <code>get_name</code> method implemented by <code>HelloWorld</code>.</p>
